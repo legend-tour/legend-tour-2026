@@ -83,7 +83,7 @@
                     <!-- Chronological Connecting Tour Line -->
                     <path id="tour-connector" fill="none" stroke="rgba(197, 160, 89, 0.5)" stroke-width="2" stroke-dasharray="5,4" />
 
-                    <!-- Return Arcs to Paris (Hidden by default, shown on Lot selection) -->
+                    <!-- Return Arcs to Paris (Visible strictly ONLY when a Lot is selected) -->
                     <g id="paris-return-arcs"></g>
 
                     <!-- Interactive City Markers & Labels -->
@@ -99,11 +99,12 @@
 
             <!-- Minimalist Floating Recall Button -->
             <button id="btn-reopen-panel" onclick="reopenSidebar(event)" 
-                    class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-30 bg-[#0c0c0c]/90 backdrop-blur-xl border border-[#c5a059]/60 text-[#c5a059] px-5 py-2.5 rounded-full text-xs font-extrabold shadow-2xl flex items-center hover:bg-[#181818] active:scale-95 transition-all box-glow-gold cursor-pointer uppercase tracking-wider text-[11px]">
+                    class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-30 bg-[#0c0c0c]/90 backdrop-blur-xl border border-[#c5a059]/60 text-[#c5a059] px-5 py-2 rounded-full text-xs font-extrabold shadow-2xl flex items-center hover:bg-[#181818] active:scale-95 transition-all box-glow-gold cursor-pointer uppercase tracking-wider text-[11px]">
                 Afficher la fiche
             </button>
         </section>
 
+        <!-- Sliding Bottom Sheet (Mobile) / Side Panel (Desktop) -->
         <section id="sidebar-panel" 
                  class="fixed inset-x-0 bottom-0 z-40 max-h-[82vh] lg:max-h-none lg:inset-x-auto lg:top-16 lg:left-4 lg:bottom-4 lg:w-[380px] bg-[#0c0c0c]/98 backdrop-blur-2xl border-t lg:border border-[#1a1a1a] rounded-t-3xl lg:rounded-2xl flex flex-col shrink-0 translate-y-full lg:translate-y-0 lg:-translate-x-[calc(100%+2rem)] shadow-2xl overflow-hidden pointer-events-auto">
             
@@ -119,24 +120,14 @@
             <!-- Controls Header -->
             <div class="p-3.5 sm:p-4 bg-[#101010] border-b border-[#1a1a1a] space-y-3 shrink-0">
                 <div class="flex items-center justify-between pb-0.5">
-                    <span class="text-[10px] font-bold text-[#c5a059] uppercase tracking-widest">Mode d'affichage</span>
+                    <span class="text-[10px] font-bold text-[#c5a059] uppercase tracking-widest">Filtrer par session (Lot)</span>
                     <button onclick="closeSidebar()" class="text-[10px] font-bold text-gray-400 hover:text-red-400 uppercase tracking-wider flex items-center gap-0.5 transition-colors p-1 rounded-lg active:bg-white/5">
                         <span class="material-icons text-xs">close</span> Masquer
-                    </button>
-                </div>
-                
-                <div class="grid grid-cols-2 gap-2">
-                    <button id="btn-mode-public" onclick="setAppMode('public')" class="py-2 px-2.5 rounded-xl border border-[#c5a059] text-[10px] font-bold uppercase tracking-wider text-[#c5a059] bg-[#c5a059]/10 transition-all flex items-center justify-center gap-1.5 active:scale-95">
-                        <span class="material-icons text-xs">confirmation_number</span> Public
-                    </button>
-                    <button id="btn-mode-guillaume" onclick="setAppMode('guillaume')" class="py-2 px-2.5 rounded-xl border border-gray-800 text-[10px] font-bold uppercase tracking-wider text-gray-400 hover:text-gray-200 transition-all flex items-center justify-center gap-1.5 active:scale-95">
-                        <span class="material-icons text-xs">flight_land</span> Guillaume 🏠
                     </button>
                 </div>
 
                 <!-- Lot Selector -->
                 <div class="pt-0.5">
-                    <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Filtrer par session (Lot) :</p>
                     <div class="grid grid-cols-3 gap-1">
                         <button onclick="filterByLot('all', event)" class="lot-btn active text-[8.5px] font-bold py-1 px-1 rounded bg-[#c5a059] text-black uppercase transition-all">Toutes</button>
                         <button onclick="filterByLot(1, event)" class="lot-btn text-[8.5px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 1 (Ouest)</button>
@@ -148,6 +139,7 @@
                 </div>
             </div>
 
+            <!-- Search Form -->
             <div class="p-3 sm:p-4 border-b border-[#161616] shrink-0 relative">
                 <form onsubmit="handleSearchSubmit(event)" class="relative flex items-center">
                     <span class="absolute left-3 text-gray-400 material-icons text-lg pointer-events-none">search</span>
@@ -193,7 +185,7 @@
                             </div>
                         </div>
 
-                        <!-- Capacity & Sales Gauge (Public View) -->
+                        <!-- Capacity & Sales Gauge -->
                         <div id="wrapper-capacity" class="bg-[#161616] p-3 rounded-xl border border-gray-800/80 space-y-2">
                             <div class="flex justify-between items-center text-[10px]">
                                 <span class="font-bold text-gray-400 uppercase tracking-wider">Pointage / Remplissage</span>
@@ -208,11 +200,11 @@
                             </div>
                         </div>
 
-                        <!-- Logistics Details (Guillaume View) -->
-                        <div id="wrapper-logistics" class="hidden bg-gradient-to-br from-[#121212] to-[#1a140a] p-3 rounded-xl border border-[#c5a059]/20 space-y-2.5">
+                        <!-- Logistics Details -->
+                        <div id="wrapper-logistics" class="bg-gradient-to-br from-[#121212] to-[#1a140a] p-3 rounded-xl border border-[#c5a059]/20 space-y-2.5">
                             <div class="flex items-center gap-2 border-b border-gray-800/80 pb-1.5">
                                 <span class="material-icons text-[#c5a059] text-sm">local_shipping</span>
-                                <span class="text-[10px] font-bold text-white uppercase tracking-wider">Logistique Guillaume Pley</span>
+                                <span class="text-[10px] font-bold text-white uppercase tracking-wider">Logistique & Transport Guillaume</span>
                             </div>
                             <div class="grid grid-cols-2 gap-2 text-xs">
                                 <div class="bg-black/40 p-2 rounded-lg border border-gray-800">
@@ -266,86 +258,258 @@
     <script>
         const SHOWS = [
             { 
-                id: "bordeaux", city: "Bordeaux", lat: 44.8378, lon: -0.5792, lot: 1, isReturnCity: false,
-                rest: "0 jour", returnDay: "Enchaînement direct (Nantes)", transport: "Direct sur place", transportCode: "direct",
-                dates: [{ date: "7 Octobre 2026", venue: "Arkéa Arena", sold: 6578, capacity: 7539, guests: ["Maxime Gasteuil", "Fabien Olicard"], time: "20h00", badge: "Dernières places", order: 1 }]
+                id: "bordeaux", 
+                city: "Bordeaux", 
+                lat: 44.8378, 
+                lon: -0.5792, 
+                lot: 1,
+                isReturnCity: false,
+                rest: "0 jour",
+                returnDay: "Enchaînement direct (Nantes)",
+                transport: "Direct sur place",
+                transportCode: "direct",
+                hasTigre: false,
+                dates: [
+                    { date: "7 Octobre 2026", venue: "Arkéa Arena", sold: 6578, capacity: 7539, guests: ["Maxime Gasteuil", "Fabien Olicard"], time: "20h00", badge: "Dernières places", order: 1 }
+                ]
             },
             { 
-                id: "nantes", city: "Nantes", lat: 47.2184, lon: -1.5536, lot: 1, isReturnCity: false,
-                rest: "0 jour", returnDay: "Enchaînement direct (Rennes)", transport: "Direct sur place", transportCode: "direct",
-                dates: [{ date: "8 Octobre 2026", venue: "Zénith de Nantes", sold: 5624, capacity: 5691, guests: ["Lorànt Deutsch", "Samuel Bambi"], time: "20h00", badge: "Complet", order: 2 }]
+                id: "nantes", 
+                city: "Nantes", 
+                lat: 47.2184, 
+                lon: -1.5536, 
+                lot: 1,
+                isReturnCity: false,
+                rest: "0 jour",
+                returnDay: "Enchaînement direct (Rennes)",
+                transport: "Direct sur place",
+                transportCode: "direct",
+                hasTigre: false,
+                dates: [
+                    { date: "8 Octobre 2026", venue: "Zénith de Nantes", sold: 5624, capacity: 5691, guests: ["Lorànt Deutsch", "Samuel Bambi"], time: "20h00", badge: "Complet", order: 2 }
+                ]
             },
             { 
-                id: "rennes", city: "Rennes", lat: 48.1173, lon: -1.6778, lot: 1, isReturnCity: false,
-                rest: "1 jour (10 oct)", returnDay: "Fenêtre trop courte", transport: "Sur place ou Train", transportCode: "blue",
-                dates: [{ date: "9 Octobre 2026", venue: "Glaz Arena", sold: 4556, capacity: 4580, guests: ["Ragnar Le Breton", "Samuel Bambi"], time: "20h00", badge: "Complet", order: 3 }]
+                id: "rennes", 
+                city: "Rennes", 
+                lat: 48.1173, 
+                lon: -1.6778, 
+                lot: 1,
+                isReturnCity: false,
+                rest: "1 jour (10 oct)",
+                returnDay: "Fenêtre trop courte",
+                transport: "Sur place ou Train",
+                transportCode: "blue",
+                hasTigre: false,
+                dates: [
+                    { date: "9 Octobre 2026", venue: "Glaz Arena", sold: 4556, capacity: 4580, guests: ["Ragnar Le Breton", "Samuel Bambi"], time: "20h00", badge: "Complet", order: 3 }
+                ]
             },
             { 
-                id: "lievin", city: "Liévin", lat: 50.4221, lon: 2.7774, lot: 2, isReturnCity: false,
-                rest: "0 jour", returnDay: "Enchaînement direct (Rouen)", transport: "Direct sur place", transportCode: "direct",
-                dates: [{ date: "11 Octobre 2026", venue: "Arena Stade Couvert", sold: 5779, capacity: 6968, guests: ["Samuel Bambi", "Camille Tissot"], time: "18h00", badge: "Dernières places", order: 4 }]
+                id: "lievin", 
+                city: "Liévin", 
+                lat: 50.4221, 
+                lon: 2.7774, 
+                lot: 2,
+                isReturnCity: false,
+                rest: "0 jour",
+                returnDay: "Enchaînement direct (Rouen)",
+                transport: "Direct sur place",
+                transportCode: "direct",
+                hasTigre: true,
+                dates: [
+                    { date: "11 Octobre 2026", venue: "Arena Stade Couvert", sold: 5779, capacity: 6968, guests: ["Samuel Bambi", "Camille Tissot"], time: "18h00", badge: "Dernières places", order: 4 }
+                ]
             },
             { 
-                id: "rouen", city: "Rouen", lat: 49.4432, lon: 1.0993, lot: 2, isReturnCity: true,
-                rest: "2 jours (13-14 oct)", returnDay: "13 oct. (Lendemain)", transport: "Voiture (Paris ~1h30)", transportCode: "car",
-                dates: [{ date: "12 Octobre 2026", venue: "Zénith de Rouen", sold: 4521, capacity: 5098, guests: ["Franck Dubosc"], time: "20h00", badge: "Dernières places", order: 5 }]
+                id: "rouen", 
+                city: "Rouen", 
+                lat: 49.4432, 
+                lon: 1.0993, 
+                lot: 2,
+                isReturnCity: true,
+                rest: "2 jours (13-14 oct)",
+                returnDay: "13 oct. (Lendemain)",
+                transport: "Voiture (Paris ~1h30)",
+                transportCode: "car",
+                hasTigre: false,
+                dates: [
+                    { date: "12 Octobre 2026", venue: "Zénith de Rouen", sold: 4521, capacity: 5098, guests: ["Franck Dubosc"], time: "20h00", badge: "Dernières places", order: 5 }
+                ]
             },
             { 
-                id: "dijon", city: "Dijon", lat: 47.3220, lon: 5.0415, lot: 3, isReturnCity: false,
-                rest: "0 jour", returnDay: "Enchaînement direct (Chambéry)", transport: "Direct sur place", transportCode: "direct",
-                dates: [{ date: "15 Octobre 2026", venue: "Zénith de Dijon", sold: 4218, capacity: 4683, guests: ["Nino Arial"], time: "20h00", badge: "Dernières places", order: 6 }]
+                id: "dijon", 
+                city: "Dijon", 
+                lat: 47.3220, 
+                lon: 5.0415, 
+                lot: 3,
+                isReturnCity: false,
+                rest: "0 jour",
+                returnDay: "Enchaînement direct (Chambéry)",
+                transport: "Direct sur place",
+                transportCode: "direct",
+                hasTigre: false,
+                dates: [
+                    { date: "15 Octobre 2026", venue: "Zénith de Dijon", sold: 4218, capacity: 4683, guests: ["Nino Arial"], time: "20h00", badge: "Dernières places", order: 6 }
+                ]
             },
             { 
-                id: "chambery", city: "Chambéry", lat: 45.5646, lon: 5.9178, lot: 3, isReturnCity: false,
-                rest: "0 jour", returnDay: "Enchaînement direct (Montpellier)", transport: "Direct sur place", transportCode: "direct",
-                dates: [{ date: "16 Octobre 2026", venue: "Le Phare", sold: 4640, capacity: 4703, guests: [], time: "20h00", badge: "Dernières places", order: 7 }]
+                id: "chambery", 
+                city: "Chambéry", 
+                lat: 45.5646, 
+                lon: 5.9178, 
+                lot: 3,
+                isReturnCity: false,
+                rest: "0 jour",
+                returnDay: "Enchaînement direct (Montpellier)",
+                transport: "Direct sur place",
+                transportCode: "direct",
+                hasTigre: false,
+                dates: [
+                    { date: "16 Octobre 2026", venue: "Le Phare", sold: 4640, capacity: 4703, guests: [], time: "20h00", badge: "Dernières places", order: 7 }
+                ]
             },
             { 
-                id: "montpellier", city: "Montpellier", lat: 43.6108, lon: 3.8767, lot: 3, isReturnCity: false,
-                rest: "0 jour", returnDay: "Enchaînement direct (Toulouse)", transport: "Direct sur place", transportCode: "direct",
-                dates: [{ date: "17 Octobre 2026", venue: "Sud de France Arena", sold: 5068, capacity: 6328, guests: ["Rémi Gaillard"], time: "20h00", badge: "Disponible", order: 8 }]
+                id: "montpellier", 
+                city: "Montpellier", 
+                lat: 43.6108, 
+                lon: 3.8767, 
+                lot: 3,
+                isReturnCity: false,
+                rest: "0 jour",
+                returnDay: "Enchaînement direct (Toulouse)",
+                transport: "Direct sur place",
+                transportCode: "direct",
+                hasTigre: false,
+                dates: [
+                    { date: "17 Octobre 2026", venue: "Sud de France Arena", sold: 5068, capacity: 6328, guests: ["Rémi Gaillard"], time: "20h00", badge: "Disponible", order: 8 }
+                ]
             },
             { 
-                id: "toulouse", city: "Toulouse", lat: 43.6047, lon: 1.4442, lot: 3, isReturnCity: true,
-                rest: "2 jours (19-20 oct)", returnDay: "19 oct. (Lendemain)", transport: "Retour Avion (>3h voiture)", transportCode: "blue",
-                dates: [{ date: "18 Octobre 2026", venue: "Zénith Toulouse Métropole", sold: 5462, capacity: 6404, guests: ["Jérôme Bayle"], time: "18h00", badge: "Dernières places", order: 9 }]
+                id: "toulouse", 
+                city: "Toulouse", 
+                lat: 43.6047, 
+                lon: 1.4442, 
+                lot: 3,
+                isReturnCity: true,
+                rest: "2 jours (19-20 oct)",
+                returnDay: "19 oct. (Lendemain)",
+                transport: "Retour Avion (>3h voiture)",
+                transportCode: "blue",
+                hasTigre: false,
+                dates: [
+                    { date: "18 Octobre 2026", venue: "Zénith Toulouse Métropole", sold: 5462, capacity: 6404, guests: ["Jérôme Bayle"], time: "18h00", badge: "Dernières places", order: 9 }
+                ]
             },
             { 
-                id: "strasbourg", city: "Strasbourg", lat: 48.5734, lon: 7.7521, lot: 4, isReturnCity: false,
-                rest: "0 jour", returnDay: "Enchaînement direct (Metz)", transport: "Direct sur place", transportCode: "direct",
-                dates: [{ date: "21 Octobre 2026", venue: "Zénith de Strasbourg", sold: 4572, capacity: 5148, guests: ["Élie Semoun"], time: "20h00", badge: "Disponible", order: 10 }]
+                id: "strasbourg", 
+                city: "Strasbourg", 
+                lat: 48.5734, 
+                lon: 7.7521, 
+                lot: 4,
+                isReturnCity: false,
+                rest: "0 jour",
+                returnDay: "Enchaînement direct (Metz)",
+                transport: "Direct sur place",
+                transportCode: "direct",
+                hasTigre: false,
+                dates: [
+                    { date: "21 Octobre 2026", venue: "Zénith de Strasbourg", sold: 4572, capacity: 5148, guests: ["Élie Semoun"], time: "20h00", badge: "Disponible", order: 10 }
+                ]
             },
             { 
-                id: "metz", city: "Metz", lat: 49.1193, lon: 6.1757, lot: 4, isReturnCity: false,
-                rest: "0 jour", returnDay: "Enchaînement direct (Bruxelles)", transport: "Direct sur place", transportCode: "direct",
-                dates: [{ date: "22 Octobre 2026", venue: "Les Arènes de Metz", sold: 4559, capacity: 4594, guests: [], time: "20h00", badge: "Complet", order: 11 }]
+                id: "metz", 
+                city: "Metz", 
+                lat: 49.1193, 
+                lon: 6.1757, 
+                lot: 4,
+                isReturnCity: false,
+                rest: "0 jour",
+                returnDay: "Enchaînement direct (Bruxelles)",
+                transport: "Direct sur place",
+                transportCode: "direct",
+                hasTigre: false,
+                dates: [
+                    { date: "22 Octobre 2026", venue: "Les Arènes de Metz", sold: 4559, capacity: 4594, guests: [], time: "20h00", badge: "Complet", order: 11 }
+                ]
             },
             { 
-                id: "bruxelles", city: "Bruxelles", lat: 50.8503, lon: 4.3517, lot: 4, isReturnCity: true,
-                rest: "2 jours (25-26 oct)", returnDay: "25 oct. (Lendemain)", transport: "Avion ou Thalys (~1h20)", transportCode: "blue",
+                id: "bruxelles", 
+                city: "Bruxelles", 
+                lat: 50.8503, 
+                lon: 4.3517, 
+                lot: 4,
+                isReturnCity: true,
+                rest: "2 jours (25-26 oct)",
+                returnDay: "25 oct. (Lendemain)",
+                transport: "Avion ou Thalys (~1h20)",
+                transportCode: "blue",
+                hasTigre: false,
                 dates: [
                     { date: "23 Octobre 2026", venue: "Forest National", sold: 7238, capacity: 7399, guests: ["Manu Payet"], time: "20h00", badge: "Complet", order: 12 },
                     { date: "24 Octobre 2026", venue: "Forest National", sold: 4526, capacity: 5629, guests: ["Manu Payet"], time: "20h00", badge: "Disponible", order: 13 }
                 ]
             },
             { 
-                id: "nice", city: "Nice", lat: 43.7102, lon: 7.2620, lot: 5, isReturnCity: false,
-                rest: "0 jour", returnDay: "Enchaînement direct (Aix)", transport: "Direct sur place", transportCode: "direct",
-                dates: [{ date: "27 Octobre 2026", venue: "Palais Nikaïa", sold: 3098, capacity: 4156, guests: ["Éric Dupond-Moretti"], time: "20h00", badge: "Disponible", order: 14 }]
+                id: "nice", 
+                city: "Nice", 
+                lat: 43.7102, 
+                lon: 7.2620, 
+                lot: 5,
+                isReturnCity: false,
+                rest: "0 jour",
+                returnDay: "Enchaînement direct (Aix)",
+                transport: "Direct sur place",
+                transportCode: "direct",
+                hasTigre: false,
+                dates: [
+                    { date: "27 Octobre 2026", venue: "Palais Nikaïa", sold: 3098, capacity: 4156, guests: ["Éric Dupond-Moretti"], time: "20h00", badge: "Disponible", order: 14 }
+                ]
             },
             { 
-                id: "aix", city: "Aix-en-Provence", lat: 43.5297, lon: 5.4474, lot: 5, isReturnCity: false,
-                rest: "0 jour", returnDay: "Enchaînement direct (Lyon)", transport: "Direct sur place", transportCode: "direct",
-                dates: [{ date: "28 Octobre 2026", venue: "Arena du Pays d'Aix", sold: 5348, capacity: 5597, guests: ["Michaël Youn", "Vic", "Jean-Luc Reichmann", "Esther Abrami"], time: "20h00", badge: "Dernières places", order: 15 }]
+                id: "aix", 
+                city: "Aix-en-Provence", 
+                lat: 43.5297, 
+                lon: 5.4474, 
+                lot: 5,
+                isReturnCity: false,
+                rest: "0 jour",
+                returnDay: "Enchaînement direct (Lyon)",
+                transport: "Direct sur place",
+                transportCode: "direct",
+                hasTigre: true,
+                dates: [
+                    { date: "28 Octobre 2026", venue: "Arena du Pays d'Aix", sold: 5348, capacity: 5597, guests: ["Michaël Youn", "Vic", "Jean-Luc Reichmann", "Esther Abrami"], time: "20h00", badge: "Dernières places", order: 15 }
+                ]
             },
             { 
-                id: "lyon", city: "Lyon-Décines", lat: 45.7640, lon: 4.8357, lot: 5, isReturnCity: true,
-                rest: "~15 jours (30 oct - 13 nov)", returnDay: "30 oct. (Lendemain)", transport: "Avion ou TGV (~2h)", transportCode: "blue",
-                dates: [{ date: "29 Octobre 2026", venue: "LDLC Arena", sold: 7699, capacity: 9768, guests: ["Chicandier"], time: "20h00", badge: "Disponible", order: 16 }]
+                id: "lyon", 
+                city: "Lyon-Décines", 
+                lat: 45.7640, 
+                lon: 4.8357, 
+                lot: 5,
+                isReturnCity: true,
+                rest: "~15 jours (30 oct - 13 nov)",
+                returnDay: "30 oct. (Lendemain)",
+                transport: "Avion ou TGV (~2h)",
+                transportCode: "blue",
+                hasTigre: false,
+                dates: [
+                    { date: "29 Octobre 2026", venue: "LDLC Arena", sold: 7699, capacity: 9768, guests: ["Chicandier"], time: "20h00", badge: "Disponible", order: 16 }
+                ]
             },
             { 
-                id: "paris", city: "Paris", lat: 48.8566, lon: 2.3522, lot: 6, isReturnCity: true,
-                rest: "Fin de tournée", returnDay: "Déjà sur place", transport: "Déjà sur place", transportCode: "none",
+                id: "paris", 
+                city: "Paris", 
+                lat: 48.8566, 
+                lon: 2.3522, 
+                lot: 6,
+                isReturnCity: true,
+                rest: "Fin de tournée",
+                returnDay: "Déjà sur place",
+                transport: "Déjà sur place",
+                transportCode: "none",
+                hasTigre: true,
                 dates: [
                     { date: "14 Novembre 2026", venue: "Adidas Arena", sold: 7303, capacity: 7484, guests: ["Esther Abrami", "Franck Dubosc", "Éric Dupond-Moretti"], time: "20h00", badge: "Complet", order: 17 },
                     { date: "15 Novembre 2026", venue: "Adidas Arena", sold: 5058, capacity: 7484, guests: ["Esther Abrami", "Franck Dubosc", "Éric & Ramzy", "Éric Dupond-Moretti"], time: "18h00", badge: "Disponible", order: 18 }
@@ -365,7 +529,6 @@
         let activeShowId = null;
         let selectedSubDateIndex = 0;
         let activeTab = 'exclusive';
-        let appMode = 'public';
         let selectedLotFilter = 'all';
 
         const BOUNDS = { minLat: 42.0, maxLat: 51.4, minLon: -5.2, maxLon: 8.8 };
@@ -443,7 +606,9 @@
                 const ctrlY = midY + (dx / norm) * curveFactor;
 
                 const arcD = `M ${pos.x},${pos.y} Q ${ctrlX},${ctrlY} ${parisPos.x},${parisPos.y}`;
-                const isVisible = (appMode === 'guillaume') && (selectedLotFilter === 'all' || selectedLotFilter === show.lot);
+                
+                // Visible strictly ONLY when a specific Lot is selected (NOT on 'all')
+                const isVisible = (selectedLotFilter !== 'all' && selectedLotFilter === show.lot);
 
                 arcsHTML += `
                     <g class="${isVisible ? '' : 'hidden'}" id="arc-${show.id}">
@@ -501,7 +666,8 @@
                 }
                 
                 const isReturnNode = show.isReturnCity && show.id !== 'paris';
-                
+                const isEmblemVisible = (selectedLotFilter !== 'all' && selectedLotFilter === show.lot);
+
                 return `
                     <g id="node-${show.id}" class="cursor-pointer group node-element" data-lot="${show.lot}" onclick="selectShow('${show.id}', 0, event)">
                         <circle cx="${pos.x}" cy="${pos.y}" r="22" class="fill-transparent" />
@@ -522,9 +688,9 @@
                             </text>
                         </g>
 
-                        <!-- Return Emblem -->
+                        <!-- Return Emblem (Visible strictly ONLY when its Lot is selected) -->
                         ${isReturnNode ? `
-                            <g id="return-emblem-${show.id}" transform="translate(${pos.x + 14}, ${pos.y - 14})" class="return-emblem ${appMode === 'guillaume' ? '' : 'hidden'}">
+                            <g id="return-emblem-${show.id}" transform="translate(${pos.x + 14}, ${pos.y - 14})" class="return-emblem ${isEmblemVisible ? '' : 'hidden'}">
                                 <rect x="-5" y="-5" width="22" height="11" rx="3" class="fill-blue-950 stroke-blue-400 stroke-1" />
                                 <text x="6" y="0.5" text-anchor="middle" dominant-baseline="central" class="fill-blue-300 font-sans font-bold text-[8px]">🏠 PARIS</text>
                             </g>
@@ -940,64 +1106,19 @@
                 } else {
                     node.style.opacity = "0.25";
                 }
+
+                const emblem = document.getElementById(`return-emblem-${show.id}`);
+                if (emblem) {
+                    if (lot !== 'all' && show.lot === lot && show.isReturnCity) {
+                        emblem.classList.remove('hidden');
+                    } else {
+                        emblem.classList.add('hidden');
+                    }
+                }
             });
 
             drawReturnArcs();
             closeSidebar(true);
-        }
-
-        function setAppMode(mode) {
-            appMode = mode;
-            const btnPublic = document.getElementById('btn-mode-public');
-            const btnGuillaume = document.getElementById('btn-mode-guillaume');
-            const wrapCapacity = document.getElementById('wrapper-capacity');
-            const wrapLogistics = document.getElementById('wrapper-logistics');
-
-            if (mode === 'public') {
-                if (btnPublic) btnPublic.className = "py-2 px-2.5 rounded-xl border border-[#c5a059] text-[10px] font-bold uppercase tracking-wider text-[#c5a059] bg-[#c5a059]/10 transition-all flex items-center justify-center gap-1.5 active:scale-95";
-                if (btnGuillaume) btnGuillaume.className = "py-2 px-2.5 rounded-xl border border-gray-800 text-[10px] font-bold uppercase tracking-wider text-gray-400 hover:text-gray-200 transition-all flex items-center justify-center gap-1.5 active:scale-95";
-                if (wrapCapacity) wrapCapacity.classList.remove('hidden');
-                if (wrapLogistics) wrapLogistics.classList.add('hidden');
-            } else {
-                if (btnGuillaume) btnGuillaume.className = "py-2 px-2.5 rounded-xl border border-[#c5a059] text-[10px] font-bold uppercase tracking-wider text-[#c5a059] bg-[#c5a059]/10 transition-all flex items-center justify-center gap-1.5 active:scale-95";
-                if (btnPublic) btnPublic.className = "py-2 px-2.5 rounded-xl border border-gray-800 text-[10px] font-bold uppercase tracking-wider text-gray-400 hover:text-gray-200 transition-all flex items-center justify-center gap-1.5 active:scale-95";
-                if (wrapCapacity) wrapCapacity.classList.add('hidden');
-                if (wrapLogistics) wrapLogistics.classList.remove('hidden');
-            }
-
-            document.querySelectorAll('.return-emblem').forEach(el => {
-                if (mode === 'guillaume') el.classList.remove('hidden');
-                else el.classList.add('hidden');
-            });
-
-            drawReturnArcs();
-            updateMapModeVisuals();
-        }
-
-        function updateMapModeVisuals() {
-            SHOWS.forEach(show => {
-                const dot = document.getElementById(`marker-dot-${show.id}`);
-                const bg = document.getElementById(`badge-bg-${show.id}`);
-                const txt = document.getElementById(`badge-txt-${show.id}`);
-
-                if (!dot || !bg || !txt) return;
-
-                if (appMode === 'public') {
-                    dot.setAttribute('stroke', '#c5a059');
-                    bg.setAttribute('stroke', '#c5a059');
-                    txt.style.fill = '#c5a059';
-                } else {
-                    let colorCode = '#ffffff';
-                    if (show.transportCode === 'car') colorCode = '#10b981';
-                    else if (show.transportCode === 'blue') colorCode = '#3b82f6';
-                    else if (show.transportCode === 'direct') colorCode = '#ef4444';
-                    else colorCode = '#6b7280';
-
-                    dot.setAttribute('stroke', colorCode);
-                    bg.setAttribute('stroke', colorCode);
-                    txt.style.fill = colorCode;
-                }
-            });
         }
 
         function switchTab(tab) {
@@ -1101,7 +1222,7 @@
             sidebar.addEventListener('touchend', onTouchEnd, { passive: true });
         }
 
-        // Close dropdown when tapping outside
+        // Close search dropdown when clicking outside
         document.addEventListener('click', (e) => {
             const dropdown = document.getElementById('search-suggestions');
             const searchInput = document.getElementById('search-input');
@@ -1114,7 +1235,6 @@
             drawBoundaries();
             renderMapNodes();
             renderPermanents();
-            updateMapModeVisuals();
             initBottomSheetSwipe();
         }
 
