@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr" class="h-full">
+<html lang="fr" class="h-full bg-black">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Legend Tour 2026 - Carte Interactive Officielle</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,125 +12,165 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <style>
-        .font-serif {
-            font-family: 'Cinzel', Georgia, serif;
+        .font-serif { font-family: 'Cinzel', Georgia, serif; }
+        .font-sans { font-family: 'Inter', system-ui, sans-serif; }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0a0a0a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #252525; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #c5a059; }
+
+        /* Subtle Glows */
+        .text-glow-gold { text-shadow: 0 0 8px rgba(197, 160, 89, 0.35); }
+        .box-glow-gold { box-shadow: 0 0 15px rgba(197, 160, 89, 0.12); }
+
+        /* Mobile Bottom Sheet Touch Physics */
+        #sidebar-panel {
+            will-change: transform;
+            transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
         }
-        .font-sans {
-            font-family: 'Inter', system-ui, sans-serif;
+
+        /* Prevents iOS Safari window scrolling when pulling down the drag handle */
+        #drag-handle-zone {
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
-        /* Custom scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #222222;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #c5a059;
-        }
-        /* Subtle Gold Glows */
-        .text-glow-gold {
-            text-shadow: 0 0 8px rgba(197, 160, 89, 0.35);
-        }
-        .box-glow-gold {
-            box-shadow: 0 0 15px rgba(197, 160, 89, 0.12);
+        
+        svg {
+            touch-action: manipulation;
         }
     </style>
 </head>
-<body class="bg-[#080808] text-gray-100 font-sans h-full overflow-hidden flex flex-col">
+<body class="bg-[#080808] text-gray-100 font-sans h-[100dvh] w-full overflow-hidden flex flex-col select-none">
 
-    <header class="bg-[#0c0c0c] border-b border-[#1c1c1c] px-5 py-3.5 flex items-center justify-between shrink-0 z-30 box-glow-gold">
-        <div class="flex items-center gap-3">
-            <span class="text-[#c5a059] material-icons text-2xl md:text-3xl">workspace_premium</span>
+    <header class="bg-[#0c0c0c]/90 backdrop-blur-md border-b border-[#1c1c1c] px-4 py-2.5 flex items-center justify-between shrink-0 z-30 box-glow-gold">
+        <div class="flex items-center gap-2.5">
+            <span class="text-[#c5a059] material-icons text-xl md:text-2xl">workspace_premium</span>
             <div>
-                <h1 class="font-serif text-base md:text-xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-[#e5c17e] to-[#c5a059]">
+                <h1 class="font-serif text-sm md:text-lg font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-[#e5c17e] to-[#c5a059]">
                     LEGEND TOUR 2026
                 </h1>
-                <p class="text-[9px] md:text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-                    La Tournée Officielle • Partenaire Majeur Trade Republic
+                <p class="text-[8px] md:text-[9.5px] text-gray-400 font-bold uppercase tracking-widest">
+                    La Tournée Officielle • Partenaire Trade Republic
                 </p>
             </div>
         </div>
-        <div class="flex items-center gap-3">
-            <div class="hidden sm:flex items-center gap-2 bg-[#121212] px-3 py-1.5 rounded-full border border-gray-800/80">
+        <div class="flex items-center gap-2">
+            <div class="hidden sm:flex items-center gap-2 bg-[#121212] px-2.5 py-1 rounded-full border border-gray-800/80">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span id="tour-count" class="text-xs font-bold text-gray-300 tracking-wider">16 ÉTAPES</span>
+                <span id="tour-count" class="text-[10px] font-bold text-gray-300 tracking-wider">16 ÉTAPES</span>
             </div>
-            <button onclick="toggleFullscreen()" title="Basculer en plein écran" class="flex items-center gap-1 bg-[#141414] hover:bg-[#202020] text-[#c5a059] border border-[#c5a059]/40 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-md">
-                <span class="material-icons text-sm">fullscreen</span>
-                <span class="hidden md:inline uppercase tracking-wider text-[10px]">Plein écran</span>
+            <button onclick="toggleFullscreen()" title="Basculer en plein écran" class="flex items-center gap-1 bg-[#141414] hover:bg-[#202020] text-[#c5a059] border border-[#c5a059]/40 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all active:scale-95">
+                <span class="material-icons text-xs">fullscreen</span>
+                <span class="hidden md:inline uppercase tracking-wider text-[9px]">Plein écran</span>
             </button>
         </div>
     </header>
 
-    <main class="flex-1 flex flex-col lg:flex-row min-h-0 relative overflow-hidden">
+    <main class="flex-1 min-h-0 relative overflow-hidden w-full h-full">
         
-        <!-- Left Control Panel & Show Details (Sliding Workspace) -->
-        <section id="sidebar-panel" class="w-full lg:w-[0px] bg-[#0c0c0c] border-r border-[#1a1a1a] flex flex-col shrink-0 min-h-0 transition-all duration-500 ease-out z-20 overflow-hidden opacity-0">
+        <section class="absolute inset-0 bg-[#080808] flex items-center justify-center p-0 select-none overflow-hidden w-full h-full" onclick="onMapBackgroundClick(event)">
+            <div class="w-full h-full flex items-center justify-center relative p-1 sm:p-4">
+                
+                <!-- Main France & Belgium Vector SVG -->
+                <svg id="france-map-svg" viewBox="0 0 700 680" preserveAspectRatio="xMidYMid meet" class="w-full h-full max-w-full max-h-full select-none relative z-10">
+                    <!-- Geographic Boundaries -->
+                    <path id="france-boundary" fill="#0e0e0e" stroke="rgba(197, 160, 89, 0.4)" stroke-width="2.2" />
+                    <path id="belgium-boundary" fill="#121212" stroke="rgba(197, 160, 89, 0.3)" stroke-dasharray="3,3" stroke-width="1.8" />
+
+                    <!-- Chronological Connecting Tour Line -->
+                    <path id="tour-connector" fill="none" stroke="rgba(197, 160, 89, 0.5)" stroke-width="2" stroke-dasharray="5,4" />
+
+                    <!-- Return Arcs to Paris (Hidden by default, shown on Lot selection) -->
+                    <g id="paris-return-arcs"></g>
+
+                    <!-- Interactive City Markers & Labels -->
+                    <g id="map-nodes"></g>
+                </svg>
+            </div>
+
+            <!-- Subtle Legend Footer -->
+            <div class="absolute bottom-2 right-3 flex items-center gap-1.5 bg-[#0c0c0c]/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-gray-800/80 pointer-events-none z-20">
+                <span class="material-icons text-[#c5a059] text-[10px]">explore</span>
+                <span class="text-[8.5px] font-bold text-gray-400 tracking-widest uppercase">France & BE</span>
+            </div>
+
+            <!-- Minimalist Floating Recall Button -->
+            <button id="btn-reopen-panel" onclick="reopenSidebar(event)" 
+                    class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-30 bg-[#0c0c0c]/90 backdrop-blur-xl border border-[#c5a059]/60 text-[#c5a059] px-5 py-2.5 rounded-full text-xs font-extrabold shadow-2xl flex items-center hover:bg-[#181818] active:scale-95 transition-all box-glow-gold cursor-pointer uppercase tracking-wider text-[11px]">
+                Afficher la fiche
+            </button>
+        </section>
+
+        <section id="sidebar-panel" 
+                 class="fixed inset-x-0 bottom-0 z-40 max-h-[82vh] lg:max-h-none lg:inset-x-auto lg:top-16 lg:left-4 lg:bottom-4 lg:w-[380px] bg-[#0c0c0c]/98 backdrop-blur-2xl border-t lg:border border-[#1a1a1a] rounded-t-3xl lg:rounded-2xl flex flex-col shrink-0 translate-y-full lg:translate-y-0 lg:-translate-x-[calc(100%+2rem)] shadow-2xl overflow-hidden pointer-events-auto">
             
+            <!-- Mobile Drag Indicator Handle Zone -->
+            <div id="drag-handle-zone" class="lg:hidden w-full pt-3 pb-2 flex flex-col items-center justify-center shrink-0 border-b border-[#181818] cursor-grab active:cursor-grabbing bg-[#101010] select-none active:bg-[#181818] transition-colors">
+                <div class="w-12 h-1.5 rounded-full bg-gray-500/90 shadow-inner"></div>
+                <div class="flex items-center gap-1 mt-1 text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+                    <span class="material-icons text-[11px]">expand_more</span>
+                    <span>Glisser vers le bas pour fermer</span>
+                </div>
+            </div>
+
             <!-- Controls Header -->
-            <div class="p-4 bg-[#101010] border-b border-[#1a1a1a] space-y-3 shrink-0">
-                <div class="flex items-center justify-between pb-1">
+            <div class="p-3.5 sm:p-4 bg-[#101010] border-b border-[#1a1a1a] space-y-3 shrink-0">
+                <div class="flex items-center justify-between pb-0.5">
                     <span class="text-[10px] font-bold text-[#c5a059] uppercase tracking-widest">Mode d'affichage</span>
-                    <button onclick="closeSidebar()" class="text-[10px] font-bold text-gray-400 hover:text-red-400 uppercase tracking-wider flex items-center gap-0.5 transition-colors">
-                        <span class="material-icons text-xs">close</span> Masquer le volet
+                    <button onclick="closeSidebar()" class="text-[10px] font-bold text-gray-400 hover:text-red-400 uppercase tracking-wider flex items-center gap-0.5 transition-colors p-1 rounded-lg active:bg-white/5">
+                        <span class="material-icons text-xs">close</span> Masquer
                     </button>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-2">
-                    <button id="btn-mode-public" onclick="setAppMode('public')" class="py-2 px-2.5 rounded-xl border border-[#c5a059] text-[11px] font-bold uppercase tracking-wider text-[#c5a059] bg-[#c5a059]/10 transition-all flex items-center justify-center gap-1.5">
-                        <span class="material-icons text-sm">confirmation_number</span> Public
+                    <button id="btn-mode-public" onclick="setAppMode('public')" class="py-2 px-2.5 rounded-xl border border-[#c5a059] text-[10px] font-bold uppercase tracking-wider text-[#c5a059] bg-[#c5a059]/10 transition-all flex items-center justify-center gap-1.5 active:scale-95">
+                        <span class="material-icons text-xs">confirmation_number</span> Public
                     </button>
-                    <button id="btn-mode-guillaume" onclick="setAppMode('guillaume')" class="py-2 px-2.5 rounded-xl border border-gray-800 text-[11px] font-bold uppercase tracking-wider text-gray-400 hover:text-gray-200 hover:border-gray-700 transition-all flex items-center justify-center gap-1.5">
-                        <span class="material-icons text-sm">flight_land</span> Guillaume 🏠
+                    <button id="btn-mode-guillaume" onclick="setAppMode('guillaume')" class="py-2 px-2.5 rounded-xl border border-gray-800 text-[10px] font-bold uppercase tracking-wider text-gray-400 hover:text-gray-200 transition-all flex items-center justify-center gap-1.5 active:scale-95">
+                        <span class="material-icons text-xs">flight_land</span> Guillaume 🏠
                     </button>
                 </div>
 
-                <!-- Lot / Session Selector -->
-                <div class="pt-1">
-                    <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Filtrer par session (Runs) :</p>
+                <!-- Lot Selector -->
+                <div class="pt-0.5">
+                    <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-1">Filtrer par session (Lot) :</p>
                     <div class="grid grid-cols-3 gap-1">
-                        <button onclick="filterByLot('all')" class="lot-btn active text-[9px] font-bold py-1 px-1 rounded bg-[#c5a059] text-black uppercase transition-all">Toutes</button>
-                        <button onclick="filterByLot(1)" class="lot-btn text-[9px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 1 (Ouest)</button>
-                        <button onclick="filterByLot(2)" class="lot-btn text-[9px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 2 (Nord)</button>
-                        <button onclick="filterByLot(3)" class="lot-btn text-[9px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 3 (Sud)</button>
-                        <button onclick="filterByLot(4)" class="lot-btn text-[9px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 4 (Est/BE)</button>
-                        <button onclick="filterByLot(5)" class="lot-btn text-[9px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 5 (Médi)</button>
+                        <button onclick="filterByLot('all', event)" class="lot-btn active text-[8.5px] font-bold py-1 px-1 rounded bg-[#c5a059] text-black uppercase transition-all">Toutes</button>
+                        <button onclick="filterByLot(1, event)" class="lot-btn text-[8.5px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 1 (Ouest)</button>
+                        <button onclick="filterByLot(2, event)" class="lot-btn text-[8.5px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 2 (Nord)</button>
+                        <button onclick="filterByLot(3, event)" class="lot-btn text-[8.5px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 3 (Sud)</button>
+                        <button onclick="filterByLot(4, event)" class="lot-btn text-[8.5px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 4 (Est/BE)</button>
+                        <button onclick="filterByLot(5, event)" class="lot-btn text-[8.5px] font-bold py-1 px-1 rounded bg-[#181818] text-gray-300 hover:bg-[#252525] uppercase transition-all">Lot 5 (Médi)</button>
                     </div>
                 </div>
-
-                <div class="flex items-center justify-between pt-1 border-t border-[#181818]">
-                    <label class="flex items-center gap-2 cursor-pointer select-none">
-                        <input type="checkbox" id="toggle-helicopter" onchange="toggleHelicopterZones()" class="rounded bg-[#1a1a1a] border-gray-800 text-[#c5a059] focus:ring-0">
-                        <span class="text-[10px] font-bold text-gray-300 uppercase tracking-wider flex items-center gap-1">
-                            <span class="material-icons text-sm text-red-400">radar</span> Héliport Tigre 🚁
-                        </span>
-                    </label>
-                </div>
             </div>
 
-            <!-- Search Field -->
-            <div class="p-4 border-b border-[#161616] shrink-0">
-                <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 material-icons text-lg">search</span>
-                    <input type="text" id="search-input" oninput="filterShows()" 
-                           placeholder="Rechercher une ville, une salle, un invité..." 
-                           class="w-full bg-[#141414] text-xs text-gray-200 pl-9 pr-3 py-2.5 rounded-xl border border-gray-800 focus:outline-none focus:border-[#c5a059] transition-all placeholder:text-gray-500 font-medium">
-                </div>
+            <div class="p-3 sm:p-4 border-b border-[#161616] shrink-0 relative">
+                <form onsubmit="handleSearchSubmit(event)" class="relative flex items-center">
+                    <span class="absolute left-3 text-gray-400 material-icons text-lg pointer-events-none">search</span>
+                    <input type="search" id="search-input" oninput="handleSearchInput()" onfocus="handleSearchInput()"
+                           enterkeyhint="search" autocorrect="off" autocapitalize="none"
+                           placeholder="Ville, lot, date, salle, invité, intervenant..." 
+                           class="w-full bg-[#141414] text-xs text-gray-200 pl-9 pr-14 py-2.5 rounded-xl border border-gray-800 focus:outline-none focus:border-[#c5a059] transition-all placeholder:text-gray-500 font-medium appearance-none">
+                    <button type="submit" class="absolute right-1.5 px-2.5 py-1 bg-[#c5a059] hover:bg-[#e5c17e] text-black text-[10px] font-extrabold uppercase rounded-lg active:scale-95 transition-all shadow-md">
+                        OK
+                    </button>
+                </form>
+                <!-- Autocomplete Dropdown List -->
+                <div id="search-suggestions" class="hidden absolute left-3 right-3 top-[calc(100%-4px)] bg-[#181818]/98 backdrop-blur-xl border border-gray-800 rounded-xl shadow-2xl z-50 max-h-56 overflow-y-auto custom-scrollbar divide-y divide-gray-800/50"></div>
             </div>
 
-            <div class="flex-1 overflow-y-auto p-4 space-y-5">
+            <div id="drawer-scroll-body" class="flex-1 overflow-y-auto custom-scrollbar p-3.5 sm:p-4 space-y-4 sm:space-y-5 overscroll-contain" style="-webkit-overflow-scrolling: touch;">
                 
                 <!-- Detailed Card -->
                 <div class="bg-[#121212] border border-[#222] rounded-2xl p-4 relative overflow-hidden box-glow-gold">
                     <div class="flex items-center justify-between border-b border-gray-800/80 pb-3 mb-3">
                         <div>
                             <span id="detail-order" class="text-[10px] font-bold text-[#c5a059] tracking-wider uppercase">Étape #</span>
-                            <h2 id="detail-city" class="font-serif text-xl font-bold text-white mt-0.5">Sélectionnez une étape</h2>
+                            <h2 id="detail-city" class="font-serif text-lg sm:text-xl font-bold text-white mt-0.5">Sélectionnez une étape</h2>
                         </div>
                         <div class="text-right">
                             <p id="detail-date" class="text-xs font-extrabold text-[#c5a059] tracking-wide">-- Oct 2026</p>
@@ -192,15 +232,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Helicopter Landing Alert -->
-                        <div id="wrapper-tiger-landing" class="hidden bg-red-950/20 border border-red-900/30 p-2.5 rounded-xl flex items-center gap-2.5">
-                            <span class="material-icons text-red-500 animate-spin text-lg" style="animation-duration: 4s;">radar</span>
-                            <div>
-                                <p class="text-[10px] font-bold text-red-400 uppercase tracking-wider">Zone Héliport Validée 🚁</p>
-                                <p class="text-[10px] text-gray-300">Animation et show hélicoptère Tigre configurés sur cette étape.</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -230,302 +261,91 @@
             </div>
         </section>
 
-        <section class="flex-1 bg-[#080808] relative flex items-center justify-center p-0 min-h-0 select-none overflow-hidden w-full h-full">
-            
-            <div class="w-full h-full flex items-center justify-center relative transition-all duration-500 p-2 md:p-4">
-                
-                <!-- Geometric Grid Lines for Premium Look -->
-                <div class="absolute inset-2 opacity-5 pointer-events-none border border-dashed border-gray-700 rounded-full"></div>
-                <div class="absolute inset-[10%] opacity-[0.03] pointer-events-none border border-solid border-gray-700 rounded-full"></div>
-                
-                <!-- Main Map SVG (Maximized ViewBox) -->
-                <svg id="france-map-svg" viewBox="0 0 700 680" preserveAspectRatio="xMidYMid meet" class="w-full h-full max-w-full max-h-full select-none relative z-10 filter drop-shadow-2xl">
-                    <defs>
-                        <filter id="glow-gold" x="-20%" y="-20%" width="140%" height="140%">
-                            <feGaussianBlur stdDeviation="5" result="blur" />
-                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                        </filter>
-                    </defs>
-
-                    <!-- Geographic Boundaries -->
-                    <path id="france-boundary" fill="#0e0e0e" stroke="rgba(197, 160, 89, 0.35)" stroke-width="2" />
-                    <path id="belgium-boundary" fill="#121212" stroke="rgba(197, 160, 89, 0.25)" stroke-dasharray="3,3" stroke-width="1.8" />
-
-                    <!-- Chronological Connecting Tour Line -->
-                    <path id="tour-connector" fill="none" stroke="rgba(197, 160, 89, 0.55)" stroke-width="2.2" stroke-dasharray="5,4" />
-
-                    <!-- Return Arcs to Paris -->
-                    <g id="paris-return-arcs"></g>
-
-                    <!-- Interactive City Markers & Labels -->
-                    <g id="map-nodes"></g>
-                </svg>
-            </div>
-
-            <!-- Subtle Legend Footer -->
-            <div class="absolute bottom-3 right-4 flex items-center gap-2 bg-[#0c0c0c]/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-gray-800/80 pointer-events-none text-glow-gold z-20">
-                <span class="material-icons text-[#c5a059] text-xs">explore</span>
-                <span class="text-[9px] font-bold text-gray-400 tracking-widest uppercase">Échelle France & Belgique</span>
-            </div>
-        </section>
-
     </main>
 
     <script>
         const SHOWS = [
             { 
-                id: "bordeaux", 
-                city: "Bordeaux", 
-                lat: 44.8378, 
-                lon: -0.5792, 
-                lot: 1,
-                isReturnCity: false,
-                rest: "0 jour",
-                returnDay: "Enchaînement direct (Nantes)",
-                transport: "Direct sur place",
-                transportCode: "direct",
-                hasTigre: false,
-                dates: [
-                    { date: "7 Octobre 2026", venue: "Arkéa Arena", sold: 6578, capacity: 7539, guests: ["Maxime Gasteuil", "Fabien Olicard"], time: "20h00", badge: "Dernières places", order: 1 }
-                ]
+                id: "bordeaux", city: "Bordeaux", lat: 44.8378, lon: -0.5792, lot: 1, isReturnCity: false,
+                rest: "0 jour", returnDay: "Enchaînement direct (Nantes)", transport: "Direct sur place", transportCode: "direct",
+                dates: [{ date: "7 Octobre 2026", venue: "Arkéa Arena", sold: 6578, capacity: 7539, guests: ["Maxime Gasteuil", "Fabien Olicard"], time: "20h00", badge: "Dernières places", order: 1 }]
             },
             { 
-                id: "nantes", 
-                city: "Nantes", 
-                lat: 47.2184, 
-                lon: -1.5536, 
-                lot: 1,
-                isReturnCity: false,
-                rest: "0 jour",
-                returnDay: "Enchaînement direct (Rennes)",
-                transport: "Direct sur place",
-                transportCode: "direct",
-                hasTigre: false,
-                dates: [
-                    { date: "8 Octobre 2026", venue: "Zénith de Nantes", sold: 5624, capacity: 5691, guests: ["Lorànt Deutsch", "Samuel Bambi"], time: "20h00", badge: "Complet", order: 2 }
-                ]
+                id: "nantes", city: "Nantes", lat: 47.2184, lon: -1.5536, lot: 1, isReturnCity: false,
+                rest: "0 jour", returnDay: "Enchaînement direct (Rennes)", transport: "Direct sur place", transportCode: "direct",
+                dates: [{ date: "8 Octobre 2026", venue: "Zénith de Nantes", sold: 5624, capacity: 5691, guests: ["Lorànt Deutsch", "Samuel Bambi"], time: "20h00", badge: "Complet", order: 2 }]
             },
             { 
-                id: "rennes", 
-                city: "Rennes", 
-                lat: 48.1173, 
-                lon: -1.6778, 
-                lot: 1,
-                isReturnCity: false,
-                rest: "1 jour (10 oct)",
-                returnDay: "Fenêtre trop courte",
-                transport: "Sur place ou Train",
-                transportCode: "blue",
-                hasTigre: false,
-                dates: [
-                    { date: "9 Octobre 2026", venue: "Glaz Arena", sold: 4556, capacity: 4580, guests: ["Ragnar Le Breton", "Samuel Bambi"], time: "20h00", badge: "Complet", order: 3 }
-                ]
+                id: "rennes", city: "Rennes", lat: 48.1173, lon: -1.6778, lot: 1, isReturnCity: false,
+                rest: "1 jour (10 oct)", returnDay: "Fenêtre trop courte", transport: "Sur place ou Train", transportCode: "blue",
+                dates: [{ date: "9 Octobre 2026", venue: "Glaz Arena", sold: 4556, capacity: 4580, guests: ["Ragnar Le Breton", "Samuel Bambi"], time: "20h00", badge: "Complet", order: 3 }]
             },
             { 
-                id: "lievin", 
-                city: "Liévin", 
-                lat: 50.4221, 
-                lon: 2.7774, 
-                lot: 2,
-                isReturnCity: false,
-                rest: "0 jour",
-                returnDay: "Enchaînement direct (Rouen)",
-                transport: "Direct sur place",
-                transportCode: "direct",
-                hasTigre: true,
-                dates: [
-                    { date: "11 Octobre 2026", venue: "Arena Stade Couvert", sold: 5779, capacity: 6968, guests: ["Samuel Bambi", "Camille Tissot"], time: "18h00", badge: "Dernières places", order: 4 }
-                ]
+                id: "lievin", city: "Liévin", lat: 50.4221, lon: 2.7774, lot: 2, isReturnCity: false,
+                rest: "0 jour", returnDay: "Enchaînement direct (Rouen)", transport: "Direct sur place", transportCode: "direct",
+                dates: [{ date: "11 Octobre 2026", venue: "Arena Stade Couvert", sold: 5779, capacity: 6968, guests: ["Samuel Bambi", "Camille Tissot"], time: "18h00", badge: "Dernières places", order: 4 }]
             },
             { 
-                id: "rouen", 
-                city: "Rouen", 
-                lat: 49.4432, 
-                lon: 1.0993, 
-                lot: 2,
-                isReturnCity: true,
-                rest: "2 jours (13-14 oct)",
-                returnDay: "13 oct. (Lendemain)",
-                transport: "Voiture (Paris ~1h30)",
-                transportCode: "car",
-                hasTigre: false,
-                dates: [
-                    { date: "12 Octobre 2026", venue: "Zénith de Rouen", sold: 4521, capacity: 5098, guests: ["Franck Dubosc"], time: "20h00", badge: "Dernières places", order: 5 }
-                ]
+                id: "rouen", city: "Rouen", lat: 49.4432, lon: 1.0993, lot: 2, isReturnCity: true,
+                rest: "2 jours (13-14 oct)", returnDay: "13 oct. (Lendemain)", transport: "Voiture (Paris ~1h30)", transportCode: "car",
+                dates: [{ date: "12 Octobre 2026", venue: "Zénith de Rouen", sold: 4521, capacity: 5098, guests: ["Franck Dubosc"], time: "20h00", badge: "Dernières places", order: 5 }]
             },
             { 
-                id: "dijon", 
-                city: "Dijon", 
-                lat: 47.3220, 
-                lon: 5.0415, 
-                lot: 3,
-                isReturnCity: false,
-                rest: "0 jour",
-                returnDay: "Enchaînement direct (Chambéry)",
-                transport: "Direct sur place",
-                transportCode: "direct",
-                hasTigre: false,
-                dates: [
-                    { date: "15 Octobre 2026", venue: "Zénith de Dijon", sold: 4218, capacity: 4683, guests: ["Nino Arial"], time: "20h00", badge: "Dernières places", order: 6 }
-                ]
+                id: "dijon", city: "Dijon", lat: 47.3220, lon: 5.0415, lot: 3, isReturnCity: false,
+                rest: "0 jour", returnDay: "Enchaînement direct (Chambéry)", transport: "Direct sur place", transportCode: "direct",
+                dates: [{ date: "15 Octobre 2026", venue: "Zénith de Dijon", sold: 4218, capacity: 4683, guests: ["Nino Arial"], time: "20h00", badge: "Dernières places", order: 6 }]
             },
             { 
-                id: "chambery", 
-                city: "Chambéry", 
-                lat: 45.5646, 
-                lon: 5.9178, 
-                lot: 3,
-                isReturnCity: false,
-                rest: "0 jour",
-                returnDay: "Enchaînement direct (Montpellier)",
-                transport: "Direct sur place",
-                transportCode: "direct",
-                hasTigre: false,
-                dates: [
-                    { date: "16 Octobre 2026", venue: "Le Phare", sold: 4640, capacity: 4703, guests: [], time: "20h00", badge: "Dernières places", order: 7 }
-                ]
+                id: "chambery", city: "Chambéry", lat: 45.5646, lon: 5.9178, lot: 3, isReturnCity: false,
+                rest: "0 jour", returnDay: "Enchaînement direct (Montpellier)", transport: "Direct sur place", transportCode: "direct",
+                dates: [{ date: "16 Octobre 2026", venue: "Le Phare", sold: 4640, capacity: 4703, guests: [], time: "20h00", badge: "Dernières places", order: 7 }]
             },
             { 
-                id: "montpellier", 
-                city: "Montpellier", 
-                lat: 43.6108, 
-                lon: 3.8767, 
-                lot: 3,
-                isReturnCity: false,
-                rest: "0 jour",
-                returnDay: "Enchaînement direct (Toulouse)",
-                transport: "Direct sur place",
-                transportCode: "direct",
-                hasTigre: false,
-                dates: [
-                    { date: "17 Octobre 2026", venue: "Sud de France Arena", sold: 5068, capacity: 6328, guests: ["Rémi Gaillard"], time: "20h00", badge: "Disponible", order: 8 }
-                ]
+                id: "montpellier", city: "Montpellier", lat: 43.6108, lon: 3.8767, lot: 3, isReturnCity: false,
+                rest: "0 jour", returnDay: "Enchaînement direct (Toulouse)", transport: "Direct sur place", transportCode: "direct",
+                dates: [{ date: "17 Octobre 2026", venue: "Sud de France Arena", sold: 5068, capacity: 6328, guests: ["Rémi Gaillard"], time: "20h00", badge: "Disponible", order: 8 }]
             },
             { 
-                id: "toulouse", 
-                city: "Toulouse", 
-                lat: 43.6047, 
-                lon: 1.4442, 
-                lot: 3,
-                isReturnCity: true,
-                rest: "2 jours (19-20 oct)",
-                returnDay: "19 oct. (Lendemain)",
-                transport: "Retour Avion (>3h voiture)",
-                transportCode: "blue",
-                hasTigre: false,
-                dates: [
-                    { date: "18 Octobre 2026", venue: "Zénith Toulouse Métropole", sold: 5462, capacity: 6404, guests: ["Jérôme Bayle"], time: "18h00", badge: "Dernières places", order: 9 }
-                ]
+                id: "toulouse", city: "Toulouse", lat: 43.6047, lon: 1.4442, lot: 3, isReturnCity: true,
+                rest: "2 jours (19-20 oct)", returnDay: "19 oct. (Lendemain)", transport: "Retour Avion (>3h voiture)", transportCode: "blue",
+                dates: [{ date: "18 Octobre 2026", venue: "Zénith Toulouse Métropole", sold: 5462, capacity: 6404, guests: ["Jérôme Bayle"], time: "18h00", badge: "Dernières places", order: 9 }]
             },
             { 
-                id: "strasbourg", 
-                city: "Strasbourg", 
-                lat: 48.5734, 
-                lon: 7.7521, 
-                lot: 4,
-                isReturnCity: false,
-                rest: "0 jour",
-                returnDay: "Enchaînement direct (Metz)",
-                transport: "Direct sur place",
-                transportCode: "direct",
-                hasTigre: false,
-                dates: [
-                    { date: "21 Octobre 2026", venue: "Zénith de Strasbourg", sold: 4572, capacity: 5148, guests: ["Élie Semoun"], time: "20h00", badge: "Disponible", order: 10 }
-                ]
+                id: "strasbourg", city: "Strasbourg", lat: 48.5734, lon: 7.7521, lot: 4, isReturnCity: false,
+                rest: "0 jour", returnDay: "Enchaînement direct (Metz)", transport: "Direct sur place", transportCode: "direct",
+                dates: [{ date: "21 Octobre 2026", venue: "Zénith de Strasbourg", sold: 4572, capacity: 5148, guests: ["Élie Semoun"], time: "20h00", badge: "Disponible", order: 10 }]
             },
             { 
-                id: "metz", 
-                city: "Metz", 
-                lat: 49.1193, 
-                lon: 6.1757, 
-                lot: 4,
-                isReturnCity: false,
-                rest: "0 jour",
-                returnDay: "Enchaînement direct (Bruxelles)",
-                transport: "Direct sur place",
-                transportCode: "direct",
-                hasTigre: false,
-                dates: [
-                    { date: "22 Octobre 2026", venue: "Les Arènes de Metz", sold: 4559, capacity: 4594, guests: [], time: "20h00", badge: "Complet", order: 11 }
-                ]
+                id: "metz", city: "Metz", lat: 49.1193, lon: 6.1757, lot: 4, isReturnCity: false,
+                rest: "0 jour", returnDay: "Enchaînement direct (Bruxelles)", transport: "Direct sur place", transportCode: "direct",
+                dates: [{ date: "22 Octobre 2026", venue: "Les Arènes de Metz", sold: 4559, capacity: 4594, guests: [], time: "20h00", badge: "Complet", order: 11 }]
             },
             { 
-                id: "bruxelles", 
-                city: "Bruxelles", 
-                lat: 50.8503, 
-                lon: 4.3517, 
-                lot: 4,
-                isReturnCity: true,
-                rest: "2 jours (25-26 oct)",
-                returnDay: "25 oct. (Lendemain)",
-                transport: "Avion ou Thalys (~1h20)",
-                transportCode: "blue",
-                hasTigre: false,
+                id: "bruxelles", city: "Bruxelles", lat: 50.8503, lon: 4.3517, lot: 4, isReturnCity: true,
+                rest: "2 jours (25-26 oct)", returnDay: "25 oct. (Lendemain)", transport: "Avion ou Thalys (~1h20)", transportCode: "blue",
                 dates: [
                     { date: "23 Octobre 2026", venue: "Forest National", sold: 7238, capacity: 7399, guests: ["Manu Payet"], time: "20h00", badge: "Complet", order: 12 },
                     { date: "24 Octobre 2026", venue: "Forest National", sold: 4526, capacity: 5629, guests: ["Manu Payet"], time: "20h00", badge: "Disponible", order: 13 }
                 ]
             },
             { 
-                id: "nice", 
-                city: "Nice", 
-                lat: 43.7102, 
-                lon: 7.2620, 
-                lot: 5,
-                isReturnCity: false,
-                rest: "0 jour",
-                returnDay: "Enchaînement direct (Aix)",
-                transport: "Direct sur place",
-                transportCode: "direct",
-                hasTigre: false,
-                dates: [
-                    { date: "27 Octobre 2026", venue: "Palais Nikaïa", sold: 3098, capacity: 4156, guests: ["Éric Dupond-Moretti"], time: "20h00", badge: "Disponible", order: 14 }
-                ]
+                id: "nice", city: "Nice", lat: 43.7102, lon: 7.2620, lot: 5, isReturnCity: false,
+                rest: "0 jour", returnDay: "Enchaînement direct (Aix)", transport: "Direct sur place", transportCode: "direct",
+                dates: [{ date: "27 Octobre 2026", venue: "Palais Nikaïa", sold: 3098, capacity: 4156, guests: ["Éric Dupond-Moretti"], time: "20h00", badge: "Disponible", order: 14 }]
             },
             { 
-                id: "aix", 
-                city: "Aix-en-Provence", 
-                lat: 43.5297, 
-                lon: 5.4474, 
-                lot: 5,
-                isReturnCity: false,
-                rest: "0 jour",
-                returnDay: "Enchaînement direct (Lyon)",
-                transport: "Direct sur place",
-                transportCode: "direct",
-                hasTigre: true,
-                dates: [
-                    { date: "28 Octobre 2026", venue: "Arena du Pays d'Aix", sold: 5348, capacity: 5597, guests: ["Michaël Youn", "Vic", "Jean-Luc Reichmann", "Esther Abrami"], time: "20h00", badge: "Dernières places", order: 15 }
-                ]
+                id: "aix", city: "Aix-en-Provence", lat: 43.5297, lon: 5.4474, lot: 5, isReturnCity: false,
+                rest: "0 jour", returnDay: "Enchaînement direct (Lyon)", transport: "Direct sur place", transportCode: "direct",
+                dates: [{ date: "28 Octobre 2026", venue: "Arena du Pays d'Aix", sold: 5348, capacity: 5597, guests: ["Michaël Youn", "Vic", "Jean-Luc Reichmann", "Esther Abrami"], time: "20h00", badge: "Dernières places", order: 15 }]
             },
             { 
-                id: "lyon", 
-                city: "Lyon-Décines", 
-                lat: 45.7640, 
-                lon: 4.8357, 
-                lot: 5,
-                isReturnCity: true,
-                rest: "~15 jours (30 oct - 13 nov)",
-                returnDay: "30 oct. (Lendemain)",
-                transport: "Avion ou TGV (~2h)",
-                transportCode: "blue",
-                hasTigre: false,
-                dates: [
-                    { date: "29 Octobre 2026", venue: "LDLC Arena", sold: 7699, capacity: 9768, guests: ["Chicandier"], time: "20h00", badge: "Disponible", order: 16 }
-                ]
+                id: "lyon", city: "Lyon-Décines", lat: 45.7640, lon: 4.8357, lot: 5, isReturnCity: true,
+                rest: "~15 jours (30 oct - 13 nov)", returnDay: "30 oct. (Lendemain)", transport: "Avion ou TGV (~2h)", transportCode: "blue",
+                dates: [{ date: "29 Octobre 2026", venue: "LDLC Arena", sold: 7699, capacity: 9768, guests: ["Chicandier"], time: "20h00", badge: "Disponible", order: 16 }]
             },
             { 
-                id: "paris", 
-                city: "Paris", 
-                lat: 48.8566, 
-                lon: 2.3522, 
-                lot: 6,
-                isReturnCity: true,
-                rest: "Fin de tournée",
-                returnDay: "Déjà sur place",
-                transport: "Déjà sur place",
-                transportCode: "none",
-                hasTigre: true,
+                id: "paris", city: "Paris", lat: 48.8566, lon: 2.3522, lot: 6, isReturnCity: true,
+                rest: "Fin de tournée", returnDay: "Déjà sur place", transport: "Déjà sur place", transportCode: "none",
                 dates: [
                     { date: "14 Novembre 2026", venue: "Adidas Arena", sold: 7303, capacity: 7484, guests: ["Esther Abrami", "Franck Dubosc", "Éric Dupond-Moretti"], time: "20h00", badge: "Complet", order: 17 },
                     { date: "15 Novembre 2026", venue: "Adidas Arena", sold: 5058, capacity: 7484, guests: ["Esther Abrami", "Franck Dubosc", "Éric & Ramzy", "Éric Dupond-Moretti"], time: "18h00", badge: "Disponible", order: 18 }
@@ -546,19 +366,17 @@
         let selectedSubDateIndex = 0;
         let activeTab = 'exclusive';
         let appMode = 'public';
-        let showHelicopters = false;
         let selectedLotFilter = 'all';
 
         const BOUNDS = { minLat: 42.0, maxLat: 51.4, minLon: -5.2, maxLon: 8.8 };
 
         function project(lat, lon, width = 700, height = 680) {
-            const margin = 0.035; // 3.5% margin for maximum map size
+            const margin = 0.035;
             const availableW = width * (1 - 2 * margin);
             const availableH = height * (1 - 2 * margin);
             
             const lonNorm = (lon - BOUNDS.minLon) / (BOUNDS.maxLon - BOUNDS.minLon);
             
-            // Real Mercator Projection scaling for France/Belgium latitude
             const latMercator = Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI / 180) / 2));
             const minLatMerc = Math.log(Math.tan(Math.PI / 4 + (BOUNDS.minLat * Math.PI / 180) / 2));
             const maxLatMerc = Math.log(Math.tan(Math.PI / 4 + (BOUNDS.maxLat * Math.PI / 180) / 2));
@@ -595,12 +413,16 @@
                 return `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)},${p.y.toFixed(1)}`;
             }).join(' ') + ' Z';
 
-            document.getElementById('france-boundary').setAttribute('d', toPathD(franceCoords));
-            document.getElementById('belgium-boundary').setAttribute('d', toPathD(belgiumCoords));
+            const fBoundary = document.getElementById('france-boundary');
+            const bBoundary = document.getElementById('belgium-boundary');
+            if (fBoundary) fBoundary.setAttribute('d', toPathD(franceCoords));
+            if (bBoundary) bBoundary.setAttribute('d', toPathD(belgiumCoords));
         }
 
         function drawReturnArcs() {
             const arcsContainer = document.getElementById('paris-return-arcs');
+            if (!arcsContainer) return;
+
             const paris = SHOWS.find(s => s.id === 'paris');
             const parisPos = project(paris.lat, paris.lon);
 
@@ -638,6 +460,7 @@
 
         function renderMapNodes() {
             const nodesContainer = document.getElementById('map-nodes');
+            if (!nodesContainer) return;
             
             let connectorPath = "";
             SHOWS.forEach((show, i) => {
@@ -645,7 +468,9 @@
                 if (i === 0) connectorPath += `M ${pos.x.toFixed(1)},${pos.y.toFixed(1)}`;
                 else connectorPath += ` L ${pos.x.toFixed(1)},${pos.y.toFixed(1)}`;
             });
-            document.getElementById('tour-connector').setAttribute('d', connectorPath);
+            
+            const connectorEl = document.getElementById('tour-connector');
+            if (connectorEl) connectorEl.setAttribute('d', connectorPath);
 
             const labelOffsets = {
                 "Lyon-Décines": { dx: 16, dy: 4, anchor: "start" },
@@ -678,10 +503,10 @@
                 const isReturnNode = show.isReturnCity && show.id !== 'paris';
                 
                 return `
-                    <g id="node-${show.id}" class="cursor-pointer group node-element" data-lot="${show.lot}" onclick="selectShow('${show.id}')">
+                    <g id="node-${show.id}" class="cursor-pointer group node-element" data-lot="${show.lot}" onclick="selectShow('${show.id}', 0, event)">
+                        <circle cx="${pos.x}" cy="${pos.y}" r="22" class="fill-transparent" />
                         <circle cx="${pos.x}" cy="${pos.y}" r="18" class="fill-[#c5a059]/10 stroke-[#c5a059]/20 stroke-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <circle id="pulse-${show.id}" cx="${pos.x}" cy="${pos.y}" r="26" class="hidden fill-none stroke-[#c5a059]/40 stroke-2 animate-ping" />
-                        <circle id="radar-${show.id}" cx="${pos.x}" cy="${pos.y}" r="30" class="hidden fill-none stroke-red-500/30 stroke-2 animate-ping" />
                         
                         <!-- Core Marker -->
                         <circle id="marker-dot-${show.id}" cx="${pos.x}" cy="${pos.y}" r="7.5" class="fill-[#080808] stroke-[#c5a059] stroke-[2.2] transition-all duration-300 group-hover:fill-[#c5a059]" />
@@ -708,7 +533,7 @@
                         <!-- City Label -->
                         <text x="${pos.x + offset.dx}" y="${pos.y + offset.dy}" text-anchor="${offset.anchor}"
                               style="paint-order: stroke fill; stroke: #080808; stroke-width: 3.5px; stroke-linejoin: round;"
-                              class="fill-gray-100 group-hover:fill-[#e5c17e] transition-colors font-serif text-[13px] md:text-[14px] font-black tracking-wider pointer-events-none">
+                              class="fill-gray-100 group-hover:fill-[#e5c17e] transition-colors font-serif text-[12.5px] md:text-[14px] font-black tracking-wider pointer-events-none">
                             ${show.city}
                         </text>
                     </g>
@@ -718,98 +543,227 @@
             drawReturnArcs();
         }
 
-        function filterByLot(lot) {
-            selectedLotFilter = lot;
+        function normalizeStr(str) {
+            if (!str) return '';
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+        }
+
+        function getSearchIndex() {
+            const index = [];
             
-            const btns = document.querySelectorAll('.lot-btn');
-            btns.forEach(b => {
-                b.classList.remove('bg-[#c5a059]', 'text-black', 'active');
-                b.classList.add('bg-[#181818]', 'text-gray-300');
+            SHOWS.forEach(show => {
+                index.push({ label: show.city, category: 'Ville', showId: show.id });
+                show.dates.forEach(d => {
+                    index.push({ label: d.venue, category: 'Salle', showId: show.id, subtitle: show.city });
+                    d.guests.forEach(g => {
+                        index.push({ label: g, category: "Invité d'Honneur", showId: show.id, subtitle: `${show.city} • ${d.date}` });
+                    });
+                });
             });
-            event.target.classList.add('bg-[#c5a059]', 'text-black', 'active');
-            event.target.classList.remove('bg-[#181818]', 'text-gray-300');
+
+            PERMANENTS.forEach(p => {
+                index.push({ label: p.name, category: 'Permanent', subtitle: p.role });
+            });
+
+            const LOTS = [
+                { label: 'Lot 1 (Ouest)', category: 'Session' },
+                { label: 'Lot 2 (Nord)', category: 'Session' },
+                { label: 'Lot 3 (Sud)', category: 'Session' },
+                { label: 'Lot 4 (Est/BE)', category: 'Session' },
+                { label: 'Lot 5 (Médi)', category: 'Session' }
+            ];
+            LOTS.forEach(l => index.push(l));
+
+            const uniqueMap = new Map();
+            index.forEach(item => {
+                const norm = normalizeStr(item.label);
+                if (!uniqueMap.has(norm)) {
+                    uniqueMap.set(norm, item);
+                }
+            });
+            return Array.from(uniqueMap.values());
+        }
+
+        function handleSearchInput() {
+            filterShows();
+            updateSearchSuggestions();
+        }
+
+        function updateSearchSuggestions() {
+            const input = document.getElementById('search-input');
+            const dropdown = document.getElementById('search-suggestions');
+            if (!input || !dropdown) return;
+
+            const query = input.value;
+            const normQuery = normalizeStr(query);
+
+            if (normQuery.length < 2) {
+                dropdown.classList.add('hidden');
+                dropdown.innerHTML = '';
+                return;
+            }
+
+            const searchIndex = getSearchIndex();
+            const matches = searchIndex.filter(item => {
+                const normLabel = normalizeStr(item.label);
+                const normSub = normalizeStr(item.subtitle);
+                return normLabel.includes(normQuery) || normSub.includes(normQuery);
+            }).slice(0, 6);
+
+            if (matches.length === 0) {
+                dropdown.classList.add('hidden');
+                dropdown.innerHTML = '';
+                return;
+            }
+
+            dropdown.innerHTML = matches.map(item => `
+                <div onclick="selectSuggestion('${item.label.replace(/'/g, "\\'")}', '${item.showId || ''}', event)" 
+                     class="px-3 py-2.5 hover:bg-[#252525] active:bg-[#303030] cursor-pointer flex items-center justify-between gap-2 transition-colors">
+                    <div class="min-w-0 flex-1">
+                        <p class="text-xs font-bold text-white tracking-wide truncate">${highlightMatch(item.label, query)}</p>
+                        ${item.subtitle ? `<p class="text-[9.5px] text-gray-400 font-medium truncate">${item.subtitle}</p>` : ''}
+                    </div>
+                    <span class="text-[8px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#c5a059]/10 text-[#c5a059] border border-[#c5a059]/20 shrink-0">${item.category}</span>
+                </div>
+            `).join('');
+
+            dropdown.classList.remove('hidden');
+        }
+
+        function highlightMatch(text, query) {
+            const normText = normalizeStr(text);
+            const normQuery = normalizeStr(query);
+            const idx = normText.indexOf(normQuery);
+            if (idx === -1) return text;
+            
+            const originalMatch = text.substring(idx, idx + query.length);
+            return text.substring(0, idx) + `<span class="text-[#c5a059] underline underline-offset-2">${originalMatch}</span>` + text.substring(idx + query.length);
+        }
+
+        function selectSuggestion(label, showId, event) {
+            if (event) event.stopPropagation();
+            const input = document.getElementById('search-input');
+            const dropdown = document.getElementById('search-suggestions');
+            
+            if (input) {
+                input.value = label;
+                input.blur();
+            }
+            if (dropdown) dropdown.classList.add('hidden');
+
+            filterShows();
+
+            if (showId) {
+                selectShow(showId, 0);
+            } else {
+                handleSearchSubmit(event);
+            }
+        }
+
+        function filterShows() {
+            const input = document.getElementById('search-input');
+            if (!input) return;
+            const query = normalizeStr(input.value);
+            
+            if (!query) {
+                SHOWS.forEach(show => {
+                    const node = document.getElementById(`node-${show.id}`);
+                    if (node) {
+                        node.style.opacity = (selectedLotFilter === 'all' || show.lot === selectedLotFilter) ? "1" : "0.25";
+                    }
+                });
+                const countEl = document.getElementById('tour-count');
+                if (countEl) countEl.textContent = `${SHOWS.length} ÉTAPES`;
+                return;
+            }
+
+            const LOT_KEYWORDS = {
+                1: ["lot 1", "lot 1 (ouest)", "ouest"],
+                2: ["lot 2", "lot 2 (nord)", "nord"],
+                3: ["lot 3", "lot 3 (sud)", "sud"],
+                4: ["lot 4", "lot 4 (est/be)", "est", "be", "belgique", "bruxelles"],
+                5: ["lot 5", "lot 5 (médi)", "médi", "mediterranee", "méditerranée"]
+            };
+
+            const matchesPermanent = PERMANENTS.some(p => 
+                normalizeStr(p.name).includes(query) || 
+                normalizeStr(p.role).includes(query) || 
+                normalizeStr(p.desc).includes(query)
+            );
+
+            let count = 0;
 
             SHOWS.forEach(show => {
                 const node = document.getElementById(`node-${show.id}`);
-                if (!node) return;
+                
+                const matchesCity = normalizeStr(show.city).includes(query);
+                const lotAliases = LOT_KEYWORDS[show.lot] || [];
+                const matchesLot = `lot ${show.lot}`.includes(query) || lotAliases.some(alias => normalizeStr(alias).includes(query) || query.includes(normalizeStr(alias)));
 
-                if (lot === 'all' || show.lot === lot) {
-                    node.style.opacity = "1";
+                const matchesDatesOrGuests = show.dates.some(d => 
+                    normalizeStr(d.venue).includes(query) ||
+                    normalizeStr(d.date).includes(query) ||
+                    normalizeStr(d.time).includes(query) ||
+                    normalizeStr(d.badge).includes(query) ||
+                    d.guests.some(g => normalizeStr(g).includes(query))
+                );
+
+                const matchesLogistics = normalizeStr(show.rest).includes(query) ||
+                    normalizeStr(show.returnDay).includes(query) ||
+                    normalizeStr(show.transport).includes(query);
+
+                const isMatch = matchesCity || matchesLot || matchesDatesOrGuests || matchesLogistics || matchesPermanent;
+
+                if (isMatch) {
+                    if (node) node.style.opacity = "1";
+                    count++;
                 } else {
-                    node.style.opacity = "0.25";
+                    if (node) node.style.opacity = "0.15";
                 }
             });
 
-            drawReturnArcs();
+            const countEl = document.getElementById('tour-count');
+            if (countEl) countEl.textContent = `${count} ÉTAPE${count > 1 ? 'S' : ''}`;
         }
 
-        function setAppMode(mode) {
-            appMode = mode;
-            const btnPublic = document.getElementById('btn-mode-public');
-            const btnGuillaume = document.getElementById('btn-mode-guillaume');
-            const wrapCapacity = document.getElementById('wrapper-capacity');
-            const wrapLogistics = document.getElementById('wrapper-logistics');
+        function handleSearchSubmit(event) {
+            if (event) event.preventDefault();
+            
+            const dropdown = document.getElementById('search-suggestions');
+            if (dropdown) dropdown.classList.add('hidden');
 
-            if (mode === 'public') {
-                btnPublic.className = "py-2 px-2.5 rounded-xl border border-[#c5a059] text-[11px] font-bold uppercase tracking-wider text-[#c5a059] bg-[#c5a059]/10 transition-all flex items-center justify-center gap-1.5";
-                btnGuillaume.className = "py-2 px-2.5 rounded-xl border border-gray-800 text-[11px] font-bold uppercase tracking-wider text-gray-400 hover:text-gray-200 hover:border-gray-700 transition-all flex items-center justify-center gap-1.5";
-                wrapCapacity.classList.remove('hidden');
-                wrapLogistics.classList.add('hidden');
+            const input = document.getElementById('search-input');
+            if (input) input.blur();
+
+            const rawQuery = input ? input.value : '';
+            const query = normalizeStr(rawQuery);
+            if (!query) return;
+
+            filterShows();
+
+            const matchingShows = SHOWS.filter(show => {
+                const matchesCity = normalizeStr(show.city).includes(query);
+                const matchesDatesOrGuests = show.dates.some(d => 
+                    normalizeStr(d.venue).includes(query) ||
+                    normalizeStr(d.date).includes(query) ||
+                    d.guests.some(g => normalizeStr(g).includes(query))
+                );
+                return matchesCity || matchesDatesOrGuests;
+            });
+
+            if (matchingShows.length === 1) {
+                selectShow(matchingShows[0].id, 0);
             } else {
-                btnGuillaume.className = "py-2 px-2.5 rounded-xl border border-[#c5a059] text-[11px] font-bold uppercase tracking-wider text-[#c5a059] bg-[#c5a059]/10 transition-all flex items-center justify-center gap-1.5";
-                btnPublic.className = "py-2 px-2.5 rounded-xl border border-gray-800 text-[11px] font-bold uppercase tracking-wider text-gray-400 hover:text-gray-200 hover:border-gray-700 transition-all flex items-center justify-center gap-1.5";
-                wrapCapacity.classList.add('hidden');
-                wrapLogistics.classList.remove('hidden');
+                closeSidebar(false);
             }
-
-            document.querySelectorAll('.return-emblem').forEach(el => {
-                if (mode === 'guillaume') el.classList.remove('hidden');
-                else el.classList.add('hidden');
-            });
-
-            drawReturnArcs();
-            updateMapModeVisuals();
         }
 
-        function updateMapModeVisuals() {
-            SHOWS.forEach(show => {
-                const dot = document.getElementById(`marker-dot-${show.id}`);
-                const bg = document.getElementById(`badge-bg-${show.id}`);
-                const txt = document.getElementById(`badge-txt-${show.id}`);
+        function selectShow(id, subDateIndex = 0, event) {
+            if (event) event.stopPropagation();
 
-                if (!dot || !bg || !txt) return;
+            const dropdown = document.getElementById('search-suggestions');
+            if (dropdown) dropdown.classList.add('hidden');
 
-                if (appMode === 'public') {
-                    dot.setAttribute('stroke', '#c5a059');
-                    bg.setAttribute('stroke', '#c5a059');
-                    txt.style.fill = '#c5a059';
-                } else {
-                    let colorCode = '#ffffff';
-                    if (show.transportCode === 'car') colorCode = '#10b981';
-                    else if (show.transportCode === 'blue') colorCode = '#3b82f6';
-                    else if (show.transportCode === 'direct') colorCode = '#ef4444';
-                    else colorCode = '#6b7280';
-
-                    dot.setAttribute('stroke', colorCode);
-                    bg.setAttribute('stroke', colorCode);
-                    txt.style.fill = colorCode;
-                }
-            });
-        }
-
-        function toggleHelicopterZones() {
-            showHelicopters = document.getElementById('toggle-helicopter').checked;
-            SHOWS.forEach(show => {
-                const radar = document.getElementById(`radar-${show.id}`);
-                if (radar) {
-                    if (showHelicopters && show.hasTigre) radar.classList.remove('hidden');
-                    else radar.classList.add('hidden');
-                }
-            });
-            selectShow(activeShowId, selectedSubDateIndex);
-        }
-
-        function selectShow(id, subDateIndex = 0) {
             const prevPulse = document.getElementById(`pulse-${activeShowId}`);
             if (prevPulse) prevPulse.classList.add('hidden');
 
@@ -817,8 +771,14 @@
             selectedSubDateIndex = subDateIndex;
 
             const sidebar = document.getElementById('sidebar-panel');
-            sidebar.classList.remove('lg:w-[0px]', 'opacity-0');
-            sidebar.classList.add('lg:w-[380px]', 'opacity-100');
+            const reopenBtn = document.getElementById('btn-reopen-panel');
+
+            if (sidebar) {
+                sidebar.style.transform = 'translateY(0)';
+                sidebar.classList.remove('opacity-0');
+                sidebar.classList.add('opacity-100');
+            }
+            if (reopenBtn) reopenBtn.classList.add('hidden');
 
             const activePulse = document.getElementById(`pulse-${id}`);
             if (activePulse) activePulse.classList.remove('hidden');
@@ -858,7 +818,7 @@
                             ? "bg-[#c5a059] text-[#0a0a0a] font-bold" 
                             : "bg-[#202020] text-gray-300 hover:bg-[#303030]";
                         return `
-                            <button onclick="selectShow('${id}', ${index})" class="flex-1 py-1.5 text-[9px] uppercase tracking-wide rounded-lg transition-all ${activeBtnClass}">
+                            <button onclick="selectShow('${id}', ${index}, event)" class="flex-1 py-1.5 text-[9px] uppercase tracking-wide rounded-lg transition-all ${activeBtnClass}">
                                 ${d.date.split(' ')[0]} ${d.date.split(' ')[1].substring(0,3)}.
                             </button>
                         `;
@@ -882,10 +842,6 @@
                     transIcon.textContent = "swap_calls";
                     transIcon.className = "material-icons text-sm text-red-400";
                 }
-
-                const landingBox = document.getElementById('wrapper-tiger-landing');
-                if (show.hasTigre && showHelicopters) landingBox.classList.remove('hidden');
-                else landingBox.classList.add('hidden');
 
                 const guestsContainer = document.getElementById('exclusive-guests-container');
                 if (dateData.guests.length === 0) {
@@ -916,6 +872,134 @@
             switchTab('exclusive');
         }
 
+        function closeSidebar(showReopenButton = true) {
+            const sidebar = document.getElementById('sidebar-panel');
+            const reopenBtn = document.getElementById('btn-reopen-panel');
+
+            if (sidebar) {
+                sidebar.style.transform = '';
+                sidebar.classList.remove('opacity-100');
+                sidebar.classList.add('opacity-0');
+            }
+
+            if (reopenBtn) {
+                if (showReopenButton && activeShowId) {
+                    reopenBtn.classList.remove('hidden');
+                } else {
+                    reopenBtn.classList.add('hidden');
+                }
+            }
+
+            const activePulse = document.getElementById(`pulse-${activeShowId}`);
+            if (activePulse) activePulse.classList.add('hidden');
+        }
+
+        function reopenSidebar(event) {
+            if (event) event.stopPropagation();
+            if (activeShowId) {
+                selectShow(activeShowId, selectedSubDateIndex);
+            } else if (SHOWS.length > 0) {
+                selectShow(SHOWS[0].id, 0);
+            }
+        }
+
+        function onMapBackgroundClick(event) {
+            const dropdown = document.getElementById('search-suggestions');
+            if (dropdown) dropdown.classList.add('hidden');
+
+            const input = document.getElementById('search-input');
+            if (input) input.blur();
+
+            if (event && event.target && event.target.closest('#sidebar-panel, #btn-reopen-panel, .node-element')) {
+                return;
+            }
+
+            closeSidebar(true);
+        }
+
+        function filterByLot(lot, event) {
+            if (event) event.stopPropagation();
+            selectedLotFilter = lot;
+            
+            const btns = document.querySelectorAll('.lot-btn');
+            btns.forEach(b => {
+                b.classList.remove('bg-[#c5a059]', 'text-black', 'active');
+                b.classList.add('bg-[#181818]', 'text-gray-300');
+            });
+            if (event && event.target) {
+                event.target.classList.add('bg-[#c5a059]', 'text-black', 'active');
+                event.target.classList.remove('bg-[#181818]', 'text-gray-300');
+            }
+
+            SHOWS.forEach(show => {
+                const node = document.getElementById(`node-${show.id}`);
+                if (!node) return;
+
+                if (lot === 'all' || show.lot === lot) {
+                    node.style.opacity = "1";
+                } else {
+                    node.style.opacity = "0.25";
+                }
+            });
+
+            drawReturnArcs();
+            closeSidebar(true);
+        }
+
+        function setAppMode(mode) {
+            appMode = mode;
+            const btnPublic = document.getElementById('btn-mode-public');
+            const btnGuillaume = document.getElementById('btn-mode-guillaume');
+            const wrapCapacity = document.getElementById('wrapper-capacity');
+            const wrapLogistics = document.getElementById('wrapper-logistics');
+
+            if (mode === 'public') {
+                if (btnPublic) btnPublic.className = "py-2 px-2.5 rounded-xl border border-[#c5a059] text-[10px] font-bold uppercase tracking-wider text-[#c5a059] bg-[#c5a059]/10 transition-all flex items-center justify-center gap-1.5 active:scale-95";
+                if (btnGuillaume) btnGuillaume.className = "py-2 px-2.5 rounded-xl border border-gray-800 text-[10px] font-bold uppercase tracking-wider text-gray-400 hover:text-gray-200 transition-all flex items-center justify-center gap-1.5 active:scale-95";
+                if (wrapCapacity) wrapCapacity.classList.remove('hidden');
+                if (wrapLogistics) wrapLogistics.classList.add('hidden');
+            } else {
+                if (btnGuillaume) btnGuillaume.className = "py-2 px-2.5 rounded-xl border border-[#c5a059] text-[10px] font-bold uppercase tracking-wider text-[#c5a059] bg-[#c5a059]/10 transition-all flex items-center justify-center gap-1.5 active:scale-95";
+                if (btnPublic) btnPublic.className = "py-2 px-2.5 rounded-xl border border-gray-800 text-[10px] font-bold uppercase tracking-wider text-gray-400 hover:text-gray-200 transition-all flex items-center justify-center gap-1.5 active:scale-95";
+                if (wrapCapacity) wrapCapacity.classList.add('hidden');
+                if (wrapLogistics) wrapLogistics.classList.remove('hidden');
+            }
+
+            document.querySelectorAll('.return-emblem').forEach(el => {
+                if (mode === 'guillaume') el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
+
+            drawReturnArcs();
+            updateMapModeVisuals();
+        }
+
+        function updateMapModeVisuals() {
+            SHOWS.forEach(show => {
+                const dot = document.getElementById(`marker-dot-${show.id}`);
+                const bg = document.getElementById(`badge-bg-${show.id}`);
+                const txt = document.getElementById(`badge-txt-${show.id}`);
+
+                if (!dot || !bg || !txt) return;
+
+                if (appMode === 'public') {
+                    dot.setAttribute('stroke', '#c5a059');
+                    bg.setAttribute('stroke', '#c5a059');
+                    txt.style.fill = '#c5a059';
+                } else {
+                    let colorCode = '#ffffff';
+                    if (show.transportCode === 'car') colorCode = '#10b981';
+                    else if (show.transportCode === 'blue') colorCode = '#3b82f6';
+                    else if (show.transportCode === 'direct') colorCode = '#ef4444';
+                    else colorCode = '#6b7280';
+
+                    dot.setAttribute('stroke', colorCode);
+                    bg.setAttribute('stroke', colorCode);
+                    txt.style.fill = colorCode;
+                }
+            });
+        }
+
         function switchTab(tab) {
             activeTab = tab;
             const tabEx = document.getElementById('tab-exclusive');
@@ -924,20 +1008,21 @@
             const contentPerm = document.getElementById('content-permanents');
 
             if (tab === 'exclusive') {
-                tabEx.className = "flex-1 pb-2.5 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-[#c5a059] text-[#c5a059] transition-all";
-                tabPerm.className = "flex-1 pb-2.5 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-gray-400 hover:text-gray-300 transition-all";
-                contentEx.classList.remove('hidden');
-                contentPerm.classList.add('hidden');
+                if (tabEx) tabEx.className = "flex-1 pb-2.5 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-[#c5a059] text-[#c5a059] transition-all";
+                if (tabPerm) tabPerm.className = "flex-1 pb-2.5 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-gray-400 hover:text-gray-300 transition-all";
+                if (contentEx) contentEx.classList.remove('hidden');
+                if (contentPerm) contentPerm.classList.add('hidden');
             } else {
-                tabPerm.className = "flex-1 pb-2.5 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-[#c5a059] text-[#c5a059] transition-all";
-                tabEx.className = "flex-1 pb-2.5 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-gray-400 hover:text-gray-300 transition-all";
-                contentPerm.classList.remove('hidden');
-                contentEx.classList.add('hidden');
+                if (tabPerm) tabPerm.className = "flex-1 pb-2.5 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-[#c5a059] text-[#c5a059] transition-all";
+                if (tabEx) tabEx.className = "flex-1 pb-2.5 text-center text-xs font-bold uppercase tracking-wider border-b-2 border-transparent text-gray-400 hover:text-gray-300 transition-all";
+                if (contentPerm) contentPerm.classList.remove('hidden');
+                if (contentEx) contentEx.classList.add('hidden');
             }
         }
 
         function renderPermanents() {
             const container = document.getElementById('permanents-list');
+            if (!container) return;
             container.innerHTML = PERMANENTS.map(p => `
                 <div class="bg-[#141414]/60 border border-gray-800/80 p-3 rounded-xl space-y-1">
                     <div class="flex items-center justify-between">
@@ -950,44 +1035,92 @@
             `).join('');
         }
 
-        function closeSidebar() {
+        function initBottomSheetSwipe() {
             const sidebar = document.getElementById('sidebar-panel');
-            sidebar.classList.add('lg:w-[0px]', 'opacity-0');
-            sidebar.classList.remove('lg:w-[380px]', 'opacity-100');
+            const dragZone = document.getElementById('drag-handle-zone');
+            const scrollBody = document.getElementById('drawer-scroll-body');
 
-            const activePulse = document.getElementById(`pulse-${activeShowId}`);
-            if (activePulse) activePulse.classList.add('hidden');
-        }
+            if (!sidebar || !dragZone) return;
 
-        function filterShows() {
-            const query = document.getElementById('search-input').value.toLowerCase().trim();
-            let count = 0;
+            let startY = 0;
+            let currentY = 0;
+            let isDragging = false;
 
-            SHOWS.forEach(show => {
-                const node = document.getElementById(`node-${show.id}`);
-                const matchesCity = show.city.toLowerCase().includes(query);
-                const matchesVenue = show.dates.some(d => d.venue.toLowerCase().includes(query));
-                const matchesGuests = show.dates.some(d => d.guests.some(g => g.toLowerCase().includes(query)));
+            const onTouchStart = (e) => {
+                if (scrollBody && scrollBody.scrollTop > 0 && e.target !== dragZone && !dragZone.contains(e.target)) {
+                    return;
+                }
 
-                if (matchesCity || matchesVenue || matchesGuests) {
-                    if (node) node.style.opacity = "1";
-                    count++;
+                startY = e.touches[0].clientY;
+                currentY = startY;
+                isDragging = true;
+                sidebar.style.transition = 'none';
+            };
+
+            const onTouchMove = (e) => {
+                if (!isDragging) return;
+
+                currentY = e.touches[0].clientY;
+                const deltaY = currentY - startY;
+
+                if (deltaY > 0) {
+                    sidebar.style.transform = `translateY(${deltaY}px)`;
+                    if (e.cancelable) e.preventDefault();
+                }
+            };
+
+            const onTouchEnd = () => {
+                if (!isDragging) return;
+                isDragging = false;
+
+                sidebar.style.transition = '';
+
+                const deltaY = currentY - startY;
+                if (deltaY > 60) {
+                    closeSidebar(true);
                 } else {
-                    if (node) node.style.opacity = "0.2";
+                    sidebar.style.transform = 'translateY(0)';
+                }
+
+                startY = 0;
+                currentY = 0;
+            };
+
+            dragZone.addEventListener('click', (e) => {
+                if (Math.abs(currentY - startY) < 5) {
+                    closeSidebar(true);
                 }
             });
 
-            document.getElementById('tour-count').textContent = `${count} ÉTAPES`;
+            dragZone.addEventListener('touchstart', onTouchStart, { passive: false });
+            dragZone.addEventListener('touchmove', onTouchMove, { passive: false });
+            dragZone.addEventListener('touchend', onTouchEnd, { passive: true });
+
+            sidebar.addEventListener('touchstart', onTouchStart, { passive: true });
+            sidebar.addEventListener('touchmove', onTouchMove, { passive: false });
+            sidebar.addEventListener('touchend', onTouchEnd, { passive: true });
         }
+
+        // Close dropdown when tapping outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('search-suggestions');
+            const searchInput = document.getElementById('search-input');
+            if (dropdown && !dropdown.contains(e.target) && e.target !== searchInput) {
+                dropdown.classList.add('hidden');
+            }
+        });
 
         function initApp() {
             drawBoundaries();
             renderMapNodes();
             renderPermanents();
             updateMapModeVisuals();
+            initBottomSheetSwipe();
         }
 
-        window.onload = initApp;
+        window.addEventListener('DOMContentLoaded', initApp);
+        window.addEventListener('load', initApp);
+        initApp();
     </script>
 </body>
 </html>
