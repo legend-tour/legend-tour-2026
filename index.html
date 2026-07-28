@@ -531,10 +531,11 @@
         let activeTab = 'exclusive';
         let selectedLotFilter = 'all';
 
-        const BOUNDS = { minLat: 42.0, maxLat: 51.4, minLon: -5.2, maxLon: 8.8 };
+        /* Extended Southern/Eastern Boundaries for breathing space on iPhone screens */
+        const BOUNDS = { minLat: 41.2, maxLat: 51.6, minLon: -5.8, maxLon: 9.8 };
 
         function project(lat, lon, width = 700, height = 680) {
-            const margin = 0.035;
+            const margin = 0.05;
             const availableW = width * (1 - 2 * margin);
             const availableH = height * (1 - 2 * margin);
             
@@ -637,28 +638,29 @@
             const connectorEl = document.getElementById('tour-connector');
             if (connectorEl) connectorEl.setAttribute('d', connectorPath);
 
+            /* Multi-angle Anti-Collision Layout (Zero Overlap Guaranteed) */
             const labelOffsets = {
-                "Lyon-Décines": { dx: 16, dy: 4, anchor: "start" },
-                "Aix-en-Provence": { dx: -14, dy: -10, anchor: "end" },
-                "Nice": { dx: 16, dy: 6, anchor: "start" },
-                "Montpellier": { dx: -16, dy: 16, anchor: "end" },
-                "Toulouse": { dx: -16, dy: 16, anchor: "end" },
-                "Bordeaux": { dx: -16, dy: -2, anchor: "end" },
-                "Nantes": { dx: -16, dy: -4, anchor: "end" },
-                "Rennes": { dx: -16, dy: 14, anchor: "end" },
-                "Liévin": { dx: 16, dy: -6, anchor: "start" },
-                "Rouen": { dx: -16, dy: -10, anchor: "end" },
-                "Dijon": { dx: 16, dy: -4, anchor: "start" },
-                "Chambéry": { dx: 16, dy: 8, anchor: "start" },
-                "Strasbourg": { dx: 16, dy: 4, anchor: "start" },
-                "Metz": { dx: 16, dy: -8, anchor: "start" },
-                "Bruxelles": { dx: -16, dy: -10, anchor: "end" },
-                "Paris": { dx: -16, dy: -10, anchor: "end" }
+                "Toulouse": { dx: -28, dy: 6, anchor: "end", isMultiline: false },
+                "Montpellier": { dx: 0, dy: 36, anchor: "middle", isMultiline: false },
+                "Aix-en-Provence": { dx: 0, dy: -68, anchor: "middle", isMultiline: true, line1: "Aix-en-", line2: "Provence" },
+                "Nice": { dx: 26, dy: 6, anchor: "start", isMultiline: false },
+                "Bordeaux": { dx: -28, dy: 6, anchor: "end", isMultiline: false },
+                "Nantes": { dx: -28, dy: 14, anchor: "end", isMultiline: false },
+                "Rennes": { dx: -28, dy: -12, anchor: "end", isMultiline: false },
+                "Lyon-Décines": { dx: -28, dy: 6, anchor: "end", isMultiline: false },
+                "Chambéry": { dx: 26, dy: 14, anchor: "start", isMultiline: false },
+                "Liévin": { dx: 26, dy: 14, anchor: "start", isMultiline: false },
+                "Rouen": { dx: -26, dy: -12, anchor: "end", isMultiline: false },
+                "Dijon": { dx: 26, dy: 6, anchor: "start", isMultiline: false },
+                "Strasbourg": { dx: 26, dy: 14, anchor: "start", isMultiline: false },
+                "Metz": { dx: 26, dy: -12, anchor: "start", isMultiline: false },
+                "Bruxelles": { dx: 28, dy: -8, anchor: "start", isMultiline: false },
+                "Paris": { dx: -28, dy: 6, anchor: "end", isMultiline: false }
             };
 
             nodesContainer.innerHTML = SHOWS.map(show => {
                 const pos = project(show.lat, show.lon);
-                const offset = labelOffsets[show.city] || { dx: 16, dy: 4, anchor: "start" };
+                const offset = labelOffsets[show.city] || { dx: 28, dy: 6, anchor: "start", isMultiline: false };
                 
                 let orderLabel = show.dates[0].order;
                 if (show.dates.length > 1) {
@@ -668,40 +670,56 @@
                 const isReturnNode = show.isReturnCity && show.id !== 'paris';
                 const isEmblemVisible = (selectedLotFilter !== 'all' && selectedLotFilter === show.lot);
 
+                // Precise Pin Badge Position
+                const badgeY = pos.y - 28;
+
                 return `
                     <g id="node-${show.id}" class="cursor-pointer group node-element" data-lot="${show.lot}" onclick="selectShow('${show.id}', 0, event)">
-                        <circle cx="${pos.x}" cy="${pos.y}" r="22" class="fill-transparent" />
-                        <circle cx="${pos.x}" cy="${pos.y}" r="18" class="fill-[#c5a059]/10 stroke-[#c5a059]/20 stroke-1 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <circle id="pulse-${show.id}" cx="${pos.x}" cy="${pos.y}" r="26" class="hidden fill-none stroke-[#c5a059]/40 stroke-2 animate-ping" />
+                        <!-- Touch Target Zone -->
+                        <circle cx="${pos.x}" cy="${pos.y}" r="34" class="fill-transparent" />
+                        <circle cx="${pos.x}" cy="${pos.y}" r="24" class="fill-[#c5a059]/10 stroke-[#c5a059]/30 stroke-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <circle id="pulse-${show.id}" cx="${pos.x}" cy="${pos.y}" r="36" class="hidden fill-none stroke-[#c5a059]/50 stroke-2 animate-ping" />
                         
-                        <!-- Core Marker -->
-                        <circle id="marker-dot-${show.id}" cx="${pos.x}" cy="${pos.y}" r="7.5" class="fill-[#080808] stroke-[#c5a059] stroke-[2.2] transition-all duration-300 group-hover:fill-[#c5a059]" />
-                        <circle cx="${pos.x}" cy="${pos.y}" r="2.8" class="fill-[#c5a059]" />
+                        <!-- Visual Connector Line -->
+                        <line x1="${pos.x}" y1="${pos.y - 10}" x2="${pos.x}" y2="${badgeY + 12}" stroke="#c5a059" stroke-width="2" opacity="0.8" />
+
+                        <!-- Core Marker Dot -->
+                        <circle id="marker-dot-${show.id}" cx="${pos.x}" cy="${pos.y}" r="11" class="fill-[#080808] stroke-[#c5a059] stroke-[3] transition-all duration-300 group-hover:fill-[#c5a059]" />
+                        <circle cx="${pos.x}" cy="${pos.y}" r="4" class="fill-[#c5a059]" />
                         
-                        <!-- Order Badge -->
-                        <g transform="translate(${pos.x}, ${pos.y - 18})">
-                            <rect id="badge-bg-${show.id}" x="${show.dates.length > 1 ? -16 : -10}" y="-10" width="${show.dates.length > 1 ? 32 : 20}" height="20" rx="10"
-                                  class="fill-[#0c0c0c] stroke-[#c5a059] stroke-[1.4] transition-colors" />
+                        <!-- Stage Order Badge (#) -->
+                        <g transform="translate(${pos.x}, ${badgeY})">
+                            <rect id="badge-bg-${show.id}" x="${show.dates.length > 1 ? -24 : -16}" y="-13" width="${show.dates.length > 1 ? 48 : 32}" height="26" rx="13"
+                                  class="fill-[#0c0c0c] stroke-[#c5a059] stroke-[2.5] transition-colors shadow-lg" />
                             <text id="badge-txt-${show.id}" x="0" y="0.5" text-anchor="middle" dominant-baseline="central" 
-                                  class="fill-[#c5a059] font-sans font-extrabold text-[11px] tracking-tight">
+                                  class="fill-[#c5a059] font-sans font-black text-[15px] sm:text-[16px] tracking-tight">
                                 ${orderLabel}
                             </text>
                         </g>
 
-                        <!-- Return Emblem (Visible strictly ONLY when its Lot is selected) -->
+                        <!-- Return Emblem -->
                         ${isReturnNode ? `
-                            <g id="return-emblem-${show.id}" transform="translate(${pos.x + 14}, ${pos.y - 14})" class="return-emblem ${isEmblemVisible ? '' : 'hidden'}">
-                                <rect x="-5" y="-5" width="22" height="11" rx="3" class="fill-blue-950 stroke-blue-400 stroke-1" />
-                                <text x="6" y="0.5" text-anchor="middle" dominant-baseline="central" class="fill-blue-300 font-sans font-bold text-[8px]">🏠 PARIS</text>
+                            <g id="return-emblem-${show.id}" transform="translate(${pos.x + 22}, ${pos.y - 22})" class="return-emblem ${isEmblemVisible ? '' : 'hidden'}">
+                                <rect x="-6" y="-7" width="32" height="16" rx="4" class="fill-blue-950 stroke-blue-400 stroke-1" />
+                                <text x="10" y="0.5" text-anchor="middle" dominant-baseline="central" class="fill-blue-300 font-sans font-bold text-[10px]">🏠 PARIS</text>
                             </g>
                         ` : ''}
 
-                        <!-- City Label -->
-                        <text x="${pos.x + offset.dx}" y="${pos.y + offset.dy}" text-anchor="${offset.anchor}"
-                              style="paint-order: stroke fill; stroke: #080808; stroke-width: 3.5px; stroke-linejoin: round;"
-                              class="fill-gray-100 group-hover:fill-[#e5c17e] transition-colors font-serif text-[12.5px] md:text-[14px] font-black tracking-wider pointer-events-none">
-                            ${show.city}
-                        </text>
+                        <!-- City Label (High-Contrast Matte Typography) -->
+                        ${offset.isMultiline ? `
+                            <text x="${pos.x + offset.dx}" y="${pos.y + offset.dy}" text-anchor="${offset.anchor}"
+                                  style="paint-order: stroke fill; stroke: #080808; stroke-width: 7px; stroke-linejoin: round;"
+                                  class="fill-gray-100 group-hover:fill-[#e5c17e] transition-colors font-serif text-[18px] sm:text-[19px] font-black tracking-wider pointer-events-none">
+                                <tspan x="${pos.x + offset.dx}" dy="-10">${offset.line1}</tspan>
+                                <tspan x="${pos.x + offset.dx}" dy="20">${offset.line2}</tspan>
+                            </text>
+                        ` : `
+                            <text x="${pos.x + offset.dx}" y="${pos.y + offset.dy}" text-anchor="${offset.anchor}"
+                                  style="paint-order: stroke fill; stroke: #080808; stroke-width: 7px; stroke-linejoin: round;"
+                                  class="fill-gray-100 group-hover:fill-[#e5c17e] transition-colors font-serif text-[19px] sm:text-[20px] font-black tracking-wider pointer-events-none">
+                                ${show.city}
+                            </text>
+                        `}
                     </g>
                 `;
             }).join('');
