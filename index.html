@@ -1,40 +1,1104 @@
-<!DOCTYPE html>
-<html lang="fr" class="h-full bg-black">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Legend Tour 2026 - Carte Interactive Officielle</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cinzel:wght@600;700;900&display=swap" rel="stylesheet">
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
-    <style>
-        .font-serif { font-family: 'Cinzel', Georgia, serif; }
-        .font-sans { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+import { TourShow, SeriesInfo, PermanentIntervenant } from '../types';
 
-        /* Custom Scrollbar */
-        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #080808; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #222222; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #c5a059; }
+export const SHOWS: TourShow[] = [
+  {
+    id: "bordeaux",
+    city: "Bordeaux",
+    lat: 44.8378,
+    lon: -0.5792,
+    lot: 1,
+    series: 1,
+    isReturnCity: false,
+    rest: "2 jours",
+    returnDay: "Nuit du show",
+    transport: "Train / Van",
+    transportCode: "train",
+    dates: [
+      {
+        date: "06 Octobre 2026",
+        dateISO: "2026-10-06",
+        venue: "Arkéa Arena",
+        sold: 11300,
+        capacity: 11300,
+        guests: ["Gérard Darmon", "Gringe"],
+        time: "20h00",
+        order: 1,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Parking technique VIP situé Rue Jean-Jacques Bosc",
+        wifiBackstage: { ssid: "ARKEA_BACKSTAGE", password: "Legend2026_Bdx" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "nantes",
+    city: "Nantes",
+    lat: 47.2184,
+    lon: -1.5536,
+    lot: 1,
+    series: 1,
+    isReturnCity: false,
+    rest: "1 jour",
+    returnDay: "Nuit du show",
+    transport: "Van",
+    transportCode: "van",
+    dates: [
+      {
+        date: "08 Octobre 2026",
+        dateISO: "2026-10-08",
+        venue: "Zénith de Nantes",
+        sold: 9000,
+        capacity: 9000,
+        guests: ["Manu Payet"],
+        time: "20h00",
+        order: 2,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Accès Quai de la Carrière",
+        wifiBackstage: { ssid: "ZENITH_NANTES_VIP", password: "LegendNantes26" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "rennes",
+    city: "Rennes",
+    lat: 48.1173,
+    lon: -1.6778,
+    lot: 1,
+    series: 1,
+    isReturnCity: true,
+    rest: "2 jours",
+    returnDay: "Lendemain matin",
+    transport: "Train / TGV",
+    transportCode: "train",
+    dates: [
+      {
+        date: "10 Octobre 2026",
+        dateISO: "2026-10-10",
+        venue: "Glaz Arena",
+        sold: 4500,
+        capacity: 4500,
+        guests: ["Paul Mirabel"],
+        time: "20h00",
+        order: 3,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Parking P1 Glaz Arena Cesson-Sévigné",
+        wifiBackstage: { ssid: "GLAZ_VIP_GUESTS", password: "LegendGlaz2026" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "lievin",
+    city: "Liévin",
+    lat: 50.4214,
+    lon: 2.7781,
+    lot: 2,
+    series: 2,
+    isReturnCity: false,
+    rest: "1 jour",
+    returnDay: "Nuit du show",
+    transport: "Van",
+    transportCode: "van",
+    dates: [
+      {
+        date: "11 Octobre 2026",
+        dateISO: "2026-10-11",
+        venue: "Arena Stade Couvert",
+        sold: 10000,
+        capacity: 10000,
+        guests: ["Kyan Khojandi", "Navo"],
+        time: "18h00",
+        order: 4,
+        loadIn: "12h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Zone P2 technique Pistes d'Athlétisme",
+        wifiBackstage: { ssid: "ARENA_LIEVIN_LOGES", password: "LegendLievin26" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "rouen",
+    city: "Rouen",
+    lat: 49.4432,
+    lon: 1.0999,
+    lot: 2,
+    series: 2,
+    isReturnCity: true,
+    rest: "2 jours",
+    returnDay: "Nuit du show",
+    transport: "Van",
+    transportCode: "van",
+    dates: [
+      {
+        date: "13 Octobre 2026",
+        dateISO: "2026-10-13",
+        venue: "Zénith de Rouen",
+        sold: 8000,
+        capacity: 8000,
+        guests: ["Bérangère Krief"],
+        time: "20h00",
+        order: 5,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Avenue des Canadiens Grand Quevilly",
+        wifiBackstage: { ssid: "ZENITH_ROUEN_VIP", password: "LegendRouen2026" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "dijon",
+    city: "Dijon",
+    lat: 47.322,
+    lon: 5.0415,
+    lot: 3,
+    series: 3,
+    isReturnCity: false,
+    rest: "1 jour",
+    returnDay: "Lendemain matin",
+    transport: "Train / TGV",
+    transportCode: "train",
+    dates: [
+      {
+        date: "15 Octobre 2026",
+        dateISO: "2026-10-15",
+        venue: "Zénith de Dijon",
+        sold: 9000,
+        capacity: 9000,
+        guests: ["Alban Ivanov"],
+        time: "20h00",
+        order: 6,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Rue de Colchide Toison d'Or",
+        wifiBackstage: { ssid: "ZENITH_DIJON_BACKSTAGE", password: "LegendDijon26" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "chambery",
+    city: "Chambéry",
+    lat: 45.5646,
+    lon: 5.9178,
+    lot: 3,
+    series: 3,
+    isReturnCity: false,
+    rest: "1 jour",
+    returnDay: "Nuit du show",
+    transport: "Van",
+    transportCode: "van",
+    dates: [
+      {
+        date: "17 Octobre 2026",
+        dateISO: "2026-10-17",
+        venue: "Le Phare",
+        sold: 6000,
+        capacity: 6000,
+        guests: ["Artus"],
+        time: "20h00",
+        order: 7,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "800 Avenue du Grand Ariétaz",
+        wifiBackstage: { ssid: "LE_PHARE_VIP", password: "LegendChambery26" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "montpellier",
+    city: "Montpellier",
+    lat: 43.6108,
+    lon: 3.8767,
+    lot: 3,
+    series: 3,
+    isReturnCity: false,
+    rest: "1 jour",
+    returnDay: "Lendemain matin",
+    transport: "Train / Van",
+    transportCode: "train",
+    dates: [
+      {
+        date: "18 Octobre 2026",
+        dateISO: "2026-10-18",
+        venue: "Sud de France Arena",
+        sold: 14000,
+        capacity: 14000,
+        guests: ["Redouane Bougheraba"],
+        time: "20h00",
+        order: 8,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Route de la Foire Pérols",
+        wifiBackstage: { ssid: "ARENA_MTP_VIP", password: "LegendMtp2026" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "toulouse",
+    city: "Toulouse",
+    lat: 43.6047,
+    lon: 1.4442,
+    lot: 3,
+    series: 3,
+    isReturnCity: true,
+    rest: "2 jours",
+    returnDay: "Vol/Train Lendemain",
+    transport: "Avion / Train",
+    transportCode: "plane",
+    dates: [
+      {
+        date: "20 Octobre 2026",
+        dateISO: "2026-10-20",
+        venue: "Zénith de Toulouse",
+        sold: 11000,
+        capacity: 11000,
+        guests: ["Bigflo & Oli"],
+        time: "18h00",
+        order: 9,
+        loadIn: "12h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "11 Avenue Raymond Badiou",
+        wifiBackstage: { ssid: "ZENITH_TLS_BACKSTAGE", password: "LegendToulouse26" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "strasbourg",
+    city: "Strasbourg",
+    lat: 48.5734,
+    lon: 7.7521,
+    lot: 4,
+    series: 4,
+    isReturnCity: false,
+    rest: "1 jour",
+    returnDay: "Nuit du show",
+    transport: "Train / TGV",
+    transportCode: "train",
+    dates: [
+      {
+        date: "21 Octobre 2026",
+        dateISO: "2026-10-21",
+        venue: "Zénith de Strasbourg",
+        sold: 12000,
+        capacity: 12000,
+        guests: ["Jérémy Ferrari"],
+        time: "20h00",
+        order: 10,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "1 Allée du Zénith Eckbolsheim",
+        wifiBackstage: { ssid: "ZENITH_STRAS_VIP", password: "LegendStrasbourg26" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "metz",
+    city: "Metz",
+    lat: 49.1193,
+    lon: 6.1757,
+    lot: 4,
+    series: 4,
+    isReturnCity: false,
+    rest: "1 jour",
+    returnDay: "Lendemain matin",
+    transport: "Van",
+    transportCode: "van",
+    dates: [
+      {
+        date: "23 Octobre 2026",
+        dateISO: "2026-10-23",
+        venue: "Les Arènes de Metz",
+        sold: 4700,
+        capacity: 4700,
+        guests: ["Maxime Gasteuil"],
+        time: "20h00",
+        order: 11,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "5 Avenue Louis secondary parking",
+        wifiBackstage: { ssid: "ARENES_METZ_BACKSTAGE", password: "LegendMetz2026" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "bruxelles",
+    city: "Bruxelles",
+    lat: 50.8503,
+    lon: 4.3517,
+    lot: 4,
+    series: 4,
+    isReturnCity: true,
+    rest: "2 jours",
+    returnDay: "Lendemain (Double Date)",
+    transport: "Train / Eurostar",
+    transportCode: "train",
+    dates: [
+      {
+        date: "25 Octobre 2026",
+        dateISO: "2026-10-25",
+        venue: "Forest National",
+        sold: 8400,
+        capacity: 8400,
+        guests: ["Guillermo Guiz"],
+        time: "20h00",
+        order: 12,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Avenue du Globe 36 Vorst",
+        wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" },
+        lastUpdated: "2026-08-01"
+      },
+      {
+        date: "26 Octobre 2026",
+        dateISO: "2026-10-26",
+        venue: "Forest National",
+        sold: 8400,
+        capacity: 8400,
+        guests: ["Alex Vizorek"],
+        time: "20h00",
+        order: 13,
+        loadIn: "15h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Avenue du Globe 36 Vorst",
+        wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "nice",
+    city: "Nice",
+    lat: 43.7102,
+    lon: 7.262,
+    lot: 5,
+    series: 5,
+    isReturnCity: false,
+    rest: "1 jour",
+    returnDay: "Lendemain matin",
+    transport: "Avion / Train",
+    transportCode: "plane",
+    dates: [
+      {
+        date: "27 Octobre 2026",
+        dateISO: "2026-10-27",
+        venue: "Palais Nikaïa",
+        sold: 9000,
+        capacity: 9000,
+        guests: ["Gad Elmaleh"],
+        time: "20h00",
+        order: 14,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "163 Boulevard du Mercantour",
+        wifiBackstage: { ssid: "NIKAIA_NICE_BACKSTAGE", password: "LegendNice2026" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "aix",
+    city: "Aix-en-Provence",
+    lat: 43.5297,
+    lon: 5.4474,
+    lot: 5,
+    series: 5,
+    isReturnCity: false,
+    rest: "1 jour",
+    returnDay: "Nuit du show",
+    transport: "Van",
+    transportCode: "van",
+    dates: [
+      {
+        date: "29 Octobre 2026",
+        dateISO: "2026-10-29",
+        venue: "Arena du Pays d'Aix",
+        sold: 7000,
+        capacity: 7000,
+        guests: ["Camille Lellouche"],
+        time: "20h00",
+        order: 15,
+        loadIn: "14h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "1955 Rue Claude Nicolas Ledoux Luynes",
+        wifiBackstage: { ssid: "ARENA_AIX_VIP", password: "LegendAix2026" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "lyon",
+    city: "Lyon",
+    lat: 45.764,
+    lon: 4.8357,
+    lot: 5,
+    series: 5,
+    isReturnCity: true,
+    rest: "14 jours (Pause)",
+    returnDay: "Lendemain TGV",
+    transport: "Train / TGV",
+    transportCode: "train",
+    dates: [
+      {
+        date: "31 Octobre 2026",
+        dateISO: "2026-10-31",
+        venue: "LDLC Arena",
+        sold: 16000,
+        capacity: 16000,
+        guests: ["Florence Foresti", "Alexandre Astier"],
+        time: "20h00",
+        order: 16,
+        loadIn: "13h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "5 Avenue Simone Veil Décines-Charpieu",
+        wifiBackstage: { ssid: "LDLC_ARENA_BACKSTAGE", password: "LegendLyon2026" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  },
+  {
+    id: "paris",
+    city: "Paris",
+    lat: 48.8566,
+    lon: 2.3522,
+    lot: 6,
+    series: 6,
+    isReturnCity: true,
+    rest: "Final Tournée",
+    returnDay: "Domicile Paris",
+    transport: "Voiture / Métro",
+    transportCode: "car",
+    dates: [
+      {
+        date: "14 Novembre 2026",
+        dateISO: "2026-11-14",
+        venue: "Adidas Arena",
+        sold: 9000,
+        capacity: 9000,
+        guests: ["Franck Gastambide", "Malik Bentalha"],
+        time: "20h00",
+        order: 17,
+        loadIn: "12h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Porte de la Chapelle VIP Arena",
+        wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" },
+        lastUpdated: "2026-08-01"
+      },
+      {
+        date: "15 Novembre 2026",
+        dateISO: "2026-11-15",
+        venue: "Adidas Arena",
+        sold: 9000,
+        capacity: 9000,
+        guests: ["Jamal Debbouze", "Mister V"],
+        time: "18h00",
+        order: 18,
+        loadIn: "12h00",
+        contact: { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" },
+        parkingNotes: "Porte de la Chapelle VIP Arena",
+        wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" },
+        lastUpdated: "2026-08-01"
+      }
+    ]
+  }
+];
 
-        /* Subtle Glows */
-        .text-glow-gold { text-shadow: 0 0 12px rgba(197, 160, 89, 0.4); }
-        .box-glow-gold { box-shadow: 0 0 20px rgba(197, 160, 89, 0.15); }
+export const SERIES_LOGISTICS: SeriesInfo[] = [
+  {
+    seriesId: 1,
+    title: "Série 1 — Grand Ouest",
+    subtitle: "Bordeaux, Nantes, Rennes",
+    datesRange: "06/10/26 - 10/10/26",
+    color: "#c5a059",
+    legs: [
+      {
+        id: "leg-1-1",
+        seriesId: 1,
+        date: "06/10/26",
+        dateISO: "2026-10-06",
+        from: "Paris Gare Montparnasse",
+        to: "Bordeaux Saint-Jean",
+        mode: "train",
+        details: "TGV INOUI 8415",
+        trainNumber: "TGV 8415",
+        departureStation: "Paris Gare Montparnasse",
+        arrivalStation: "Gare de Bordeaux Saint-Jean",
+        departureTime: "09:12",
+        arrivalTime: "11:18",
+        duration: "2h06",
+        seatInfo: "Voiture 3 — Place 42",
+        notes: "Départ de Paris matin. Installation loges & balances à 14h00.",
+        isOffDay: false,
+        relatedShowId: "bordeaux"
+      },
+      {
+        id: "leg-1-2",
+        seriesId: 1,
+        date: "07/10/26",
+        dateISO: "2026-10-07",
+        from: "Bordeaux",
+        to: "Bordeaux",
+        mode: "van",
+        details: "Sur place Bordeaux",
+        duration: "0h20",
+        notes: "Jour de show #1 (Arkéa Arena - 20h00).",
+        isOffDay: false,
+        relatedShowId: "bordeaux"
+      },
+      {
+        id: "leg-1-3",
+        seriesId: 1,
+        date: "08/10/26",
+        dateISO: "2026-10-08",
+        from: "Bordeaux",
+        to: "Nantes",
+        mode: "van",
+        details: "Trajet en Van (4h)",
+        duration: "4h00",
+        departureTime: "09:30",
+        arrivalTime: "13:30",
+        notes: "Trajet le matin. Arrivée directe Zénith de Nantes pour chargement à 14h00. Show #2.",
+        isOffDay: false,
+        relatedShowId: "nantes"
+      },
+      {
+        id: "leg-1-4",
+        seriesId: 1,
+        date: "09/10/26",
+        dateISO: "2026-10-09",
+        from: "Nantes",
+        to: "Rennes",
+        mode: "van",
+        details: "Trajet en Van (1h30)",
+        duration: "1h30",
+        departureTime: "11:00",
+        arrivalTime: "12:30",
+        notes: "Trajet court. Nuit d'hôtel sur Rennes.",
+        isOffDay: false,
+        relatedShowId: "rennes"
+      },
+      {
+        id: "leg-1-5",
+        seriesId: 1,
+        date: "10/10/26",
+        dateISO: "2026-10-10",
+        from: "Rennes",
+        to: "Rennes",
+        mode: "van",
+        details: "Sur place Glaz Arena",
+        duration: "0h15",
+        notes: "Show #3 Glaz Arena. Fin de Série 1.",
+        isOffDay: false,
+        relatedShowId: "rennes"
+      },
+      {
+        id: "leg-1-6",
+        seriesId: 1,
+        date: "11/10/26",
+        dateISO: "2026-10-11",
+        from: "Gare de Rennes",
+        to: "Paris Gare Montparnasse",
+        mode: "train",
+        details: "TGV INOUI 8012 (Retour Paris)",
+        trainNumber: "TGV 8012",
+        departureStation: "Gare de Rennes",
+        arrivalStation: "Paris Gare Montparnasse",
+        duration: "1h30",
+        departureTime: "10:15",
+        arrivalTime: "11:45",
+        seatInfo: "Voiture 2 — Place 31",
+        notes: "Retour à domicile après la Série 1. Repos.",
+        isOffDay: true,
+        relatedShowId: "rennes"
+      }
+    ]
+  },
+  {
+    seriesId: 2,
+    title: "Série 2 — Nord & Normandie",
+    subtitle: "Liévin, Paris, Rouen",
+    datesRange: "10/10/26 - 14/10/26",
+    color: "#e5c17e",
+    legs: [
+      {
+        id: "leg-2-1",
+        seriesId: 2,
+        date: "11/10/26",
+        dateISO: "2026-10-11",
+        from: "Paris",
+        to: "Liévin",
+        mode: "van",
+        details: "Trajet en Van (2h30)",
+        duration: "2h30",
+        departureTime: "09:00",
+        arrivalTime: "11:30",
+        notes: "Départ matin en van. Show #4 Arena Stade Couvert à 18h00.",
+        isOffDay: false,
+        relatedShowId: "lievin"
+      },
+      {
+        id: "leg-2-2",
+        seriesId: 2,
+        date: "12/10/26",
+        dateISO: "2026-10-12",
+        from: "Liévin",
+        to: "Rouen",
+        mode: "van",
+        details: "Trajet en Van (2h45)",
+        duration: "2h45",
+        departureTime: "10:00",
+        arrivalTime: "12:45",
+        notes: "Installation Hôtel Rouen.",
+        isOffDay: true,
+        relatedShowId: "rouen"
+      },
+      {
+        id: "leg-2-3",
+        seriesId: 2,
+        date: "13/10/26",
+        dateISO: "2026-10-13",
+        from: "Rouen",
+        to: "Rouen",
+        mode: "van",
+        details: "Sur place Zénith de Rouen",
+        duration: "0h15",
+        notes: "Show #5 Zénith de Rouen.",
+        isOffDay: false,
+        relatedShowId: "rouen"
+      },
+      {
+        id: "leg-2-4",
+        seriesId: 2,
+        date: "13/10/26",
+        dateISO: "2026-10-13",
+        from: "Rouen",
+        to: "Paris",
+        mode: "van",
+        details: "Retour Van Nuit (2h)",
+        duration: "2h00",
+        departureTime: "23:00",
+        arrivalTime: "01:00",
+        notes: "Retour en van de nuit directement après la représentation de Rouen.",
+        isOffDay: true,
+        relatedShowId: "rouen"
+      }
+    ]
+  },
+  {
+    seriesId: 3,
+    title: "Série 3 — Est, Alpes & Sud",
+    subtitle: "Dijon, Chambéry, Montpellier, Toulouse",
+    datesRange: "15/10/26 - 20/10/26",
+    color: "#60a5fa",
+    legs: [
+      {
+        id: "leg-3-1",
+        seriesId: 3,
+        date: "15/10/26",
+        dateISO: "2026-10-15",
+        from: "Paris Gare de Lyon",
+        to: "Dijon Ville",
+        mode: "train",
+        details: "TGV INOUI 6701",
+        trainNumber: "TGV 6701",
+        departureStation: "Paris Gare de Lyon",
+        arrivalStation: "Gare de Dijon Ville",
+        departureTime: "08:00",
+        arrivalTime: "09:35",
+        duration: "1h35",
+        seatInfo: "Voiture 5 — Place 12",
+        notes: "Show #6 Zénith de Dijon.",
+        isOffDay: false,
+        relatedShowId: "dijon"
+      },
+      {
+        id: "leg-3-2",
+        seriesId: 3,
+        date: "16/10/26",
+        dateISO: "2026-10-16",
+        from: "Dijon",
+        to: "Chambéry",
+        mode: "van",
+        details: "Trajet en Van (3h15)",
+        duration: "3h15",
+        departureTime: "10:00",
+        arrivalTime: "13:15",
+        notes: "Transfert vers les Alpes.",
+        isOffDay: true,
+        relatedShowId: "chambery"
+      },
+      {
+        id: "leg-3-3",
+        seriesId: 3,
+        date: "17/10/26",
+        dateISO: "2026-10-17",
+        from: "Chambéry",
+        to: "Chambéry",
+        mode: "van",
+        details: "Sur place Le Phare",
+        duration: "0h15",
+        notes: "Show #7 Le Phare Chambéry.",
+        isOffDay: false,
+        relatedShowId: "chambery"
+      },
+      {
+        id: "leg-3-4",
+        seriesId: 3,
+        date: "18/10/26",
+        dateISO: "2026-10-18",
+        from: "Chambéry",
+        to: "Montpellier",
+        mode: "van",
+        details: "Trajet en Van (3h45)",
+        duration: "3h45",
+        departureTime: "08:30",
+        arrivalTime: "12:15",
+        notes: "Arrivée Sud de France Arena pour 14h00. Show #8.",
+        isOffDay: false,
+        relatedShowId: "montpellier"
+      },
+      {
+        id: "leg-3-5",
+        seriesId: 3,
+        date: "19/10/26",
+        dateISO: "2026-10-19",
+        from: "Montpellier",
+        to: "Toulouse",
+        mode: "van",
+        details: "Trajet en Van (2h30)",
+        duration: "2h30",
+        departureTime: "11:00",
+        arrivalTime: "13:30",
+        notes: "Installation Hôtel Toulouse.",
+        isOffDay: true,
+        relatedShowId: "toulouse"
+      },
+      {
+        id: "leg-3-6",
+        seriesId: 3,
+        date: "20/10/26",
+        dateISO: "2026-10-20",
+        from: "Toulouse",
+        to: "Toulouse",
+        mode: "van",
+        details: "Sur place Zénith Toulouse",
+        duration: "0h20",
+        notes: "Show #9 Zénith de Toulouse (18h00).",
+        isOffDay: false,
+        relatedShowId: "toulouse"
+      },
+      {
+        id: "leg-3-7",
+        seriesId: 3,
+        date: "21/10/26",
+        dateISO: "2026-10-21",
+        from: "Toulouse Blagnac / Matabiau",
+        to: "Paris",
+        mode: "plane",
+        details: "Vol Air France AF7521 ou TGV",
+        duration: "1h20",
+        departureStation: "Aéroport Toulouse-Blagnac / Gare Matabiau",
+        arrivalStation: "Paris-Orly / Gare Montparnasse",
+        departureTime: "10:00",
+        arrivalTime: "11:20",
+        notes: "Retour à domicile. Début de pause.",
+        isOffDay: true,
+        relatedShowId: "toulouse"
+      }
+    ]
+  },
+  {
+    seriesId: 4,
+    title: "Série 4 — Alsace, Lorraine & Belgique",
+    subtitle: "Strasbourg, Metz, Bruxelles",
+    datesRange: "21/10/26 - 26/10/26",
+    color: "#34d399",
+    legs: [
+      {
+        id: "leg-4-1",
+        seriesId: 4,
+        date: "21/10/26",
+        dateISO: "2026-10-21",
+        from: "Paris Gare de l'Est",
+        to: "Strasbourg Ville",
+        mode: "train",
+        details: "TGV INOUI 2405",
+        trainNumber: "TGV 2405",
+        departureStation: "Paris Gare de l'Est",
+        arrivalStation: "Gare de Strasbourg Ville",
+        departureTime: "07:20",
+        arrivalTime: "09:06",
+        duration: "1h46",
+        seatInfo: "Voiture 1 — Place 15",
+        notes: "Show #10 Zénith de Strasbourg.",
+        isOffDay: false,
+        relatedShowId: "strasbourg"
+      },
+      {
+        id: "leg-4-2",
+        seriesId: 4,
+        date: "22/10/26",
+        dateISO: "2026-10-22",
+        from: "Strasbourg",
+        to: "Metz",
+        mode: "van",
+        details: "Trajet en Van (1h45)",
+        duration: "1h45",
+        departureTime: "11:00",
+        arrivalTime: "12:45",
+        notes: "Transfert Lorraine.",
+        isOffDay: true,
+        relatedShowId: "metz"
+      },
+      {
+        id: "leg-4-3",
+        seriesId: 4,
+        date: "23/10/26",
+        dateISO: "2026-10-23",
+        from: "Metz",
+        to: "Metz",
+        mode: "van",
+        details: "Sur place Les Arènes",
+        duration: "0h15",
+        notes: "Show #11 Les Arènes de Metz.",
+        isOffDay: false,
+        relatedShowId: "metz"
+      },
+      {
+        id: "leg-4-4",
+        seriesId: 4,
+        date: "24/10/26",
+        dateISO: "2026-10-24",
+        from: "Metz",
+        to: "Bruxelles",
+        mode: "van",
+        details: "Trajet en Van (3h)",
+        duration: "3h00",
+        departureTime: "09:00",
+        arrivalTime: "12:00",
+        notes: "Liaison internationale Belgique. Show #12 Forest National (20h00).",
+        isOffDay: false,
+        relatedShowId: "bruxelles"
+      },
+      {
+        id: "leg-4-5",
+        seriesId: 4,
+        date: "25/10/26",
+        dateISO: "2026-10-25",
+        from: "Bruxelles",
+        to: "Bruxelles",
+        mode: "van",
+        details: "Sur place Bruxelles",
+        duration: "0h30",
+        notes: "Show #13 Forest National (représentation 2 - 20h00).",
+        isOffDay: false,
+        relatedShowId: "bruxelles"
+      },
+      {
+        id: "leg-4-6",
+        seriesId: 4,
+        date: "26/10/26",
+        dateISO: "2026-10-26",
+        from: "Bruxelles Midi",
+        to: "Paris Gare du Nord",
+        mode: "train",
+        details: "Eurostar 9322",
+        trainNumber: "Eurostar 9322",
+        departureStation: "Gare de Bruxelles-Midi",
+        arrivalStation: "Paris Gare du Nord",
+        departureTime: "10:13",
+        arrivalTime: "11:35",
+        duration: "1h22",
+        seatInfo: "Voiture 11 — Place 54",
+        notes: "Retour Paris en Eurostar.",
+        isOffDay: true,
+        relatedShowId: "bruxelles"
+      }
+    ]
+  },
+  {
+    seriesId: 5,
+    title: "Série 5 — Côte d'Azur, Provence & Rhône",
+    subtitle: "Nice, Aix-en-Provence, Lyon",
+    datesRange: "27/10/26 - 31/10/26",
+    color: "#f472b6",
+    legs: [
+      {
+        id: "leg-5-1",
+        seriesId: 5,
+        date: "27/10/26",
+        dateISO: "2026-10-27",
+        from: "Paris Orly / Gare de Lyon",
+        to: "Nice Côte d'Azur",
+        mode: "plane",
+        details: "Vol Air France AF6206 ou TGV",
+        duration: "1h30",
+        departureStation: "Paris-Orly / Gare de Lyon",
+        arrivalStation: "Aéroport Nice Côte d'Azur / Gare de Nice-Ville",
+        departureTime: "08:15",
+        arrivalTime: "09:45",
+        notes: "Show #14 Palais Nikaïa.",
+        isOffDay: false,
+        relatedShowId: "nice"
+      },
+      {
+        id: "leg-5-2",
+        seriesId: 5,
+        date: "28/10/26",
+        dateISO: "2026-10-28",
+        from: "Nice",
+        to: "Aix-en-Provence",
+        mode: "van",
+        details: "Trajet en Van (2h)",
+        duration: "2h00",
+        departureTime: "11:00",
+        arrivalTime: "13:00",
+        notes: "Transfert Provence.",
+        isOffDay: true,
+        relatedShowId: "aix"
+      },
+      {
+        id: "leg-5-3",
+        seriesId: 5,
+        date: "29/10/26",
+        dateISO: "2026-10-29",
+        from: "Aix-en-Provence",
+        to: "Aix-en-Provence",
+        mode: "van",
+        details: "Sur place Arena du Pays d'Aix",
+        duration: "0h15",
+        notes: "Show #15 Arena du Pays d'Aix.",
+        isOffDay: false,
+        relatedShowId: "aix"
+      },
+      {
+        id: "leg-5-4",
+        seriesId: 5,
+        date: "30/10/26",
+        dateISO: "2026-10-30",
+        from: "Aix-en-Provence",
+        to: "Lyon",
+        mode: "van",
+        details: "Trajet en Van (3h)",
+        duration: "3h00",
+        departureTime: "10:00",
+        arrivalTime: "13:00",
+        notes: "Transfert Lyon.",
+        isOffDay: true,
+        relatedShowId: "lyon"
+      },
+      {
+        id: "leg-5-5",
+        seriesId: 5,
+        date: "31/10/26",
+        dateISO: "2026-10-31",
+        from: "Lyon",
+        to: "Lyon",
+        mode: "van",
+        details: "Sur place LDLC Arena",
+        duration: "0h25",
+        notes: "Show #16 LDLC Arena Lyon (20h00).",
+        isOffDay: false,
+        relatedShowId: "lyon"
+      },
+      {
+        id: "leg-5-6",
+        seriesId: 5,
+        date: "01/11/26",
+        dateISO: "2026-11-01",
+        from: "Lyon Part-Dieu",
+        to: "Paris Gare de Lyon",
+        mode: "train",
+        details: "TGV INOUI 6610",
+        trainNumber: "TGV 6610",
+        departureStation: "Gare de Lyon Part-Dieu",
+        arrivalStation: "Paris Gare de Lyon",
+        departureTime: "10:00",
+        arrivalTime: "12:00",
+        duration: "2h00",
+        seatInfo: "Voiture 4 — Place 22",
+        notes: "Retour Paris. Début de la pause de 14 jours.",
+        isOffDay: true,
+        relatedShowId: "lyon"
+      }
+    ]
+  },
+  {
+    seriesId: 6,
+    title: "Clôture — Paris Adidas Arena",
+    subtitle: "Adidas Arena (2 représentations)",
+    datesRange: "14/11/26 - 15/11/26",
+    color: "#a78bfa",
+    legs: [
+      {
+        id: "leg-6-1",
+        seriesId: 6,
+        date: "14/11/26",
+        dateISO: "2026-11-14",
+        from: "Paris Domicile",
+        to: "Adidas Arena",
+        mode: "car",
+        details: "Sur place (Paris)",
+        duration: "0h30",
+        notes: "Grand show #17 Adidas Arena (20h00).",
+        isOffDay: false,
+        relatedShowId: "paris"
+      },
+      {
+        id: "leg-6-2",
+        seriesId: 6,
+        date: "15/11/26",
+        dateISO: "2026-11-15",
+        from: "Paris Domicile",
+        to: "Adidas Arena",
+        mode: "car",
+        details: "Sur place (Paris)",
+        duration: "0h30",
+        notes: "Dernier show de la tournée #18 Adidas Arena (18h00). Clôture officielle.",
+        isOffDay: false,
+        relatedShowId: "paris"
+      }
+    ]
+  }
+];
 
-        /* Mobile Bottom Sheet Touch Physics */
-        #sidebar-panel {
-            will-change: transform;
-            transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
-        }
-
-        #drag-handle-zone {
-            touch-action: none;
-            -webkit-user-select: none;
-            user-select: none;
+export const PERMANENTS: PermanentIntervenant[] = [
+  {
+    name: "Philippe Boxho",
+    role: "Médecin légiste & professeur",
+    desc: "Expert judiciaire d'expérience, il décrypte les affaires criminelles avec méthode et réalisme."
+  },
+  {
+    name: "Major Mouvement",
+    role: "Kinésithérapeute",
+    desc: "Vulgarisateur de santé, il partage ses conseils posture et mobilité avec énergie et humour."
+  },
+  {
+    name: "Astronophilos",
+    role: "Astrophysicien & vulgarisateur",
+    desc: "Scientifique passionné, il explore les mystères du cosmos et les découvertes de l'espace."
+  },
+  {
+    name: "Thérèse Hargot",
+    role: "Sexologue & philosophe",
+    desc: "Spécialiste des relations humaines et du couple, elle aborde les questions intimes avec authenticité."
+  },
+  {
+    name: "Lola",
+    role: "Intervenante spéciale",
+    desc: "Atteinte de la maladie des os de verre, elle bouscule les invités avec ses questions sans filtre."
+  }
+];            user-select: none;
         }
         
         svg {
