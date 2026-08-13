@@ -651,9 +651,9 @@
       };
 
       return (
-        <div className="fixed inset-x-0 bottom-0 z-40 max-h-[88vh] lg:max-h-none lg:inset-x-auto lg:top-16 lg:left-4 lg:bottom-4 lg:w-[420px] bg-[#0c0c0c]/98 border-t lg:border border-[#1a1a1a] rounded-t-3xl lg:rounded-2xl flex flex-col shrink-0 shadow-2xl overflow-hidden">
-          <div className="p-3 bg-[#101010] border-b border-[#1a1a1a] flex items-center justify-between shrink-0">
-            <span className="text-[10px] font-bold text-[#c5a059] uppercase tracking-widest bg-[#181818] border border-[#c5a059]/30 px-2.5 py-1 rounded-full">
+        <div className="fixed inset-x-0 bottom-0 z-40 max-h-[88vh] lg:max-h-none lg:inset-x-auto lg:top-16 lg:left-4 lg:bottom-4 lg:w-[420px] bg-[#0a0a0a] border-t lg:border border-[#222222] rounded-t-3xl lg:rounded-2xl flex flex-col shrink-0 shadow-2xl overflow-hidden">
+          <div className="p-3 bg-[#121212] border-b border-[#222222] flex items-center justify-between shrink-0">
+            <span className="text-[10px] font-bold text-[#c5a059] uppercase tracking-widest bg-[#181818] border border-[#333333] px-2.5 py-1 rounded-full">
               Étape #{dateData.order} • Série {show.series}
             </span>
             <button onClick={onClose} className="text-xs font-bold text-gray-400 hover:text-white uppercase flex items-center gap-1 p-1 rounded-lg">
@@ -661,9 +661,9 @@
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-5 space-y-5">
-            <div className="bg-[#121212] border border-[#222] rounded-2xl p-4 space-y-4">
-              <div className="flex items-start justify-between border-b border-gray-800 pb-3">
+          <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-5 space-y-5 bg-[#0a0a0a]">
+            <div className="bg-[#121212] border border-[#222222] rounded-2xl p-4 space-y-4">
+              <div className="flex items-start justify-between border-b border-[#222222] pb-3">
                 <div>
                   <span className="text-[10px] font-bold text-[#c5a059] tracking-wider block mb-1">Série {show.series}</span>
                   <h2 className="font-serif text-2xl font-black text-white">{show.city}</h2>
@@ -675,7 +675,7 @@
               </div>
 
               {show.dates.length > 1 && (
-                <div className="bg-[#181818] p-2 rounded-xl border border-gray-800 space-y-1">
+                <div className="bg-[#181818] p-2 rounded-xl border border-[#262626] space-y-1">
                   <p className="text-[9px] uppercase text-gray-400 font-bold">Multi-représentations :</p>
                   <div className="flex gap-2">
                     {show.dates.map((d, index) => (
@@ -697,7 +697,7 @@
                 </div>
 
                 <div className="space-y-1.5">
-                  <div className="flex items-center gap-3 bg-[#181818] p-2.5 rounded-xl border border-gray-800">
+                  <div className="flex items-center gap-3 bg-[#181818] p-2.5 rounded-xl border border-[#262626]">
                     <Train className="w-4 h-4 text-[#c5a059] shrink-0" />
                     <div>
                       <p className="text-[9px] uppercase text-gray-400 font-bold">Transport prévu</p>
@@ -710,7 +710,7 @@
                       href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`Gare de ${show.city}`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center gap-2 bg-purple-950/60 hover:bg-purple-900 border border-purple-800 text-purple-200 py-2 px-3 rounded-xl text-xs font-bold"
+                      className="w-full flex items-center justify-center gap-2 bg-[#22102e] hover:bg-[#311842] border border-[#422159] text-purple-200 py-2 px-3 rounded-xl text-xs font-bold"
                     >
                       <Train className="w-3.5 h-3.5 text-purple-400" />
                       <span>Itinéraire vers la gare de {show.city}</span>
@@ -719,44 +719,44 @@
                   )}
                 </div>
 
-                <div className="bg-[#161616] p-3 rounded-xl border border-gray-800 space-y-2">
+                <div className="bg-[#161616] p-3 rounded-xl border border-[#262626] space-y-2">
                   <div className="flex justify-between text-[10px]">
                     <span className="font-bold text-gray-400 uppercase">Remplissage</span>
                     <span className="font-extrabold text-[#c5a059]">{percent}%</span>
                   </div>
-                  <div className="w-full bg-gray-900 h-2.5 rounded-full overflow-hidden border border-gray-800">
+                  <div className="w-full bg-[#080808] h-2.5 rounded-full overflow-hidden border border-[#222222]">
                     <div className="bg-gradient-to-r from-[#8e6f3b] to-[#c5a059] h-full rounded-full" style={{ width: `${percent}%` }} />
                   </div>
-                  <p className="text-[11px] text-gray-300 font-medium">{dateData.sold.toLocaleString()} / {dateData.capacity.toLocaleString()} places</p>
+                  <p className="text-[11px] text-gray-300 font-medium">{dateData.sold.toLocaleString('fr-FR')} / {dateData.capacity.toLocaleString('fr-FR')} places</p>
                 </div>
 
-                <button onClick={openDirections} className="w-full flex items-center justify-center gap-2 bg-[#181818] border border-[#c5a059]/50 text-white py-3 px-4 rounded-xl text-xs font-extrabold">
+                <button onClick={openDirections} className="w-full flex items-center justify-center gap-2 bg-[#181818] border border-[#c5a059] text-white py-3 px-4 rounded-xl text-xs font-extrabold">
                   <Compass className="w-4 h-4 text-emerald-400" /><span>Obtenir l'itinéraire GPS</span>
                 </button>
 
-                <button onClick={downloadICS} className="w-full flex items-center justify-center gap-2 bg-[#141414] border border-gray-800 text-[#c5a059] py-2.5 px-4 rounded-xl text-xs font-bold">
+                <button onClick={downloadICS} className="w-full flex items-center justify-center gap-2 bg-[#141414] border border-[#262626] text-[#c5a059] py-2.5 px-4 rounded-xl text-xs font-bold">
                   <Download className="w-4 h-4" /><span>Ajouter au calendrier (.ics)</span>
                 </button>
 
-                <div className="bg-[#161616] rounded-xl border border-gray-800 overflow-hidden">
+                <div className="bg-[#161616] rounded-xl border border-[#262626] overflow-hidden">
                   <button onClick={() => setShowLogisticsDetails(!showLogisticsDetails)} className="w-full p-3 font-bold text-xs text-gray-300 uppercase flex items-center justify-between">
                     <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-[#c5a059]" /><span>Logistique & Backstage</span></span>
                     <ChevronDown className={`w-4 h-4 transition-transform ${showLogisticsDetails ? 'rotate-180' : ''}`} />
                   </button>
 
                   {showLogisticsDetails && (
-                    <div className="p-3 border-t border-gray-800 space-y-2 text-xs">
-                      {dateData.loadIn && <div className="flex justify-between bg-black/30 p-2 rounded"><span className="text-gray-400">Load-in :</span><span className="font-bold text-amber-400">{dateData.loadIn}</span></div>}
+                    <div className="p-3 border-t border-[#262626] space-y-2 text-xs bg-[#121212]">
+                      {dateData.loadIn && <div className="flex justify-between bg-[#1a1a1a] p-2 rounded border border-[#262626]"><span className="text-gray-400">Load-in :</span><span className="font-bold text-amber-400">{dateData.loadIn}</span></div>}
                       {dateData.contact && (
-                        <div className="bg-black/30 p-2 rounded space-y-1">
+                        <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626] space-y-1">
                           <p className="text-[10px] text-gray-400 font-bold uppercase">Régisseur Référent :</p>
                           <p className="font-bold text-white">{dateData.contact.name} ({dateData.contact.role})</p>
                           <a href={`tel:${dateData.contact.phone}`} className="text-[#c5a059] font-bold flex items-center gap-1"><Phone className="w-3 h-3" /><span>{dateData.contact.phone}</span></a>
                         </div>
                       )}
-                      {dateData.parkingNotes && <div className="bg-black/30 p-2 rounded"><p className="text-[10px] text-gray-400 font-bold uppercase">Parking :</p><p className="text-[11px] text-gray-300">{dateData.parkingNotes}</p></div>}
+                      {dateData.parkingNotes && <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626]"><p className="text-[10px] text-gray-400 font-bold uppercase">Parking :</p><p className="text-[11px] text-gray-300">{dateData.parkingNotes}</p></div>}
                       {dateData.wifiBackstage && (
-                        <div className="bg-black/30 p-2 rounded"><p className="text-[10px] text-gray-400 font-bold uppercase">Wi-Fi :</p><p className="font-mono text-[11px] text-emerald-400">SSID: {dateData.wifiBackstage.ssid}</p><p className="font-mono text-[11px] text-gray-300">PASS: {dateData.wifiBackstage.password}</p></div>
+                        <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626]"><p className="text-[10px] text-gray-400 font-bold uppercase">Wi-Fi :</p><p className="font-mono text-[11px] text-emerald-400">SSID: {dateData.wifiBackstage.ssid}</p><p className="font-mono text-[11px] text-gray-300">PASS: {dateData.wifiBackstage.password}</p></div>
                       )}
                     </div>
                   )}
@@ -765,7 +765,7 @@
             </div>
 
             <div className="space-y-3">
-              <div className="flex border-b border-gray-800">
+              <div className="flex border-b border-[#222222]">
                 <button onClick={() => setActiveTab('exclusive')} className={`flex-1 pb-3 text-center text-xs font-bold border-b-2 ${activeTab === 'exclusive' ? 'border-[#c5a059] text-[#c5a059]' : 'border-transparent text-gray-400'}`}>Invités d'honneur</button>
                 <button onClick={() => setActiveTab('permanents')} className={`flex-1 pb-3 text-center text-xs font-bold border-b-2 ${activeTab === 'permanents' ? 'border-[#c5a059] text-[#c5a059]' : 'border-transparent text-gray-400'}`}>Intervenants permanents</button>
               </div>
@@ -773,7 +773,7 @@
               {activeTab === 'exclusive' && (
                 <div className="space-y-2">
                   {dateData.guests.length === 0 ? <p className="text-xs text-gray-400 text-center py-4">Pas d'invité ponctuel annoncé.</p> : dateData.guests.map((g, idx) => (
-                    <div key={idx} className="bg-[#141414] border border-gray-800 p-3 rounded-xl flex items-center justify-between">
+                    <div key={idx} className="bg-[#141414] border border-[#262626] p-3 rounded-xl flex items-center justify-between">
                       <span className="text-xs font-bold text-white">{g}</span>
                       <Star className="w-4 h-4 text-[#c5a059]" />
                     </div>
@@ -784,7 +784,7 @@
               {activeTab === 'permanents' && (
                 <div className="space-y-2">
                   {permanents.map((p, idx) => (
-                    <div key={idx} className="bg-[#141414] border border-gray-800 p-3 rounded-xl space-y-1">
+                    <div key={idx} className="bg-[#141414] border border-[#262626] p-3 rounded-xl space-y-1">
                       <p className="text-xs font-bold text-white">{p.name}</p>
                       <p className="text-[10px] font-bold text-[#c5a059] uppercase">{p.role}</p>
                       <p className="text-[10px] text-gray-400">{p.desc}</p>
@@ -946,10 +946,11 @@
     // --- MAIN APP COMPONENT ---
     function App() {
       const [activeView, setActiveView] = useState('home');
-      const [activeShowId, setActiveShowId] = useState(null);
+      const [userRole, setUserRole] = useState('artiste');
+      const [activeShowId, setActiveShowId] = useState('bordeaux');
       const [selectedSubDateIndex, setSelectedSubDateIndex] = useState(0);
       const [selectedLotFilter, setSelectedLotFilter] = useState('all');
-      const [drawerOpen, setDrawerOpen] = useState(false);
+      const [drawerOpen, setDrawerOpen] = useState(true);
 
       const getNextShow = () => {
         const todayStr = new Date().toISOString().split('T')[0];
@@ -980,6 +981,18 @@
       const nextShowData = getNextShow();
       const upcomingList = getUpcomingShows(3);
 
+      useEffect(() => {
+        if (nextShowData.show) {
+          setActiveShowId(nextShowData.show.id);
+          setSelectedSubDateIndex(nextShowData.subDateIndex);
+        }
+      }, []);
+
+      const handleSetView = (view) => {
+        if (view === 'map') setDrawerOpen(false);
+        setActiveView(view);
+      };
+
       const handleSelectShow = (showId, subDateIndex = 0) => {
         setActiveShowId(showId);
         setSelectedSubDateIndex(subDateIndex);
@@ -987,9 +1000,61 @@
         if (activeView === 'home') setActiveView('map');
       };
 
+      const activeShow = SHOWS.find((s) => s.id === activeShowId);
+
       return (
         <div className="bg-[#080808] text-gray-100 font-sans h-[100dvh] w-full overflow-hidden flex flex-col select-none">
-          <Header activeView={activeView} setActiveView={setActiveView} />
+          {/* Header */}
+          <header className="bg-[#0c0c0c] border-b border-[#1c1c1c] sticky top-0 shrink-0 z-30 shadow-xl">
+            <div className="bg-[#141414] border-b border-gray-800/80 px-3 py-1 flex flex-wrap items-center justify-between text-[10px] font-bold text-gray-400 gap-2">
+              <div className="flex items-center gap-1.5 uppercase tracking-widest text-gray-400">
+                <Lock className="w-3 h-3 text-amber-500 shrink-0" />
+                <span>Usage interne • Logistique & transports Legend Tour 2026</span>
+              </div>
+              <a href="tel:0601770676" className="flex items-center gap-1.5 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-700/60 text-emerald-300 hover:text-white px-2.5 py-0.5 rounded-full transition-all active:scale-95 shadow-sm">
+                <Phone className="w-3 h-3 text-emerald-400 animate-pulse" />
+                <span>Urgence Régie : Gwendal 06 01 77 06 76</span>
+              </a>
+            </div>
+
+            <div className="px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-2.5">
+              <div onClick={() => handleSetView('home')} className="flex items-center gap-2.5 cursor-pointer group">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#8e6f3b] via-[#c5a059] to-[#e5c17e] p-0.5 shadow-lg group-hover:scale-105 transition-transform shrink-0">
+                  <div className="w-full h-full bg-[#0a0a0a] rounded-full flex items-center justify-center">
+                    <span className="font-serif font-black text-[#c5a059] text-sm">L</span>
+                  </div>
+                </div>
+                <div>
+                  <h1 className="font-serif text-sm sm:text-base font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-[#e5c17e] to-[#c5a059]">
+                    Legend Tour 2026
+                  </h1>
+                  <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest flex items-center gap-1">
+                    <span>by Trade Republic</span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Mode Selector */}
+              <div className="hidden lg:flex items-center bg-[#111] p-1 rounded-xl border border-gray-800 text-[10px] font-bold">
+                <span className="text-[9px] text-gray-500 uppercase tracking-wider px-2">Mode :</span>
+                <button onClick={() => setUserRole('artiste')} className={`px-2.5 py-1 rounded-lg transition-all ${userRole === 'artiste' ? 'bg-[#c5a059] text-black font-extrabold' : 'text-gray-400'}`}>VIP / Artiste</button>
+                <button onClick={() => setUserRole('tech')} className={`px-2.5 py-1 rounded-lg transition-all ${userRole === 'tech' ? 'bg-[#c5a059] text-black font-extrabold' : 'text-gray-400'}`}>Tech / Régie</button>
+              </div>
+
+              {/* 3 Main View Tabs */}
+              <div className="flex items-center bg-[#141414] p-1 rounded-xl border border-gray-800">
+                <button onClick={() => handleSetView('home')} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeView === 'home' ? 'bg-[#c5a059] text-black' : 'text-gray-400'}`}>
+                  <Calendar className="w-3.5 h-3.5" /><span className="hidden sm:inline">Accueil / Prochain show</span><span className="sm:hidden">Accueil</span>
+                </button>
+                <button onClick={() => handleSetView('map')} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeView === 'map' ? 'bg-[#c5a059] text-black' : 'text-gray-400'}`}>
+                  <MapIcon className="w-3.5 h-3.5" /><span className="hidden sm:inline">Carte interactive</span><span className="sm:hidden">Carte</span>
+                </button>
+                <button onClick={() => handleSetView('transports')} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeView === 'transports' ? 'bg-[#c5a059] text-black' : 'text-gray-400'}`}>
+                  <Train className="w-3.5 h-3.5" /><span className="hidden sm:inline">Plan de route (trains & vans)</span><span className="sm:hidden">Transports</span>
+                </button>
+              </div>
+            </div>
+          </header>
 
           <main className="flex-1 min-h-0 relative overflow-hidden w-full h-full flex flex-col">
             {activeView === 'home' && (
@@ -997,32 +1062,50 @@
                 nextShow={nextShowData}
                 upcomingShows={upcomingList}
                 onSelectShow={handleSelectShow}
-                onOpenTransports={() => setActiveView('transports')}
-                onOpenMap={() => setActiveView('map')}
+                onOpenTransports={() => handleSetView('transports')}
+                onOpenMap={() => handleSetView('map')}
               />
             )}
 
             {activeView === 'map' && (
-              <div className="flex-1 min-h-0 relative w-full h-full">
-                <InteractiveMap
-                  shows={SHOWS}
-                  activeShowId={activeShowId}
-                  selectedLotFilter={selectedLotFilter}
-                  setSelectedLotFilter={setSelectedLotFilter}
-                  onSelectShow={handleSelectShow}
-                  nextShowId={nextShowData.show?.id}
-                />
-
-                {drawerOpen && activeShowId && (
-                  <ShowDetailDrawer
+              <div className="flex-1 min-h-0 relative w-full h-full flex flex-col">
+                <div className="flex-1 min-h-0 relative w-full h-full">
+                  <InteractiveMap
                     shows={SHOWS}
                     activeShowId={activeShowId}
-                    selectedSubDateIndex={selectedSubDateIndex}
-                    setSelectedSubDateIndex={setSelectedSubDateIndex}
-                    onClose={() => setDrawerOpen(false)}
-                    permanents={PERMANENTS}
+                    selectedLotFilter={selectedLotFilter}
+                    setSelectedLotFilter={setSelectedLotFilter}
+                    onSelectShow={handleSelectShow}
+                    nextShowId={nextShowData.show?.id}
                   />
-                )}
+
+                  {!drawerOpen && activeShow && (
+                    <div className="absolute bottom-16 sm:bottom-20 left-1/2 -translate-x-1/2 z-20 pointer-events-auto flex items-center gap-2.5 bg-[#0c0c0c] border border-[#c5a059]/60 px-3.5 py-2 rounded-2xl shadow-2xl max-w-[92vw]">
+                      <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                      <span className="text-xs font-bold text-gray-200 truncate">
+                        {activeShow.city} • Étape #{activeShow.dates[0].order}
+                      </span>
+                      <button
+                        onClick={() => setDrawerOpen(true)}
+                        className="text-xs font-extrabold text-black bg-[#c5a059] hover:bg-[#e5c17e] px-3 py-1 rounded-xl transition-all shadow-md active:scale-95 shrink-0"
+                      >
+                        Voir la fiche
+                      </button>
+                    </div>
+                  )}
+
+                  {drawerOpen && activeShowId && (
+                    <ShowDetailDrawer
+                      shows={SHOWS}
+                      activeShowId={activeShowId}
+                      selectedSubDateIndex={selectedSubDateIndex}
+                      setSelectedSubDateIndex={setSelectedSubDateIndex}
+                      onClose={() => setDrawerOpen(false)}
+                      permanents={PERMANENTS}
+                      userRole={userRole}
+                    />
+                  )}
+                </div>
               </div>
             )}
 
