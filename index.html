@@ -222,7 +222,7 @@
           { id: "s3-2", seriesId: 3, date: "16/10/26", dateISO: "2026-10-16", from: "Dijon", to: "Chambéry", mode: "van", details: "Dijon > Chambéry (van : 3h)", duration: "3h00", departureTime: "09:30", arrivalTime: "12:30", notes: "Show #7 Le Phare (20h00).", isOffDay: false, relatedShowId: "chambery" },
           { id: "s3-3", seriesId: 3, date: "17/10/26", dateISO: "2026-10-17", from: "Chambéry", to: "Montpellier", mode: "van", details: "Chambéry > Montpellier (van : 4h)", duration: "4h00", departureTime: "08:30", arrivalTime: "12:30", notes: "Show #8 Sud de France Arena (20h00).", isOffDay: false, relatedShowId: "montpellier" },
           { id: "s3-4", seriesId: 3, date: "18/10/26", dateISO: "2026-10-18", from: "Montpellier", to: "Toulouse", mode: "van", details: "Montpellier > Toulouse (van : 2h30)", duration: "2h30", departureTime: "09:00", arrivalTime: "11:30", notes: "Show #9 Zénith Toulouse (18h00).", isOffDay: false, relatedShowId: "toulouse" },
-          { id: "s3-5", seriesId: 3, date: "19/10/26", dateISO: "2026-10-19", from: "Toulouse", to: "Domicile / Paris", mode: "plane", details: "Toulouse > Domicile (train/avion)", duration: "1h20", trainNumber: "AF7521 ou TGV 8510", departureStation: "Aéroport Toulouse-Blagnac / Gare Matabiau", arrivalStation: "Paris-Orly / Gare Montparnasse", departureTime: "10:00", arrivalTime: "11:20", notes: "Retour à domicile.", isOffDay: true, relatedShowId: "toulouse" }
+          { id: "s3-5", seriesId: 3, date: "19/10/26", dateISO: "2026-10-19", from: "Toulouse", to: "Domicile / Paris", mode: "avion", details: "Toulouse > Domicile (train/avion)", duration: "1h20", trainNumber: "AF7521 ou TGV 8510", departureStation: "Aéroport Toulouse-Blagnac / Gare Matabiau", arrivalStation: "Paris-Orly / Gare Montparnasse", departureTime: "10:00", arrivalTime: "11:20", notes: "Retour à domicile.", isOffDay: true, relatedShowId: "toulouse" }
         ]
       },
       {
@@ -238,7 +238,7 @@
       {
         seriesId: 5, title: "Série 5 — Côte d'Azur, Provence & Rhône", subtitle: "Nice, Aix-en-Provence, Lyon", datesRange: "27/10/26 - 31/10/26", color: "#f472b6",
         legs: [
-          { id: "s5-1", seriesId: 5, date: "27/10/26", dateISO: "2026-10-27", from: "Domicile / Paris", to: "Nice", mode: "plane", details: "Domicile > Nice (train/avion)", duration: "1h30", trainNumber: "Vol AF7700", departureStation: "Aéroport Paris-Orly (ORY)", arrivalStation: "Aéroport Nice Côte d'Azur (NCE)", departureTime: "09:15", arrivalTime: "10:45", notes: "Show #14 Palais Nikaïa (20h00).", isOffDay: false, relatedShowId: "nice" },
+          { id: "s5-1", seriesId: 5, date: "27/10/26", dateISO: "2026-10-27", from: "Domicile / Paris", to: "Nice", mode: "avion", details: "Domicile > Nice (train/avion)", duration: "1h30", trainNumber: "Vol AF7700", departureStation: "Aéroport Paris-Orly (ORY)", arrivalStation: "Aéroport Nice Côte d'Azur (NCE)", departureTime: "09:15", arrivalTime: "10:45", notes: "Show #14 Palais Nikaïa (20h00).", isOffDay: false, relatedShowId: "nice" },
           { id: "s5-2", seriesId: 5, date: "28/10/26", dateISO: "2026-10-28", from: "Nice", to: "Aix-en-Provence", mode: "van", details: "Nice > Aix (van : 2h)", duration: "2h00", departureTime: "10:00", arrivalTime: "12:00", notes: "Show #15 Arena du Pays d'Aix (20h00).", isOffDay: false, relatedShowId: "aix" },
           { id: "s5-3", seriesId: 5, date: "29/10/26", dateISO: "2026-10-29", from: "Aix-en-Provence", to: "Lyon", mode: "van", details: "Aix > Lyon (van : 3h)", duration: "3h00", departureTime: "09:30", arrivalTime: "12:30", notes: "Show #16 LDLC Arena (20h00).", isOffDay: false, relatedShowId: "lyon" },
           { id: "s5-4", seriesId: 5, date: "30/10/26", dateISO: "2026-10-30", from: "Lyon", to: "Domicile / Paris", mode: "train", details: "Lyon > Domicile (train)", duration: "1h58", trainNumber: "TGV INOUI 6616", departureStation: "Gare de Lyon Part-Dieu", arrivalStation: "Gare de Paris Lyon", departureTime: "10:04", arrivalTime: "12:02", notes: "Retour à Paris.", isOffDay: true, relatedShowId: "lyon" }
@@ -261,19 +261,59 @@
       { name: "Héméré", role: "Intervenante spéciale", desc: "Bouscule les invités avec ses questions sans filtre." }
     ];
 
-    function weatherCodeToLabel(code) {
-      if (code === 0) return "Ciel dégagé";
-      if (code >= 1 && code <= 3) return "Nuageux";
-      if (code === 45 || code === 48) return "Brouillard";
-      if (code >= 51 && code <= 67) return "Pluie";
-      if (code >= 71 && code <= 86) return "Neige";
-      if (code >= 95) return "Orage";
-      return "Météo indisponible";
+    function weatherCodeToEmoji(code) {
+      if (code === 0) return "☀️";
+      if (code >= 1 && code <= 3) return "⛅";
+      if (code === 45 || code === 48) return "🌫️";
+      if (code >= 51 && code <= 67) return "🌧️";
+      if (code >= 71 && code <= 86) return "❄️";
+      if (code >= 95) return "⛈️";
+      return null;
+    }
+
+    function useShowWeather(lat, lon, dateISO) {
+      const [weather, setWeather] = useState(null);
+
+      useEffect(() => {
+        let cancelled = false;
+        if (!lat || !lon) return;
+        setWeather(null);
+
+        const fetchForecast = async () => {
+          try {
+            let res = null;
+            if (dateISO) {
+              res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe/Paris&start_date=${dateISO}&end_date=${dateISO}`);
+            }
+            if (!res || !res.ok) {
+              res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe/Paris&forecast_days=1`);
+            }
+            if (!res.ok) return;
+            const data = await res.json();
+            if (cancelled) return;
+            if (data.daily && data.daily.temperature_2m_max && data.daily.temperature_2m_max.length > 0) {
+              setWeather({
+                max: Math.round(data.daily.temperature_2m_max[0]),
+                min: Math.round(data.daily.temperature_2m_min[0]),
+                code: data.daily.weathercode[0],
+              });
+            }
+          } catch (e) {
+            if (!cancelled) setWeather(null);
+          }
+        };
+
+        fetchForecast();
+        return () => { cancelled = true; };
+      }, [lat, lon, dateISO]);
+
+      return weather;
     }
 
     // --- HOME HERO VIEW COMPONENT ---
     function HomeHeroView({ nextShow, upcomingShows, onSelectShow, onOpenTransports, onOpenMap }) {
       const { show, dateEntry, isFinished } = nextShow;
+      const weather = useShowWeather(show?.lat, show?.lon, dateEntry?.dateISO);
 
       const dateObj = new Date(dateEntry.dateISO);
       const formattedDate = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(dateObj);
@@ -341,7 +381,12 @@
                 </p>
                 <p className="text-xs sm:text-sm text-[#c5a059] font-bold flex items-center justify-center gap-1">
                   <MapPin className="w-3.5 h-3.5 inline-block" />
-                  {dateEntry.venue} ({dateEntry.time})
+                  <span>{dateEntry.venue} ({dateEntry.time})</span>
+                  {weather && (
+                    <span className="text-xs text-gray-300 font-medium ml-2">
+                      {weatherCodeToEmoji(weather.code)} {weather.min}° / {weather.max}°
+                    </span>
+                  )}
                 </p>
               </div>
             )}
@@ -576,7 +621,6 @@
     function ShowDetailDrawer({ shows, activeShowId, selectedSubDateIndex, setSelectedSubDateIndex, onClose, permanents, userRole }) {
       const [activeTab, setActiveTab] = useState('exclusive');
       const [showLogisticsDetails, setShowLogisticsDetails] = useState(false);
-      const [weather, setWeather] = useState(null);
 
       if (!activeShowId) return null;
       const show = shows.find((s) => s.id === activeShowId);
@@ -584,25 +628,7 @@
 
       const dateData = show.dates[selectedSubDateIndex] || show.dates[0];
       const percent = Math.round((dateData.sold / dateData.capacity) * 100);
-
-      useEffect(() => {
-        if (!show || !dateData) return;
-        setWeather(null);
-        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${show.lat}&longitude=${show.lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe/Paris&start_date=${dateData.dateISO}&end_date=${dateData.dateISO}`)
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.daily && data.daily.temperature_2m_max && data.daily.temperature_2m_max.length > 0) {
-              setWeather({
-                max: data.daily.temperature_2m_max[0],
-                min: data.daily.temperature_2m_min[0],
-                code: data.daily.weathercode[0],
-              });
-            } else {
-              setWeather(null);
-            }
-          })
-          .catch(() => setWeather(null));
-      }, [activeShowId, selectedSubDateIndex]);
+      const weather = useShowWeather(show?.lat, show?.lon, dateData?.dateISO);
 
       const openDirections = () => {
         window.open(`https://www.google.com/maps/dir/?api=1&destination=${show.lat},${show.lon}`, '_blank');
@@ -689,25 +715,20 @@
               )}
 
               <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-[#c5a059] shrink-0" />
-                  <div>
-                    <p className="text-[9px] uppercase text-gray-400 font-bold">Salle</p>
-                    <p className="text-xs text-gray-100 font-bold">{dateData.venue}</p>
-                  </div>
-                </div>
-
-                {weather && (
-                  <div className="bg-[#181818] p-2.5 rounded-xl border border-[#262626] flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#c5a059] font-bold">Météo prévue :</span>
-                      <span className="text-gray-200">{weatherCodeToLabel(weather.code)}</span>
+                <div className="flex items-center justify-between bg-[#181818] p-2.5 rounded-xl border border-[#262626]">
+                  <div className="flex items-center gap-3">
+                    <MapPin className="w-5 h-5 text-[#c5a059] shrink-0" />
+                    <div>
+                      <p className="text-[9px] uppercase text-gray-400 font-bold">Salle</p>
+                      <p className="text-xs text-gray-100 font-bold">{dateData.venue}</p>
                     </div>
-                    <span className="font-extrabold text-[#c5a059]">
-                      {Math.round(weather.min)}° / {Math.round(weather.max)}°
-                    </span>
                   </div>
-                )}
+                  {weather && (
+                    <span className="text-xs text-gray-300 font-medium ml-auto shrink-0">
+                      {weatherCodeToEmoji(weather.code)} {weather.min}° / {weather.max}°
+                    </span>
+                  )}
+                </div>
 
                 <div className="flex items-center gap-3 bg-[#181818] p-2.5 rounded-xl border border-[#262626]">
                   <Train className="w-4 h-4 text-[#c5a059] shrink-0" />
@@ -846,7 +867,13 @@
             s.legs.forEach((l) => allLegs.push({ series: s, leg: l }));
           }
         });
-        if (modeFilter !== 'all') allLegs = allLegs.filter((i) => i.leg.mode === modeFilter);
+        if (modeFilter !== 'all') {
+          if (modeFilter === 'avion' || modeFilter === 'plane') {
+            allLegs = allLegs.filter((i) => i.leg.mode === 'avion' || i.leg.mode === 'plane');
+          } else {
+            allLegs = allLegs.filter((i) => i.leg.mode === modeFilter);
+          }
+        }
         if (searchQuery.trim()) {
           const q = searchQuery.toLowerCase().trim();
           allLegs = allLegs.filter((i) => i.leg.from.toLowerCase().includes(q) || i.leg.to.toLowerCase().includes(q) || i.leg.details.toLowerCase().includes(q));
@@ -861,7 +888,8 @@
         seriesData.forEach((s) => {
           text += `=== ${s.title} (${s.datesRange}) ===\n`;
           s.legs.forEach((leg) => {
-            text += `${leg.date} | ${leg.from} -> ${leg.to}${leg.mode && leg.mode !== 'local' && leg.mode !== 'car' ? ` | Mode: ${leg.mode.toUpperCase()}` : ''} | ${leg.details}\n`;
+            const modeLabel = (leg.mode === 'plane' || leg.mode === 'avion') ? 'AVION' : leg.mode ? leg.mode.toUpperCase() : '';
+            text += `${leg.date} | ${leg.from} -> ${leg.to}${leg.mode && leg.mode !== 'local' && leg.mode !== 'car' ? ` | Mode: ${modeLabel}` : ''} | ${leg.details}\n`;
           });
           text += "\n";
         });
@@ -897,6 +925,7 @@
                 <button onClick={() => setModeFilter('all')} className={`text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase ${modeFilter === 'all' ? 'bg-[#c5a059] text-black' : 'bg-[#181818] text-gray-400'}`}>Tous</button>
                 <button onClick={() => setModeFilter('train')} className={`text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase ${modeFilter === 'train' ? 'bg-purple-500 text-white' : 'bg-[#181818] text-gray-400'}`}>Trains</button>
                 <button onClick={() => setModeFilter('van')} className={`text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase ${modeFilter === 'van' ? 'bg-amber-500 text-black' : 'bg-[#181818] text-gray-400'}`}>Vans</button>
+                <button onClick={() => setModeFilter('avion')} className={`text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase ${modeFilter === 'avion' ? 'bg-sky-500 text-white' : 'bg-[#181818] text-gray-400'}`}>Avions</button>
               </div>
               <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Chercher gare, ville, N° TGV..." className="bg-[#141414] text-xs text-gray-200 px-3 py-1.5 rounded-lg border border-gray-800" />
             </div>
@@ -913,10 +942,10 @@
                         <span className={`text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full ${
                           leg.mode === 'train' ? 'bg-purple-950 text-purple-300 border border-purple-800' :
                           leg.mode === 'van' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
-                          leg.mode === 'plane' ? 'bg-sky-950 text-sky-300 border border-sky-800' :
+                          (leg.mode === 'avion' || leg.mode === 'plane') ? 'bg-sky-950 text-sky-300 border border-sky-800' :
                           'bg-[#202020] text-gray-300 border border-gray-700'
                         }`}>
-                          {leg.mode.toUpperCase()}
+                          {(leg.mode === 'avion' || leg.mode === 'plane') ? 'AVION' : leg.mode.toUpperCase()}
                         </span>
                       )}
                     </div>
@@ -1250,21 +1279,6 @@
                     onSelectShow={handleSelectShow}
                     nextShowId={nextShowData.show?.id}
                   />
-
-                  {!drawerOpen && activeShow && (
-                    <div className="absolute bottom-16 sm:bottom-20 left-1/2 -translate-x-1/2 z-20 pointer-events-auto flex items-center gap-2.5 bg-[#0c0c0c] border border-[#c5a059]/60 px-3.5 py-2 rounded-2xl shadow-2xl max-w-[92vw]">
-                      <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                      <span className="text-xs font-bold text-gray-200 truncate">
-                        {activeShow.city} • Étape #{activeShow.dates[0].order}
-                      </span>
-                      <button
-                        onClick={() => setDrawerOpen(true)}
-                        className="text-xs font-extrabold text-black bg-[#c5a059] hover:bg-[#e5c17e] px-3 py-1 rounded-xl transition-all shadow-md active:scale-95 shrink-0"
-                      >
-                        Voir la fiche
-                      </button>
-                    </div>
-                  )}
 
                   {drawerOpen && activeShowId && (
                     <ShowDetailDrawer
