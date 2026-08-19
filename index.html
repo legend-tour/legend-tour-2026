@@ -103,7 +103,7 @@
     const Star = (p) => <Icon {...p} path={<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>} />;
     const ChevronDown = (p) => <Icon {...p} path={<path d="m6 9 6 6 6-6"/>} />;
     const Edit2 = (p) => <Icon {...p} path={<><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></>} />;
-    const Save = (p) => <Icon {...p} path={<><path d="M152 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12Z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></>} />;
+    const Save = (p) => <Icon {...p} path={<><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></>} />;
     const Copy = (p) => <Icon {...p} path={<><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></>} />;
     const Check = (p) => <Icon {...p} path={<polyline points="20 6 9 17 4 12"/>} />;
     const Search = (p) => <Icon {...p} path={<><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></>} />;
@@ -111,77 +111,85 @@
     const Home = (p) => <Icon {...p} path={<><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>} />;
 
     // --- TOUR DATA ---
+    // ATTENTION : ce verrou est côté client uniquement (code visible dans le source HTML).
+    // Ce n'est PAS une sécurité réelle, seulement un filtre d'accès basique contre le grand public.
+    // La vraie protection nécessite une action d'hébergement (hors du code) :
+    // passer le dépôt GitHub en privé + servir le site via une plateforme avec authentification
+    // (ex : Cloudflare Access, Netlify avec protection par mot de passe, etc.)
+    const ACCESS_CODE = "LT26-";
+
     const CONTACT_GWENDAL = { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" };
+    const CONTACT_BACKUP = { name: "À compléter", role: "Contact de secours", phone: "À compléter" };
 
     const SHOWS = [
       {
         id: "bordeaux", city: "Bordeaux", lat: 44.825, lon: -0.5311, lot: 1, series: 1, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Nantes)", transport: "Train puis Van", transportCode: "train-van",
-        dates: [{ date: "7 Octobre 2026", dateISO: "2026-10-07", venue: "Arkéa Arena", sold: 6655, capacity: 7539, guests: ["Maxime Gasteuil", "Fabien Olicard"], time: "20h00", order: 1, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "Parking technique VIP situé Rue Jean-Jacques Bosc", wifiBackstage: { ssid: "ARKEA_BACKSTAGE", password: "Legend2026_Bdx" } }]
+        dates: [{ date: "7 Octobre 2026", dateISO: "2026-10-07", venue: "Arkéa Arena", sold: 6655, capacity: 7539, guests: [], time: "20h00", order: 1, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Parking technique VIP situé Rue Jean-Jacques Bosc", wifiBackstage: { ssid: "ARKEA_BACKSTAGE", password: "Legend2026_Bdx" } }]
       },
       {
         id: "nantes", city: "Nantes", lat: 47.2303, lon: -1.6289, lot: 1, series: 1, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Rennes)", transport: "Van (4h de route)", transportCode: "van",
-        dates: [{ date: "8 Octobre 2026", dateISO: "2026-10-08", venue: "Zénith de Nantes", sold: 5627, capacity: 5691, guests: ["Lorànt Deutsch", "Samuel Bambi"], time: "20h00", order: 2, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "Accès Quai de la Carrière", wifiBackstage: { ssid: "ZENITH_NANTES_VIP", password: "LegendNantes26" } }]
+        dates: [{ date: "8 Octobre 2026", dateISO: "2026-10-08", venue: "Zénith de Nantes", sold: 5627, capacity: 5691, guests: ["Lorànt Deutsch", "Samuel Bambi"], time: "20h00", order: 2, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Accès Quai de la Carrière", wifiBackstage: { ssid: "ZENITH_NANTES_VIP", password: "LegendNantes26" } }]
       },
       {
         id: "rennes", city: "Rennes", lat: 48.1133, lon: -1.5954, lot: 1, series: 1, isReturnCity: false, rest: "1 jour (10 oct)", returnDay: "Retour Train le 10/10", transport: "Van (1h30) / Train retour", transportCode: "van-train",
-        dates: [{ date: "9 Octobre 2026", dateISO: "2026-10-09", venue: "Glaz Arena", sold: 4555, capacity: 4580, guests: ["Ragnar Le Breton", "Samuel Bambi"], time: "20h00", order: 3, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "Parking P1 Glaz Arena Cesson-Sévigné", wifiBackstage: { ssid: "GLAZ_VIP_GUESTS", password: "LegendGlaz2026" } }]
+        dates: [{ date: "9 Octobre 2026", dateISO: "2026-10-09", venue: "Glaz Arena", sold: 4555, capacity: 4580, guests: ["Samuel Bambi"], time: "20h00", order: 3, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Parking P1 Glaz Arena Cesson-Sévigné", wifiBackstage: { ssid: "GLAZ_VIP_GUESTS", password: "LegendGlaz2026" } }]
       },
       {
         id: "lievin", city: "Liévin", lat: 50.411, lon: 2.7659, lot: 2, series: 2, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Rouen via Paris)", transport: "Van (2h30 de route)", transportCode: "van",
-        dates: [{ date: "11 Octobre 2026", dateISO: "2026-10-11", venue: "Arena Stade Couvert", sold: 5888, capacity: 6968, guests: ["Samuel Bambi", "Camille Tissot"], time: "18h00", order: 4, loadIn: "12h00", contact: CONTACT_GWENDAL, parkingNotes: "Zone P2 technique Pistes d'Athlétisme", wifiBackstage: { ssid: "ARENA_LIEVIN_LOGES", password: "LegendLievin26" } }]
+        dates: [{ date: "11 Octobre 2026", dateISO: "2026-10-11", venue: "Arena Stade Couvert", sold: 5888, capacity: 6968, guests: ["Samuel Bambi", "Camille Tissot"], time: "18h00", order: 4, loadIn: "12h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Zone P2 technique Pistes d'Athlétisme", wifiBackstage: { ssid: "ARENA_LIEVIN_LOGES", password: "LegendLievin26" } }]
       },
       {
         id: "rouen", city: "Rouen", lat: 49.3941, lon: 1.0576, lot: 2, series: 2, isReturnCity: true, rest: "2 jours (13-14 oct)", returnDay: "12/10 Nuit ou 13/10 (Van 2h)", transport: "Van via Paris (2h00)", transportCode: "van-paris",
-        dates: [{ date: "12 Octobre 2026", dateISO: "2026-10-12", venue: "Zénith de Rouen", sold: 4558, capacity: 5098, guests: ["Franck Dubosc"], time: "20h00", order: 5, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "Avenue des Canadiens Grand Quevilly", wifiBackstage: { ssid: "ZENITH_ROUEN_VIP", password: "LegendRouen2026" } }]
+        dates: [{ date: "12 Octobre 2026", dateISO: "2026-10-12", venue: "Zénith de Rouen", sold: 4558, capacity: 5098, guests: [], time: "20h00", order: 5, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Avenue des Canadiens Grand Quevilly", wifiBackstage: { ssid: "ZENITH_ROUEN_VIP", password: "LegendRouen2026" } }]
       },
       {
         id: "dijon", city: "Dijon", lat: 47.3555, lon: 5.0563, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Chambéry)", transport: "Train (Gare de Lyon)", transportCode: "train-van",
-        dates: [{ date: "15 Octobre 2026", dateISO: "2026-10-15", venue: "Zénith de Dijon", sold: 4270, capacity: 4683, guests: ["Nino Arial"], time: "20h00", order: 6, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "Rue de Colchide Toison d'Or", wifiBackstage: { ssid: "ZENITH_DIJON_BACKSTAGE", password: "LegendDijon26" } }]
+        dates: [{ date: "15 Octobre 2026", dateISO: "2026-10-15", venue: "Zénith de Dijon", sold: 4270, capacity: 4683, guests: ["Nino Arial"], time: "20h00", order: 6, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Rue de Colchide Toison d'Or", wifiBackstage: { ssid: "ZENITH_DIJON_BACKSTAGE", password: "LegendDijon26" } }]
       },
       {
         id: "chambery", city: "Chambéry", lat: 45.5844, lon: 5.8993, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Montpellier)", transport: "Van (3h de route)", transportCode: "van",
-        dates: [{ date: "16 Octobre 2026", dateISO: "2026-10-16", venue: "Le Phare-Grand Chambéry", sold: 4651, capacity: 4703, guests: [], time: "20h00", order: 7, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "800 Avenue du Grand Ariétaz", wifiBackstage: { ssid: "LE_PHARE_VIP", password: "LegendChambery26" } }]
+        dates: [{ date: "16 Octobre 2026", dateISO: "2026-10-16", venue: "Le Phare-Grand Chambéry", sold: 4651, capacity: 4703, guests: [], time: "20h00", order: 7, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "800 Avenue du Grand Ariétaz", wifiBackstage: { ssid: "LE_PHARE_VIP", password: "LegendChambery26" } }]
       },
       {
         id: "montpellier", city: "Montpellier", lat: 43.5724, lon: 3.9513, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Toulouse)", transport: "Van (4h de route)", transportCode: "van",
-        dates: [{ date: "17 Octobre 2026", dateISO: "2026-10-17", venue: "Sud de France Arena", sold: 5180, capacity: 6328, guests: ["Rémi Gaillard"], time: "20h00", order: 8, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "Route de la Foire Pérols", wifiBackstage: { ssid: "ARENA_MTP_VIP", password: "LegendMtp2026" } }]
+        dates: [{ date: "17 Octobre 2026", dateISO: "2026-10-17", venue: "Sud de France Arena", sold: 5180, capacity: 6328, guests: ["Rémi Gaillard"], time: "20h00", order: 8, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Route de la Foire Pérols", wifiBackstage: { ssid: "ARENA_MTP_VIP", password: "LegendMtp2026" } }]
       },
       {
         id: "toulouse", city: "Toulouse", lat: 43.5982, lon: 1.41, lot: 3, series: 3, isReturnCity: true, rest: "2 jours (19-20 oct)", returnDay: "19 oct. (Avion / TGV)", transport: "Van (2h30) puis Avion/Train", transportCode: "plane-train",
-        dates: [{ date: "18 Octobre 2026", dateISO: "2026-10-18", venue: "Zénith Toulouse Métropole", sold: 5603, capacity: 6404, guests: ["Jérôme Bayle"], time: "18h00", order: 9, loadIn: "12h00", contact: CONTACT_GWENDAL, parkingNotes: "11 Avenue Raymond Badiou", wifiBackstage: { ssid: "ZENITH_TLS_BACKSTAGE", password: "LegendToulouse26" } }]
+        dates: [{ date: "18 Octobre 2026", dateISO: "2026-10-18", venue: "Zénith Toulouse Métropole", sold: 5603, capacity: 6404, guests: ["Jérôme Bayle"], time: "18h00", order: 9, loadIn: "12h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "11 Avenue Raymond Badiou", wifiBackstage: { ssid: "ZENITH_TLS_BACKSTAGE", password: "LegendToulouse26" } }]
       },
       {
         id: "strasbourg", city: "Strasbourg", lat: 48.5932, lon: 7.6872, lot: 4, series: 4, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Metz)", transport: "Train (Gare de l'Est)", transportCode: "train-van",
-        dates: [{ date: "21 Octobre 2026", dateISO: "2026-10-21", venue: "Zénith de Strasbourg", sold: 4655, capacity: 5148, guests: ["Élie Semoun"], time: "20h00", order: 10, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "1 Allée du Zénith Eckbolsheim", wifiBackstage: { ssid: "ZENITH_STRAS_VIP", password: "LegendStrasbourg26" } }]
+        dates: [{ date: "21 Octobre 2026", dateISO: "2026-10-21", venue: "Zénith de Strasbourg", sold: 4655, capacity: 5148, guests: ["Élie Semoun"], time: "20h00", order: 10, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "1 Allée du Zénith Eckbolsheim", wifiBackstage: { ssid: "ZENITH_STRAS_VIP", password: "LegendStrasbourg26" } }]
       },
       {
         id: "metz", city: "Metz", lat: 49.1087, lon: 6.1841, lot: 4, series: 4, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Bruxelles)", transport: "Van (2h de route)", transportCode: "van",
-        dates: [{ date: "22 Octobre 2026", dateISO: "2026-10-22", venue: "Les Arènes de Metz", sold: 4559, capacity: 4594, guests: [], time: "20h00", order: 11, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "5 Avenue Louis secondary parking", wifiBackstage: { ssid: "ARENES_METZ_BACKSTAGE", password: "LegendMetz2026" } }]
+        dates: [{ date: "22 Octobre 2026", dateISO: "2026-10-22", venue: "Les Arènes de Metz", sold: 4559, capacity: 4594, guests: [], time: "20h00", order: 11, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "5 Avenue Louis secondary parking", wifiBackstage: { ssid: "ARENES_METZ_BACKSTAGE", password: "LegendMetz2026" } }]
       },
       {
         id: "bruxelles", city: "Bruxelles", lat: 50.8097, lon: 4.3261, lot: 4, series: 4, isReturnCity: true, rest: "2 jours (25-26 oct)", returnDay: "25 oct. (Eurostar / Thalys)", transport: "Van (3h) puis Eurostar/Train", transportCode: "train-international",
         dates: [
-          { date: "23 Octobre 2026", dateISO: "2026-10-23", venue: "Forest National", sold: 7238, capacity: 7399, guests: ["Manu Payet"], time: "20h00", order: 12, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "Avenue du Globe 36 Vorst", wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" } },
-          { date: "24 Octobre 2026", dateISO: "2026-10-24", venue: "Forest National", sold: 4656, capacity: 5629, guests: ["Manu Payet"], time: "20h00", order: 13, loadIn: "15h00", contact: CONTACT_GWENDAL, parkingNotes: "Avenue du Globe 36 Vorst", wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" } }
+          { date: "23 Octobre 2026", dateISO: "2026-10-23", venue: "Forest National", sold: 7238, capacity: 7399, guests: [], time: "20h00", order: 12, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Avenue du Globe 36 Vorst", wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" } },
+          { date: "24 Octobre 2026", dateISO: "2026-10-24", venue: "Forest National", sold: 4656, capacity: 5629, guests: [], time: "20h00", order: 13, loadIn: "15h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Avenue du Globe 36 Vorst", wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" } }
         ]
       },
       {
         id: "nice", city: "Nice", lat: 43.6785, lon: 7.1990, lot: 5, series: 5, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Aix)", transport: "Train / Avion (Orly-Nice)", transportCode: "plane-train",
-        dates: [{ date: "27 Octobre 2026", dateISO: "2026-10-27", venue: "Palais Nikaïa", sold: 3223, capacity: 4156, guests: ["Éric Dupond-Moretti"], time: "20h00", order: 14, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "163 Boulevard du Mercantour", wifiBackstage: { ssid: "NIKAIA_NICE_BACKSTAGE", password: "LegendNice2026" } }]
+        dates: [{ date: "27 Octobre 2026", dateISO: "2026-10-27", venue: "Palais Nikaïa", sold: 3223, capacity: 4156, guests: ["Éric Dupond-Moretti"], time: "20h00", order: 14, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "163 Boulevard du Mercantour", wifiBackstage: { ssid: "NIKAIA_NICE_BACKSTAGE", password: "LegendNice2026" } }]
       },
       {
         id: "aix", city: "Aix-en-Provence", lat: 43.471, lon: 5.4028, lot: 5, series: 5, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Lyon)", transport: "Van (2h de route)", transportCode: "van",
-        dates: [{ date: "28 Octobre 2026", dateISO: "2026-10-28", venue: "Arena du Pays d'Aix", sold: 5457, capacity: 5597, guests: ["Michaël Youn", "Vic", "Jean-Luc Reichmann", "Esther Abrami"], time: "20h00", order: 15, loadIn: "14h00", contact: CONTACT_GWENDAL, parkingNotes: "1955 Rue Claude Nicolas Ledoux Luynes", wifiBackstage: { ssid: "ARENA_AIX_VIP", password: "LegendAix2026" } }]
+        dates: [{ date: "28 Octobre 2026", dateISO: "2026-10-28", venue: "Arena du Pays d'Aix", sold: 5457, capacity: 5597, guests: ["Vic", "Jean-Luc Reichmann", "Esther Abrami"], time: "20h00", order: 15, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "1955 Rue Claude Nicolas Ledoux Luynes", wifiBackstage: { ssid: "ARENA_AIX_VIP", password: "LegendAix2026" } }]
       },
       {
         id: "lyon", city: "Lyon-Décines", lat: 45.7686, lon: 4.9783, lot: 5, series: 5, isReturnCity: true, rest: "~15 jours (30 oct - 13 nov)", returnDay: "30 oct. (TGV Lyon Part-Dieu)", transport: "Van (3h) puis Train (2h)", transportCode: "train-van",
-        dates: [{ date: "29 Octobre 2026", dateISO: "2026-10-29", venue: "LDLC Arena", sold: 7843, capacity: 9768, guests: ["Chicandier"], time: "20h00", order: 16, loadIn: "13h00", contact: CONTACT_GWENDAL, parkingNotes: "5 Avenue Simone Veil Décines-Charpieu", wifiBackstage: { ssid: "LDLC_ARENA_BACKSTAGE", password: "LegendLyon2026" } }]
+        dates: [{ date: "29 Octobre 2026", dateISO: "2026-10-29", venue: "LDLC Arena", sold: 7843, capacity: 9768, guests: ["Chicandier"], time: "20h00", order: 16, loadIn: "13h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "5 Avenue Simone Veil Décines-Charpieu", wifiBackstage: { ssid: "LDLC_ARENA_BACKSTAGE", password: "LegendLyon2026" } }]
       },
       {
         id: "paris", city: "Paris", lat: 48.8977, lon: 2.3595, lot: 6, series: 6, isReturnCity: true, rest: "Fin de tournée", returnDay: "Sur place", transport: "Déjà sur place (Paris)", transportCode: "local",
         dates: [
-          { date: "14 Novembre 2026", dateISO: "2026-11-14", venue: "Adidas Arena", sold: 7323, capacity: 7484, guests: ["Esther Abrami", "Franck Dubosc", "Éric Dupond-Moretti"], time: "20h00", order: 17, loadIn: "12h00", contact: CONTACT_GWENDAL, parkingNotes: "Porte de la Chapelle VIP Arena", wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" } },
-          { date: "15 Novembre 2026", dateISO: "2026-11-15", venue: "Adidas Arena", sold: 5344, capacity: 7484, guests: ["Esther Abrami", "Franck Dubosc", "Éric & Ramzy", "Éric Dupond-Moretti"], time: "18h00", order: 18, loadIn: "12h00", contact: CONTACT_GWENDAL, parkingNotes: "Porte de la Chapelle VIP Arena", wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" } }
+          { date: "14 Novembre 2026", dateISO: "2026-11-14", venue: "Adidas Arena", sold: 7323, capacity: 7484, guests: ["Esther Abrami", "Éric Dupond-Moretti"], time: "20h00", order: 17, loadIn: "12h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Porte de la Chapelle VIP Arena", wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" } },
+          { date: "15 Novembre 2026", dateISO: "2026-11-15", venue: "Adidas Arena", sold: 5344, capacity: 7484, guests: ["Esther Abrami", "Éric & Ramzy", "Éric Dupond-Moretti"], time: "18h00", order: 18, loadIn: "12h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Porte de la Chapelle VIP Arena", wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" } }
         ]
       }
     ];
@@ -190,11 +198,11 @@
       {
         seriesId: 1, title: "Série 1 — Grand Ouest", subtitle: "Bordeaux, Nantes, Rennes", datesRange: "06/10/26 - 10/10/26", color: "#c5a059",
         legs: [
-          { id: "s1-1", seriesId: 1, date: "06/10/26", dateISO: "2026-10-06", from: "Domicile / Paris", to: "Bordeaux", mode: "train", details: "Domicile > Bordeaux (train)", duration: "2h05", trainNumber: "TGV INOUI 8521", departureStation: "Gare de Paris Montparnasse", arrivalStation: "Gare de Bordeaux Saint-Jean", departureTime: "14:15", arrivalTime: "16:20", seatInfo: "Voiture 4 — Place 52", notes: "Arrivée la veille du show. Transfert Van hôtel.", isOffDay: false, relatedShowId: "bordeaux" },
+          { id: "s1-1", seriesId: 1, date: "06/10/26", dateISO: "2026-10-06", from: "Domicile / Paris", to: "Bordeaux", mode: "train", details: "Domicile > Bordeaux (train)", duration: "2h05", trainNumber: "TGV INOUI 8521", departureStation: "Gare de Paris Montparnasse", arrivalStation: "Gare de Bordeaux Saint-Jean", departureTime: "14:15", arrivalTime: "16:20", notes: "Arrivée la veille du show. Transfert Van hôtel.", isOffDay: false, relatedShowId: "bordeaux" },
           { id: "s1-2", seriesId: 1, date: "07/10/26", dateISO: "2026-10-07", from: "Bordeaux (Hôtel)", to: "Arkéa Arena", mode: "van", details: "Sur place Bordeaux", duration: "0h20", notes: "Jour de show #1 (Arkéa Arena - 20h00).", isOffDay: false, relatedShowId: "bordeaux" },
           { id: "s1-3", seriesId: 1, date: "08/10/26", dateISO: "2026-10-08", from: "Bordeaux", to: "Nantes", mode: "van", details: "Bordeaux > Nantes (van : 4h de route)", duration: "4h00", departureTime: "09:30", arrivalTime: "13:30", notes: "Trajet matin. Show #2 Zénith de Nantes.", isOffDay: false, relatedShowId: "nantes" },
           { id: "s1-4", seriesId: 1, date: "09/10/26", dateISO: "2026-10-09", from: "Nantes", to: "Rennes", mode: "van", details: "Nantes > Rennes (van : 1h30 de route)", duration: "1h30", departureTime: "11:00", arrivalTime: "12:30", notes: "Show #3 Glaz Arena (20h00).", isOffDay: false, relatedShowId: "rennes" },
-          { id: "s1-5", seriesId: 1, date: "10/10/26", dateISO: "2026-10-10", from: "Rennes", to: "Domicile / Paris", mode: "train", details: "Rennes > Domicile (train)", duration: "1h30", trainNumber: "TGV INOUI 8084", departureStation: "Gare de Rennes", arrivalStation: "Gare de Paris Montparnasse", departureTime: "10:15", arrivalTime: "11:45", seatInfo: "Voiture 2 — Place 31", notes: "Retour à domicile après Série 1.", isOffDay: true, relatedShowId: "rennes" }
+          { id: "s1-5", seriesId: 1, date: "10/10/26", dateISO: "2026-10-10", from: "Rennes", to: "Domicile / Paris", mode: "train", details: "Rennes > Domicile (train)", duration: "1h30", trainNumber: "TGV INOUI 8084", departureStation: "Gare de Rennes", arrivalStation: "Gare de Paris Montparnasse", departureTime: "10:15", arrivalTime: "11:45", notes: "Retour à domicile après Série 1.", isOffDay: true, relatedShowId: "rennes" }
         ]
       },
       {
@@ -210,7 +218,7 @@
       {
         seriesId: 3, title: "Série 3 — Est, Alpes & Sud", subtitle: "Dijon, Chambéry, Montpellier, Toulouse", datesRange: "15/10/26 - 20/10/26", color: "#60a5fa",
         legs: [
-          { id: "s3-1", seriesId: 3, date: "15/10/26", dateISO: "2026-10-15", from: "Domicile / Paris", to: "Dijon", mode: "train", details: "Domicile > Dijon (train)", duration: "1h35", trainNumber: "TGV INOUI 6703", departureStation: "Gare de Paris Lyon", arrivalStation: "Gare de Dijon Ville", departureTime: "10:22", arrivalTime: "11:57", seatInfo: "Voiture 11 — Place 84", notes: "Show #6 Zénith de Dijon (20h00).", isOffDay: false, relatedShowId: "dijon" },
+          { id: "s3-1", seriesId: 3, date: "15/10/26", dateISO: "2026-10-15", from: "Domicile / Paris", to: "Dijon", mode: "train", details: "Domicile > Dijon (train)", duration: "1h35", trainNumber: "TGV INOUI 6703", departureStation: "Gare de Paris Lyon", arrivalStation: "Gare de Dijon Ville", departureTime: "10:22", arrivalTime: "11:57", notes: "Show #6 Zénith de Dijon (20h00).", isOffDay: false, relatedShowId: "dijon" },
           { id: "s3-2", seriesId: 3, date: "16/10/26", dateISO: "2026-10-16", from: "Dijon", to: "Chambéry", mode: "van", details: "Dijon > Chambéry (van : 3h)", duration: "3h00", departureTime: "09:30", arrivalTime: "12:30", notes: "Show #7 Le Phare (20h00).", isOffDay: false, relatedShowId: "chambery" },
           { id: "s3-3", seriesId: 3, date: "17/10/26", dateISO: "2026-10-17", from: "Chambéry", to: "Montpellier", mode: "van", details: "Chambéry > Montpellier (van : 4h)", duration: "4h00", departureTime: "08:30", arrivalTime: "12:30", notes: "Show #8 Sud de France Arena (20h00).", isOffDay: false, relatedShowId: "montpellier" },
           { id: "s3-4", seriesId: 3, date: "18/10/26", dateISO: "2026-10-18", from: "Montpellier", to: "Toulouse", mode: "van", details: "Montpellier > Toulouse (van : 2h30)", duration: "2h30", departureTime: "09:00", arrivalTime: "11:30", notes: "Show #9 Zénith Toulouse (18h00).", isOffDay: false, relatedShowId: "toulouse" },
@@ -220,11 +228,11 @@
       {
         seriesId: 4, title: "Série 4 — Alsace, Lorraine & Belgique", subtitle: "Strasbourg, Metz, Bruxelles", datesRange: "21/10/26 - 26/10/26", color: "#34d399",
         legs: [
-          { id: "s4-1", seriesId: 4, date: "21/10/26", dateISO: "2026-10-21", from: "Domicile / Paris", to: "Strasbourg", mode: "train", details: "Domicile > Strasbourg (train)", duration: "1h50", trainNumber: "TGV INOUI 2407", departureStation: "Gare de Paris Est", arrivalStation: "Gare de Strasbourg", departureTime: "09:55", arrivalTime: "11:45", seatInfo: "Voiture 1 — Place 12", notes: "Show #10 Zénith Strasbourg (20h00).", isOffDay: false, relatedShowId: "strasbourg" },
+          { id: "s4-1", seriesId: 4, date: "21/10/26", dateISO: "2026-10-21", from: "Domicile / Paris", to: "Strasbourg", mode: "train", details: "Domicile > Strasbourg (train)", duration: "1h50", trainNumber: "TGV INOUI 2407", departureStation: "Gare de Paris Est", arrivalStation: "Gare de Strasbourg", departureTime: "09:55", arrivalTime: "11:45", notes: "Show #10 Zénith Strasbourg (20h00).", isOffDay: false, relatedShowId: "strasbourg" },
           { id: "s4-2", seriesId: 4, date: "22/10/26", dateISO: "2026-10-22", from: "Strasbourg", to: "Metz", mode: "van", details: "Strasbourg > Metz (van : 2h)", duration: "2h00", departureTime: "10:00", arrivalTime: "12:00", notes: "Show #11 Arènes de Metz (20h00).", isOffDay: false, relatedShowId: "metz" },
           { id: "s4-3", seriesId: 4, date: "23/10/26", dateISO: "2026-10-23", from: "Metz", to: "Bruxelles", mode: "van", details: "Metz > Bruxelles (van : 3h)", duration: "3h00", departureTime: "09:00", arrivalTime: "12:00", notes: "Show #12 Forest National (20h00).", isOffDay: false, relatedShowId: "bruxelles" },
           { id: "s4-4", seriesId: 4, date: "24/10/26", dateISO: "2026-10-24", from: "Bruxelles (Hôtel)", to: "Bruxelles (Forest National)", mode: "van", details: "Sur place Bruxelles", duration: "0h30", notes: "Show #13 Forest National (20h00).", isOffDay: false, relatedShowId: "bruxelles" },
-          { id: "s4-5", seriesId: 4, date: "25/10/26", dateISO: "2026-10-25", from: "Bruxelles", to: "Domicile / Paris", mode: "train", details: "Bruxelles > Domicile (train)", duration: "1h22", trainNumber: "Eurostar 9324", departureStation: "Gare de Bruxelles-Midi", arrivalStation: "Gare de Paris Nord", departureTime: "11:13", arrivalTime: "12:35", seatInfo: "Voiture 12 — Place 61", notes: "Retour Eurostar vers Paris.", isOffDay: true, relatedShowId: "bruxelles" }
+          { id: "s4-5", seriesId: 4, date: "25/10/26", dateISO: "2026-10-25", from: "Bruxelles", to: "Domicile / Paris", mode: "train", details: "Bruxelles > Domicile (train)", duration: "1h22", trainNumber: "Eurostar 9324", departureStation: "Gare de Bruxelles-Midi", arrivalStation: "Gare de Paris Nord", departureTime: "11:13", arrivalTime: "12:35", notes: "Retour Eurostar vers Paris.", isOffDay: true, relatedShowId: "bruxelles" }
         ]
       },
       {
@@ -233,14 +241,14 @@
           { id: "s5-1", seriesId: 5, date: "27/10/26", dateISO: "2026-10-27", from: "Domicile / Paris", to: "Nice", mode: "plane", details: "Domicile > Nice (train/avion)", duration: "1h30", trainNumber: "Vol AF7700", departureStation: "Aéroport Paris-Orly (ORY)", arrivalStation: "Aéroport Nice Côte d'Azur (NCE)", departureTime: "09:15", arrivalTime: "10:45", notes: "Show #14 Palais Nikaïa (20h00).", isOffDay: false, relatedShowId: "nice" },
           { id: "s5-2", seriesId: 5, date: "28/10/26", dateISO: "2026-10-28", from: "Nice", to: "Aix-en-Provence", mode: "van", details: "Nice > Aix (van : 2h)", duration: "2h00", departureTime: "10:00", arrivalTime: "12:00", notes: "Show #15 Arena du Pays d'Aix (20h00).", isOffDay: false, relatedShowId: "aix" },
           { id: "s5-3", seriesId: 5, date: "29/10/26", dateISO: "2026-10-29", from: "Aix-en-Provence", to: "Lyon", mode: "van", details: "Aix > Lyon (van : 3h)", duration: "3h00", departureTime: "09:30", arrivalTime: "12:30", notes: "Show #16 LDLC Arena (20h00).", isOffDay: false, relatedShowId: "lyon" },
-          { id: "s5-4", seriesId: 5, date: "30/10/26", dateISO: "2026-10-30", from: "Lyon", to: "Domicile / Paris", mode: "train", details: "Lyon > Domicile (train)", duration: "1h58", trainNumber: "TGV INOUI 6616", departureStation: "Gare de Lyon Part-Dieu", arrivalStation: "Gare de Paris Lyon", departureTime: "10:04", arrivalTime: "12:02", seatInfo: "Voiture 3 — Place 45", notes: "Retour à Paris.", isOffDay: true, relatedShowId: "lyon" }
+          { id: "s5-4", seriesId: 5, date: "30/10/26", dateISO: "2026-10-30", from: "Lyon", to: "Domicile / Paris", mode: "train", details: "Lyon > Domicile (train)", duration: "1h58", trainNumber: "TGV INOUI 6616", departureStation: "Gare de Lyon Part-Dieu", arrivalStation: "Gare de Paris Lyon", departureTime: "10:04", arrivalTime: "12:02", notes: "Retour à Paris.", isOffDay: true, relatedShowId: "lyon" }
         ]
       },
       {
         seriesId: 6, title: "Clôture — Paris Adidas Arena", subtitle: "Adidas Arena (2 représentations)", datesRange: "14/11/26 - 15/11/26", color: "#a78bfa",
         legs: [
-          { id: "s6-1", seriesId: 6, date: "14/11/26", dateISO: "2026-11-14", from: "Paris", to: "Adidas Arena", mode: "car", details: "Sur place (Paris)", duration: "0h30", notes: "Show #17 Adidas Arena (20h00).", isOffDay: false, relatedShowId: "paris" },
-          { id: "s6-2", seriesId: 6, date: "15/11/26", dateISO: "2026-11-15", from: "Paris", to: "Adidas Arena", mode: "car", details: "Sur place (Paris)", duration: "0h30", notes: "Dernier show #18 Adidas Arena (18h00). Clôture.", isOffDay: false, relatedShowId: "paris" }
+          { id: "s6-1", seriesId: 6, date: "14/11/26", dateISO: "2026-11-14", from: "Paris", to: "Adidas Arena", mode: "local", details: "Sur place (Paris)", duration: "0h30", notes: "Show #17 Adidas Arena (20h00).", isOffDay: false, relatedShowId: "paris" },
+          { id: "s6-2", seriesId: 6, date: "15/11/26", dateISO: "2026-11-15", from: "Paris", to: "Adidas Arena", mode: "local", details: "Sur place (Paris)", duration: "0h30", notes: "Dernier show #18 Adidas Arena (18h00). Clôture.", isOffDay: false, relatedShowId: "paris" }
         ]
       }
     ];
@@ -253,67 +261,14 @@
       { name: "Héméré", role: "Intervenante spéciale", desc: "Bouscule les invités avec ses questions sans filtre." }
     ];
 
-    // --- HEADER COMPONENT ---
-    function Header({ activeView, setActiveView }) {
-      return (
-        <header className="bg-[#0c0c0c]/95 border-b border-[#1c1c1c] sticky top-0 shrink-0 z-30 box-glow-gold">
-          <div className="bg-[#181818] border-b border-gray-800/80 px-3 py-1 text-center text-[10px] font-bold text-gray-400 tracking-widest uppercase flex items-center justify-center gap-1.5">
-            <Lock className="w-3 h-3 text-amber-500" />
-            <span>Usage interne • Logistique & transports Legend Tour 2026</span>
-          </div>
-
-          <div className="px-3 py-2.5 flex flex-wrap items-center justify-between gap-3">
-            <div onClick={() => setActiveView('home')} className="flex items-center gap-2.5 cursor-pointer group">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8e6f3b] to-[#c5a059] flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-                <span className="font-serif font-black text-black text-xs">L</span>
-              </div>
-              <div>
-                <h1 className="font-serif text-sm sm:text-base font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-[#e5c17e] to-[#c5a059]">
-                  Legend Tour 2026
-                </h1>
-                <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">
-                  by Trade Republic
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center bg-[#141414] p-1 rounded-xl border border-gray-800">
-              <button
-                onClick={() => setActiveView('home')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  activeView === 'home' ? 'bg-[#c5a059] text-black shadow-md' : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Accueil / Prochain show</span>
-                <span className="sm:hidden">Accueil</span>
-              </button>
-
-              <button
-                onClick={() => setActiveView('map')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  activeView === 'map' ? 'bg-[#c5a059] text-black shadow-md' : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                <MapIcon className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Carte interactive</span>
-                <span className="sm:hidden">Carte</span>
-              </button>
-
-              <button
-                onClick={() => setActiveView('transports')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  activeView === 'transports' ? 'bg-[#c5a059] text-black shadow-md' : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                <Train className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Plan de route (trains & vans)</span>
-                <span className="sm:hidden">Transports</span>
-              </button>
-            </div>
-          </div>
-        </header>
-      );
+    function weatherCodeToLabel(code) {
+      if (code === 0) return "Ciel dégagé";
+      if (code >= 1 && code <= 3) return "Nuageux";
+      if (code === 45 || code === 48) return "Brouillard";
+      if (code >= 51 && code <= 67) return "Pluie";
+      if (code >= 71 && code <= 86) return "Neige";
+      if (code >= 95) return "Orage";
+      return "Météo indisponible";
     }
 
     // --- HOME HERO VIEW COMPONENT ---
@@ -413,20 +368,6 @@
                     Logistique OK
                   </span>
                 </div>
-
-                {show.transport && (show.transport.toLowerCase().includes('train') || show.transport.toLowerCase().includes('tgv')) && (
-                  <a
-                    href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`Gare de ${show.city}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="flex items-center justify-center gap-1.5 bg-purple-950/60 hover:bg-purple-900/80 border border-purple-800/60 text-purple-200 hover:text-white py-1.5 px-2.5 rounded-lg text-[11px] font-bold transition-all active:scale-95 shadow-sm"
-                  >
-                    <Train className="w-3.5 h-3.5 text-purple-400" />
-                    <span>Itinéraire vers la gare de {show.city}</span>
-                    <ExternalLink className="w-2.5 h-2.5 text-purple-400 opacity-70" />
-                  </a>
-                )}
               </div>
             )}
 
@@ -632,9 +573,10 @@
     }
 
     // --- SHOW DETAIL DRAWER COMPONENT ---
-    function ShowDetailDrawer({ shows, activeShowId, selectedSubDateIndex, setSelectedSubDateIndex, onClose, permanents }) {
+    function ShowDetailDrawer({ shows, activeShowId, selectedSubDateIndex, setSelectedSubDateIndex, onClose, permanents, userRole }) {
       const [activeTab, setActiveTab] = useState('exclusive');
       const [showLogisticsDetails, setShowLogisticsDetails] = useState(false);
+      const [weather, setWeather] = useState(null);
 
       if (!activeShowId) return null;
       const show = shows.find((s) => s.id === activeShowId);
@@ -643,13 +585,63 @@
       const dateData = show.dates[selectedSubDateIndex] || show.dates[0];
       const percent = Math.round((dateData.sold / dateData.capacity) * 100);
 
-      const openDirections = () => { window.open(`https://www.google.com/maps/dir/?api=1&destination=${show.lat},${show.lon}`, '_blank'); };
+      useEffect(() => {
+        if (!show || !dateData) return;
+        setWeather(null);
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${show.lat}&longitude=${show.lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe/Paris&start_date=${dateData.dateISO}&end_date=${dateData.dateISO}`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.daily && data.daily.temperature_2m_max && data.daily.temperature_2m_max.length > 0) {
+              setWeather({
+                max: data.daily.temperature_2m_max[0],
+                min: data.daily.temperature_2m_min[0],
+                code: data.daily.weathercode[0],
+              });
+            } else {
+              setWeather(null);
+            }
+          })
+          .catch(() => setWeather(null));
+      }, [activeShowId, selectedSubDateIndex]);
+
+      const openDirections = () => {
+        window.open(`https://www.google.com/maps/dir/?api=1&destination=${show.lat},${show.lon}`, '_blank');
+      };
+
+      const handleReportIssue = () => {
+        const message = `Imprévu — ${show.city} (${dateData.date}) : `;
+        const phone = (dateData.contact?.phone || "0601770676").replace(/\s/g, '');
+        const url = `sms:${phone}?body=${encodeURIComponent(message)}`;
+        window.location.href = url;
+      };
 
       const downloadICS = () => {
-        const dateClean = dateData.dateISO.replace(/-/g, '');
-        const timeClean = dateData.time.replace('h', '') + '0000';
-        const dtStart = `${dateClean}T${timeClean}`;
-        const icsContent = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'BEGIN:VEVENT', `SUMMARY:Legend Tour 2026 — ${show.city}`, `LOCATION:${dateData.venue}`, `DTSTART:${dtStart}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+        const escapeICS = (text) => (text || '').replace(/,/g, '\\,').replace(/;/g, '\\;');
+        const startDate = new Date(`${dateData.dateISO}T${dateData.time.replace('h', ':')}:00`);
+        const endDate = new Date(startDate.getTime() + 3 * 60 * 60 * 1000);
+        const formatICSDate = (d) =>
+          `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}T${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}00`;
+        const dtStart = formatICSDate(startDate);
+        const dtEnd = formatICSDate(endDate);
+
+        const icsContent = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//Legend Tour 2026//FR',
+          'BEGIN:VEVENT',
+          `SUMMARY:${escapeICS(`Legend Tour 2026 — ${show.city}`)}`,
+          `LOCATION:${escapeICS(dateData.venue)}`,
+          `DTSTART:${dtStart}`,
+          `DTEND:${dtEnd}`,
+          'BEGIN:VALARM',
+          'TRIGGER:-PT2H',
+          'ACTION:DISPLAY',
+          'DESCRIPTION:Rappel Legend Tour 2026',
+          'END:VALARM',
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ].join('\r\n');
+
         const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
@@ -705,27 +697,24 @@
                   </div>
                 </div>
 
-                <div className="space-y-1.5">
-                  <div className="flex items-center gap-3 bg-[#181818] p-2.5 rounded-xl border border-[#262626]">
-                    <Train className="w-4 h-4 text-[#c5a059] shrink-0" />
-                    <div>
-                      <p className="text-[9px] uppercase text-gray-400 font-bold">Transport prévu</p>
-                      <p className="text-xs text-gray-200 font-bold">{show.transport}</p>
+                {weather && (
+                  <div className="bg-[#181818] p-2.5 rounded-xl border border-[#262626] flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#c5a059] font-bold">Météo prévue :</span>
+                      <span className="text-gray-200">{weatherCodeToLabel(weather.code)}</span>
                     </div>
+                    <span className="font-extrabold text-[#c5a059]">
+                      {Math.round(weather.min)}° / {Math.round(weather.max)}°
+                    </span>
                   </div>
+                )}
 
-                  {show.transport && (show.transport.toLowerCase().includes('train') || show.transport.toLowerCase().includes('tgv')) && (
-                    <a
-                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`Gare de ${show.city}`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center gap-2 bg-[#22102e] hover:bg-[#311842] border border-[#422159] text-purple-200 py-2 px-3 rounded-xl text-xs font-bold"
-                    >
-                      <Train className="w-3.5 h-3.5 text-purple-400" />
-                      <span>Itinéraire vers la gare de {show.city}</span>
-                      <ExternalLink className="w-3 h-3 text-purple-400 opacity-70" />
-                    </a>
-                  )}
+                <div className="flex items-center gap-3 bg-[#181818] p-2.5 rounded-xl border border-[#262626]">
+                  <Train className="w-4 h-4 text-[#c5a059] shrink-0" />
+                  <div>
+                    <p className="text-[9px] uppercase text-gray-400 font-bold">Transport prévu</p>
+                    <p className="text-xs text-gray-200 font-bold">{show.transport}</p>
+                  </div>
                 </div>
 
                 <div className="bg-[#161616] p-3 rounded-xl border border-[#262626] space-y-2">
@@ -740,36 +729,72 @@
                 </div>
 
                 <button onClick={openDirections} className="w-full flex items-center justify-center gap-2 bg-[#181818] border border-[#c5a059] text-white py-3 px-4 rounded-xl text-xs font-extrabold">
-                  <Compass className="w-4 h-4 text-emerald-400" /><span>Obtenir l'itinéraire GPS</span>
+                  <Compass className="w-4 h-4 text-emerald-400" /><span>Obtenir l'itinéraire vers la salle</span>
+                </button>
+
+                <button onClick={handleReportIssue} className="w-full flex items-center justify-center gap-2 bg-[#181818] border border-[#333333] hover:border-[#c5a059] text-gray-200 py-2.5 px-4 rounded-xl text-xs font-bold transition-colors">
+                  <Phone className="w-4 h-4 text-amber-400" /><span>Signaler un imprévu</span>
                 </button>
 
                 <button onClick={downloadICS} className="w-full flex items-center justify-center gap-2 bg-[#141414] border border-[#262626] text-[#c5a059] py-2.5 px-4 rounded-xl text-xs font-bold">
                   <Download className="w-4 h-4" /><span>Ajouter au calendrier (.ics)</span>
                 </button>
 
-                <div className="bg-[#161616] rounded-xl border border-[#262626] overflow-hidden">
-                  <button onClick={() => setShowLogisticsDetails(!showLogisticsDetails)} className="w-full p-3 font-bold text-xs text-gray-300 uppercase flex items-center justify-between">
-                    <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-[#c5a059]" /><span>Logistique & Backstage</span></span>
-                    <ChevronDown className={`w-4 h-4 transition-transform ${showLogisticsDetails ? 'rotate-180' : ''}`} />
-                  </button>
+                {/* Logistique & Backstage - Accessible uniquement en mode Tech/Régie */}
+                {userRole === 'tech' && (
+                  <div className="bg-[#161616] rounded-xl border border-[#262626] overflow-hidden">
+                    <button onClick={() => setShowLogisticsDetails(!showLogisticsDetails)} className="w-full p-3 font-bold text-xs text-gray-300 uppercase flex items-center justify-between">
+                      <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-[#c5a059]" /><span>Logistique & Backstage</span></span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${showLogisticsDetails ? 'rotate-180' : ''}`} />
+                    </button>
 
-                  {showLogisticsDetails && (
-                    <div className="p-3 border-t border-[#262626] space-y-2 text-xs bg-[#121212]">
-                      {dateData.loadIn && <div className="flex justify-between bg-[#1a1a1a] p-2 rounded border border-[#262626]"><span className="text-gray-400">Load-in :</span><span className="font-bold text-amber-400">{dateData.loadIn}</span></div>}
-                      {dateData.contact && (
-                        <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626] space-y-1">
-                          <p className="text-[10px] text-gray-400 font-bold uppercase">Régisseur Référent :</p>
-                          <p className="font-bold text-white">{dateData.contact.name} ({dateData.contact.role})</p>
-                          <a href={`tel:${dateData.contact.phone}`} className="text-[#c5a059] font-bold flex items-center gap-1"><Phone className="w-3 h-3" /><span>{dateData.contact.phone}</span></a>
-                        </div>
-                      )}
-                      {dateData.parkingNotes && <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626]"><p className="text-[10px] text-gray-400 font-bold uppercase">Parking :</p><p className="text-[11px] text-gray-300">{dateData.parkingNotes}</p></div>}
-                      {dateData.wifiBackstage && (
-                        <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626]"><p className="text-[10px] text-gray-400 font-bold uppercase">Wi-Fi :</p><p className="font-mono text-[11px] text-emerald-400">SSID: {dateData.wifiBackstage.ssid}</p><p className="font-mono text-[11px] text-gray-300">PASS: {dateData.wifiBackstage.password}</p></div>
-                      )}
-                    </div>
-                  )}
-                </div>
+                    {showLogisticsDetails && (
+                      <div className="p-3 border-t border-[#262626] space-y-2 text-xs bg-[#121212]">
+                        {dateData.loadIn && (
+                          <div className="flex justify-between bg-[#1a1a1a] p-2 rounded border border-[#262626]">
+                            <span className="text-gray-400">Load-in :</span>
+                            <span className="font-bold text-amber-400">{dateData.loadIn}</span>
+                          </div>
+                        )}
+                        {dateData.contact && (
+                          <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626] space-y-1">
+                            <p className="text-[10px] text-gray-400 font-bold uppercase">Régisseur Référent :</p>
+                            <p className="font-bold text-white select-text">{dateData.contact.name} ({dateData.contact.role})</p>
+                            <a href={`tel:${dateData.contact.phone.replace(/\s/g, '')}`} className="text-[#c5a059] font-bold text-xs flex items-center gap-1 select-text">
+                              <Phone className="w-3 h-3" /><span>{dateData.contact.phone}</span>
+                            </a>
+                          </div>
+                        )}
+                        {dateData.contactBackup && (
+                          <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626] space-y-1">
+                            <p className="text-[10px] text-gray-400 font-bold uppercase">Contact de secours :</p>
+                            <p className="font-bold text-white select-text">{dateData.contactBackup.name} ({dateData.contactBackup.role})</p>
+                            {dateData.contactBackup.phone !== "À compléter" ? (
+                              <a href={`tel:${dateData.contactBackup.phone.replace(/\s/g, '')}`} className="text-[#c5a059] font-bold text-xs flex items-center gap-1 select-text">
+                                <Phone className="w-3 h-3" /><span>{dateData.contactBackup.phone}</span>
+                              </a>
+                            ) : (
+                              <p className="text-gray-400 text-xs font-bold select-text">{dateData.contactBackup.phone}</p>
+                            )}
+                          </div>
+                        )}
+                        {dateData.parkingNotes && (
+                          <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626]">
+                            <p className="text-[10px] text-gray-400 font-bold uppercase">Parking :</p>
+                            <p className="text-xs text-gray-300 select-text">{dateData.parkingNotes}</p>
+                          </div>
+                        )}
+                        {dateData.wifiBackstage && (
+                          <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626]">
+                            <p className="text-[10px] text-gray-400 font-bold uppercase">Wi-Fi :</p>
+                            <p className="font-mono text-xs text-emerald-400 select-text">SSID: {dateData.wifiBackstage.ssid}</p>
+                            <p className="font-mono text-xs text-gray-200 select-text">PASS: {dateData.wifiBackstage.password}</p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -813,32 +838,12 @@
       const [modeFilter, setModeFilter] = useState('all');
       const [searchQuery, setSearchQuery] = useState('');
       const [copied, setCopied] = useState(false);
-      const [customLegs, setCustomLegs] = useState({});
-      const [editingLegId, setEditingLegId] = useState(null);
-      const [tempEditData, setTempEditData] = useState({});
-
-      useEffect(() => {
-        try {
-          const saved = localStorage.getItem('legend_tour_transport_edits_v1');
-          if (saved) setCustomLegs(JSON.parse(saved));
-        } catch (e) {}
-      }, []);
-
-      const handleSaveLegEdit = (legId) => {
-        const updated = { ...customLegs, [legId]: { ...customLegs[legId], ...tempEditData } };
-        setCustomLegs(updated);
-        try { localStorage.setItem('legend_tour_transport_edits_v1', JSON.stringify(updated)); } catch (e) {}
-        setEditingLegId(null);
-        setTempEditData({});
-      };
-
-      const getLegData = (leg) => customLegs[leg.id] ? { ...leg, ...customLegs[leg.id] } : leg;
 
       const getFilteredLegs = () => {
         let allLegs = [];
         seriesData.forEach((s) => {
           if (selectedSeriesId === 'all' || s.seriesId === selectedSeriesId) {
-            s.legs.forEach((l) => allLegs.push({ series: s, leg: getLegData(l) }));
+            s.legs.forEach((l) => allLegs.push({ series: s, leg: l }));
           }
         });
         if (modeFilter !== 'all') allLegs = allLegs.filter((i) => i.leg.mode === modeFilter);
@@ -855,9 +860,8 @@
         let text = "Plan de Route & Transports — Legend Tour 2026\n\n";
         seriesData.forEach((s) => {
           text += `=== ${s.title} (${s.datesRange}) ===\n`;
-          s.legs.forEach((rawLeg) => {
-            const leg = getLegData(rawLeg);
-            text += `${leg.date} | ${leg.from} -> ${leg.to} | Mode: ${leg.mode.toUpperCase()} | ${leg.details}\n`;
+          s.legs.forEach((leg) => {
+            text += `${leg.date} | ${leg.from} -> ${leg.to}${leg.mode && leg.mode !== 'local' && leg.mode !== 'car' ? ` | Mode: ${leg.mode.toUpperCase()}` : ''} | ${leg.details}\n`;
           });
           text += "\n";
         });
@@ -900,13 +904,21 @@
 
           <div className="space-y-4">
             {filteredItems.map(({ series, leg }) => {
-              const isEditing = editingLegId === leg.id;
               return (
                 <div key={leg.id} className="bg-[#121212] border border-gray-800 rounded-2xl p-4 space-y-3">
                   <div className="flex items-center justify-between border-b border-gray-800 pb-2">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-extrabold text-white bg-[#181818] px-3 py-1 rounded-lg border border-gray-800">{leg.date}</span>
-                      <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-purple-950 text-purple-300 border border-purple-800">{leg.mode.toUpperCase()}</span>
+                      {leg.mode && leg.mode !== 'local' && leg.mode !== 'car' && (
+                        <span className={`text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full ${
+                          leg.mode === 'train' ? 'bg-purple-950 text-purple-300 border border-purple-800' :
+                          leg.mode === 'van' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
+                          leg.mode === 'plane' ? 'bg-sky-950 text-sky-300 border border-sky-800' :
+                          'bg-[#202020] text-gray-300 border border-gray-700'
+                        }`}>
+                          {leg.mode.toUpperCase()}
+                        </span>
+                      )}
                     </div>
                     {leg.relatedShowId && (
                       <button onClick={() => onSelectShow(leg.relatedShowId)} className="text-[10px] font-bold text-[#c5a059] flex items-center gap-1 bg-[#181818] px-2.5 py-1 rounded-lg border border-[#c5a059]/30">
@@ -921,11 +933,16 @@
                   <p className="text-xs text-[#c5a059] font-bold">{leg.details}</p>
 
                   <div className="bg-[#161616] p-3 rounded-xl border border-gray-800 space-y-2 text-xs">
-                    {leg.trainNumber && <p className="text-purple-300 font-bold">🚆 {leg.trainNumber} {leg.seatInfo && `(${leg.seatInfo})`}</p>}
+                    {leg.trainNumber && (
+                      <p className="text-purple-300 font-bold text-xs select-text">
+                        🚆 <span className="select-text">{leg.trainNumber}</span>
+                      </p>
+                    )}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <div className="bg-black/40 p-2.5 rounded-lg space-y-1">
                         <p className="text-[9px] text-gray-400 font-bold uppercase">Départ</p>
-                        <p className="font-bold text-white">{leg.departureStation || leg.from}</p>
+                        <p className="font-bold text-white text-xs select-text">{leg.departureStation || leg.from}</p>
+                        {leg.departureTime && <p className="text-xs text-[#c5a059] font-bold select-text">{leg.departureTime}</p>}
                         {leg.mode === 'train' && (
                           <a href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(leg.departureStation || leg.from)}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 bg-purple-900/60 hover:bg-purple-800 text-purple-100 py-1.5 px-2.5 rounded-lg text-[11px] font-bold border border-purple-700/60 mt-1">
                             <Navigation className="w-3 h-3"/><span>Itinéraire gare de départ</span><ExternalLink className="w-2.5 h-2.5"/>
@@ -935,7 +952,8 @@
 
                       <div className="bg-black/40 p-2.5 rounded-lg space-y-1">
                         <p className="text-[9px] text-gray-400 font-bold uppercase">Arrivée</p>
-                        <p className="font-bold text-white">{leg.arrivalStation || leg.to}</p>
+                        <p className="font-bold text-white text-xs select-text">{leg.arrivalStation || leg.to}</p>
+                        {leg.arrivalTime && <p className="text-xs text-[#c5a059] font-bold select-text">{leg.arrivalTime}</p>}
                         {leg.mode === 'train' && (
                           <a href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(leg.arrivalStation || leg.to)}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 bg-[#222] hover:bg-[#333] text-gray-200 py-1.5 px-2.5 rounded-lg text-[11px] font-bold border border-gray-700 mt-1">
                             <MapPin className="w-3 h-3 text-[#c5a059]"/><span>Itinéraire gare d'arrivée</span><ExternalLink className="w-2.5 h-2.5"/>
@@ -954,12 +972,35 @@
 
     // --- MAIN APP COMPONENT ---
     function App() {
+      const [isUnlocked, setIsUnlocked] = useState(false);
+      const [accessCodeInput, setAccessCodeInput] = useState('');
+      const [accessError, setAccessError] = useState(false);
+
       const [activeView, setActiveView] = useState('home');
       const [userRole, setUserRole] = useState('artiste');
       const [activeShowId, setActiveShowId] = useState('bordeaux');
       const [selectedSubDateIndex, setSelectedSubDateIndex] = useState(0);
       const [selectedLotFilter, setSelectedLotFilter] = useState('all');
       const [drawerOpen, setDrawerOpen] = useState(true);
+
+      const [globalSearchOpen, setGlobalSearchOpen] = useState(false);
+      const [globalSearchQuery, setGlobalSearchQuery] = useState('');
+
+      useEffect(() => {
+        if (sessionStorage.getItem('legend_tour_unlocked') === 'true') {
+          setIsUnlocked(true);
+        }
+      }, []);
+
+      const handleUnlock = () => {
+        if (accessCodeInput.trim() === ACCESS_CODE) {
+          sessionStorage.setItem('legend_tour_unlocked', 'true');
+          setIsUnlocked(true);
+          setAccessError(false);
+        } else {
+          setAccessError(true);
+        }
+      };
 
       const getNextShow = () => {
         const todayStr = new Date().toISOString().split('T')[0];
@@ -1006,10 +1047,75 @@
         setActiveShowId(showId);
         setSelectedSubDateIndex(subDateIndex);
         setDrawerOpen(true);
-        if (activeView === 'home') setActiveView('map');
+        setActiveView('map');
       };
 
       const activeShow = SHOWS.find((s) => s.id === activeShowId);
+
+      const globalSearchResults = globalSearchQuery.trim().length > 0
+        ? SHOWS.filter((s) =>
+            s.city.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
+            s.dates.some((d) => d.venue.toLowerCase().includes(globalSearchQuery.toLowerCase()))
+          )
+        : [];
+
+      if (!isUnlocked) {
+        return (
+          <div className="bg-[#080808] text-gray-100 font-sans h-[100dvh] w-full flex flex-col items-center justify-center p-4 sm:p-6 text-center select-none relative overflow-hidden">
+            <div className="relative py-4 flex flex-col items-center justify-center w-full max-w-sm mb-6">
+              <div className="flex items-center justify-center gap-2 sm:gap-3">
+                <span className="font-sans font-black text-3xl sm:text-5xl tracking-[0.06em] text-white drop-shadow-[0_2px_12px_rgba(255,255,255,0.2)]">
+                  LEGEND
+                </span>
+                <span className="font-sans font-black text-3xl sm:text-5xl tracking-[0.06em] text-transparent bg-clip-text bg-gradient-to-r from-[#f0d59e] via-[#c5a059] to-[#9a7b41] drop-shadow-[0_2px_12px_rgba(197,160,89,0.3)]">
+                  TOUR
+                </span>
+              </div>
+              <div className="mt-2 flex items-center gap-2">
+                <span className="h-[1px] w-6 bg-gradient-to-r from-transparent to-[#c5a059]/60" />
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-[#c5a059]">
+                  by Trade Republic
+                </span>
+                <span className="h-[1px] w-6 bg-gradient-to-l from-transparent to-[#c5a059]/60" />
+              </div>
+            </div>
+
+            <div className="bg-[#121212] border border-gray-800 rounded-2xl p-6 max-w-sm w-full space-y-4 shadow-2xl box-glow-gold">
+              <div className="flex items-center justify-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                <Lock className="w-4 h-4 text-[#c5a059]" />
+                <span>Accès Équipe & Invités</span>
+              </div>
+
+              <div className="space-y-2">
+                <input
+                  type="password"
+                  value={accessCodeInput}
+                  onChange={(e) => {
+                    setAccessCodeInput(e.target.value);
+                    if (accessError) setAccessError(false);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleUnlock();
+                  }}
+                  placeholder="Code d'accès équipe"
+                  className="w-full bg-[#181818] text-center text-sm font-bold text-white px-4 py-3 rounded-xl border border-gray-800 focus:border-[#c5a059] focus:outline-none transition-colors"
+                  autoFocus
+                />
+                {accessError && (
+                  <p className="text-xs font-bold text-red-500">Code incorrect</p>
+                )}
+              </div>
+
+              <button
+                onClick={handleUnlock}
+                className="w-full text-xs font-black uppercase tracking-wider text-black bg-[#c5a059] hover:bg-[#e5c17e] py-3 px-4 rounded-xl transition-all shadow-lg active:scale-95"
+              >
+                Accéder
+              </button>
+            </div>
+          </div>
+        );
+      }
 
       return (
         <div className="bg-[#080808] text-gray-100 font-sans h-[100dvh] w-full overflow-hidden flex flex-col select-none">
@@ -1047,19 +1153,79 @@
                 <button onClick={() => setUserRole('tech')} className={`px-2.5 py-1 rounded-lg transition-all ${userRole === 'tech' ? 'bg-[#c5a059] text-black font-extrabold' : 'text-gray-400'}`}>Tech / Régie</button>
               </div>
 
-              {/* 3 Main View Tabs */}
-              <div className="flex items-center bg-[#141414] p-1 rounded-xl border border-gray-800 shrink-0">
-                <button onClick={() => handleSetView('home')} className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeView === 'home' ? 'bg-[#c5a059] text-black font-extrabold' : 'text-gray-400'}`}>
-                  <Calendar className="w-3.5 h-3.5" /><span className="hidden sm:inline">Accueil / Prochain show</span><span className="sm:hidden">Accueil</span>
+              {/* Search + 3 Main View Tabs */}
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  onClick={() => setGlobalSearchOpen(!globalSearchOpen)}
+                  className={`p-2 rounded-xl border transition-all ${
+                    globalSearchOpen
+                      ? 'bg-[#c5a059] text-black border-[#c5a059]'
+                      : 'bg-[#141414] text-gray-400 hover:text-white border-gray-800'
+                  }`}
+                  title="Rechercher une ville ou une salle"
+                >
+                  <Search className="w-4 h-4" />
                 </button>
-                <button onClick={() => handleSetView('map')} className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeView === 'map' ? 'bg-[#c5a059] text-black font-extrabold' : 'text-gray-400'}`}>
-                  <MapIcon className="w-3.5 h-3.5" /><span className="hidden sm:inline">Carte interactive</span><span className="sm:hidden">Carte</span>
-                </button>
-                <button onClick={() => handleSetView('transports')} className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeView === 'transports' ? 'bg-[#c5a059] text-black font-extrabold' : 'text-gray-400'}`}>
-                  <Train className="w-3.5 h-3.5" /><span className="hidden sm:inline">Plan de route (trains & vans)</span><span className="sm:hidden">Transports</span>
-                </button>
+
+                <div className="flex items-center bg-[#141414] p-1 rounded-xl border border-gray-800 shrink-0">
+                  <button onClick={() => handleSetView('home')} className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeView === 'home' ? 'bg-[#c5a059] text-black font-extrabold' : 'text-gray-400'}`}>
+                    <Calendar className="w-3.5 h-3.5" /><span className="hidden sm:inline">Accueil / Prochain show</span><span className="sm:hidden">Accueil</span>
+                  </button>
+                  <button onClick={() => handleSetView('map')} className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeView === 'map' ? 'bg-[#c5a059] text-black font-extrabold' : 'text-gray-400'}`}>
+                    <MapIcon className="w-3.5 h-3.5" /><span className="hidden sm:inline">Carte interactive</span><span className="sm:hidden">Carte</span>
+                  </button>
+                  <button onClick={() => handleSetView('transports')} className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeView === 'transports' ? 'bg-[#c5a059] text-black font-extrabold' : 'text-gray-400'}`}>
+                    <Train className="w-3.5 h-3.5" /><span className="hidden sm:inline">Plan de route (trains & vans)</span><span className="sm:hidden">Transports</span>
+                  </button>
+                </div>
               </div>
             </div>
+
+            {/* Global Search Overlay Panel */}
+            {globalSearchOpen && (
+              <div className="fixed top-14 sm:top-16 left-1/2 -translate-x-1/2 z-[60] bg-[#0c0c0c] border border-[#c5a059]/40 rounded-2xl shadow-2xl p-3 sm:p-4 max-w-md w-[92vw] space-y-3">
+                <div className="flex items-center gap-2 bg-[#181818] border border-gray-800 px-3 py-2 rounded-xl">
+                  <Search className="w-4 h-4 text-[#c5a059] shrink-0" />
+                  <input
+                    type="text"
+                    value={globalSearchQuery}
+                    onChange={(e) => setGlobalSearchQuery(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Escape') setGlobalSearchOpen(false);
+                    }}
+                    placeholder="Rechercher une ville, une salle..."
+                    className="w-full bg-transparent text-xs text-white placeholder-gray-500 focus:outline-none"
+                    autoFocus
+                  />
+                  <button onClick={() => { setGlobalSearchOpen(false); setGlobalSearchQuery(''); }} className="text-gray-400 hover:text-white p-0.5">
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="max-h-60 overflow-y-auto custom-scrollbar space-y-1.5">
+                  {globalSearchQuery.trim().length > 0 && globalSearchResults.length === 0 && (
+                    <p className="text-xs text-gray-500 text-center py-3">Aucun résultat trouvé.</p>
+                  )}
+                  {globalSearchResults.map((s) => (
+                    <div
+                      key={s.id}
+                      onClick={() => {
+                        handleSelectShow(s.id, 0);
+                        setGlobalSearchOpen(false);
+                        setGlobalSearchQuery('');
+                      }}
+                      className="bg-[#141414] hover:bg-[#1f1f1f] p-2.5 rounded-xl border border-gray-800 hover:border-[#c5a059]/50 cursor-pointer flex items-center justify-between transition-colors"
+                    >
+                      <div>
+                        <p className="font-serif font-black text-sm text-white">{s.city}</p>
+                        <p className="text-[11px] text-gray-400">{s.dates[0].venue} • {s.dates[0].date}</p>
+                      </div>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#c5a059]" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </header>
 
           <main className="flex-1 min-h-0 relative overflow-hidden w-full h-full flex flex-col">
