@@ -125,78 +125,219 @@
     // (ex : Cloudflare Access, Netlify avec protection par mot de passe, etc.)
     const ACCESS_CODE = "LT26-";
 
-    const CONTACT_GWENDAL = { name: "Gwendal Gélébart", role: "Régisseur général", phone: "06 01 77 06 76" };
-    const CONTACT_BACKUP = { name: "À compléter", role: "Contact de secours", phone: "À compléter" };
-
     const SHOWS = [
       {
-        id: "bordeaux", city: "Bordeaux", lat: 44.825, lon: -0.5311, lot: 1, series: 1, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Nantes)", transport: "Train puis Van", transportCode: "train-van",
-        dates: [{ date: "7 Octobre 2026", dateISO: "2026-10-07", venue: "Arkéa Arena", sold: 7014, capacity: 7539, guests: ["Sarah Schwab", "Fabien Olicard"], time: "20h00", order: 1, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Parking technique VIP situé Rue Jean-Jacques Bosc", wifiBackstage: { ssid: "ARKEA_BACKSTAGE", password: "Legend2026_Bdx" } }]
+        id: "bordeaux", city: "Bordeaux", lat: 44.825, lon: -0.5311, lot: 1, series: 1, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Nantes)", transport: "Train (TGV 10h03) puis Bus Prod", transportCode: "train-van",
+        dates: [{
+          date: "7 Octobre 2026", dateISO: "2026-10-07", venue: "Arkéa Arena", sold: 7014, capacity: 7539, guests: ["Sarah Schwab", "Fabien Olicard"], time: "20h00", order: 1, loadIn: "14h00",
+          contact: { name: "Yoan Roujanski", role: "Régisseur / Contact technique", phone: "06 01 46 09 16", email: "yroujanski@arkeaarena.com" },
+          contactSalle: { name: "Yoan Roujanski", role: "Premier contact salle", email: "yroujanski@arkeaarena.com" },
+          otherContacts: "Adeline Prat (pratsadeline@gmail.com), William (w.gilbert@zenith-tm.com)",
+          techStatus: "vert", techStatusLabel: "Contact régie obtenu", questionsLogistique: "Mail Iso Nantes",
+          parkingNotes: "Parking technique VIP situé Rue Jean-Jacques Bosc", wifiBackstage: { ssid: "ARKEA_BACKSTAGE", password: "Legend2026_Bdx" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "nantes", city: "Nantes", lat: 47.2303, lon: -1.6289, lot: 1, series: 1, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Rennes)", transport: "Van (4h de route)", transportCode: "van",
-        dates: [{ date: "8 Octobre 2026", dateISO: "2026-10-08", venue: "Zénith de Nantes", sold: 5627, capacity: 5691, guests: ["Sarah Schwab", "Samuel Bambi", "Lorànt Deutsch"], time: "20h00", order: 2, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Accès Quai de la Carrière", wifiBackstage: { ssid: "ZENITH_NANTES_VIP", password: "LegendNantes26" } }]
+        id: "nantes", city: "Nantes", lat: 47.2303, lon: -1.6289, lot: 1, series: 1, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Rennes)", transport: "BUS PROD (Bordeaux > Nantes)", transportCode: "van",
+        dates: [{
+          date: "8 Octobre 2026", dateISO: "2026-10-08", venue: "Zénith de Nantes", sold: 5627, capacity: 5691, guests: ["Sarah Schwab", "Samuel Bambi", "Lorànt Deutsch"], time: "20h00", order: 2, loadIn: "14h00",
+          contact: { name: "Olivier Massonnet", role: "Régisseur technique", email: "om@zenith-nm.com", phone: "Tél. non communiqué" },
+          contactSalle: { name: "Nicolas", role: "Premier contact salle (O Spectacles)", email: "nico@ospectacles.fr" },
+          otherContacts: "Guillaume (guillaume@ospectacles.fr)",
+          techStatus: "orange", techStatusLabel: "Partiel (tél. non communiqué)",
+          venueNotes: "Livraisons le jour J uniquement. Plage horaire: 06h00 (08/10) à 03h00 (09/10). Spectacle la veille et le lendemain. Stand armée possible dans le hall. Barriérage dispo sur place.",
+          questionsLogistique: "Électricité sur le parvis • Horaires montage/démontage • IPTV hall et coursives • Plan d'implantation partenaires/véhicules armée • Accès véhicules lourds",
+          lastContact: "Mail de Louise le 10/09/2026",
+          parkingNotes: "Accès Quai de la Carrière", wifiBackstage: { ssid: "ZENITH_NANTES_VIP", password: "LegendNantes26" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "rennes", city: "Rennes", lat: 48.1133, lon: -1.5954, lot: 1, series: 1, isReturnCity: false, rest: "1 jour (10 oct)", returnDay: "Retour Train le 10/10", transport: "Van (1h30) / Train retour", transportCode: "van-train",
-        dates: [{ date: "9 Octobre 2026", dateISO: "2026-10-09", venue: "Glaz Arena", sold: 4590, capacity: 4612, guests: ["Sarah Schwab", "Samuel Bambi"], time: "20h00", order: 3, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Parking P1 Glaz Arena Cesson-Sévigné", wifiBackstage: { ssid: "GLAZ_VIP_GUESTS", password: "LegendGlaz2026" } }]
+        id: "rennes", city: "Rennes", lat: 48.1133, lon: -1.5954, lot: 1, series: 1, isReturnCity: false, rest: "1 jour (10 oct)", returnDay: "Retour Train le 10/10 (09h35)", transport: "BUS PROD (Nantes > Rennes) puis TGV retour", transportCode: "van-train",
+        dates: [{
+          date: "9 Octobre 2026", dateISO: "2026-10-09", venue: "Glaz Arena", sold: 4590, capacity: 4612, guests: ["Sarah Schwab", "Samuel Bambi"], time: "20h00", order: 3, loadIn: "14h00",
+          contact: { name: "En attente d'affectation", role: "Régisseur - contact technique", phone: "Non communiqué" },
+          contactSalle: { name: "Maxime Lécuyer", role: "Premier contact (213 Productions)", phone: "06 80 83 85 08", email: "maxime@213productions.fr" },
+          otherContacts: "Yannick (yannick@213productions.fr)",
+          techStatus: "orange", techStatusLabel: "En attente coordonnées régie",
+          questionsLogistique: "Relancer Yannick en précisant les nouvelles infos ISO Nantes",
+          parkingNotes: "Parking P1 Glaz Arena Cesson-Sévigné", wifiBackstage: { ssid: "GLAZ_VIP_GUESTS", password: "LegendGlaz2026" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "lievin", city: "Liévin", lat: 50.411, lon: 2.7659, lot: 2, series: 2, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Rouen via Paris)", transport: "Van (2h30 de route)", transportCode: "van",
-        dates: [{ date: "11 Octobre 2026", dateISO: "2026-10-11", venue: "Arena Stade Couvert", sold: 6157, capacity: 7080, guests: ["Sarah Schwab", "Samuel Bambi", "Camille Tissot"], time: "18h00", order: 4, loadIn: "12h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Zone P2 technique Pistes d'Athlétisme", wifiBackstage: { ssid: "ARENA_LIEVIN_LOGES", password: "LegendLievin26" } }]
+        id: "lievin", city: "Liévin", lat: 50.411, lon: 2.7659, lot: 2, series: 2, isReturnCity: false, rest: "0 jour", returnDay: "Retour Paris Bercy Aftershow le soir même", transport: "BUS PROD A/R (Paris > Liévin > Paris Bercy)", transportCode: "van",
+        dates: [{
+          date: "11 Octobre 2026", dateISO: "2026-10-11", venue: "Arena Stade Couvert", sold: 6157, capacity: 7080, guests: ["Sarah Schwab", "Samuel Bambi", "Camille Tissot"], time: "18h00", order: 4, loadIn: "12h00",
+          contact: { name: "Kassandre", role: "Régisseur technique (Front Stage Music)", email: "kassandre@frontstagemusic.com", phone: "Tél. non communiqué" },
+          contactSalle: { name: "Baptiste", role: "Premier contact (Tu Me Tonnes Prod)", email: "baptiste@tumetonnesproductions.com" },
+          techStatus: "orange", techStatusLabel: "Partiel (tél. non communiqué)",
+          venueNotes: "Stand possible dans le hall nord Bar 1 ou 2 (voir plan).",
+          questionsLogistique: "Emplacement du P5 visible visiteurs ? Possibilité d'être sur le parvis d'accueil ? Accès véhicules lourds.",
+          parkingNotes: "Zone P2 technique Pistes d'Athlétisme", wifiBackstage: { ssid: "ARENA_LIEVIN_LOGES", password: "LegendLievin26" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "rouen", city: "Rouen", lat: 49.3941, lon: 1.0576, lot: 2, series: 2, isReturnCity: true, rest: "2 jours (13-14 oct)", returnDay: "12/10 Nuit ou 13/10 (Van 2h)", transport: "Van via Paris (2h00)", transportCode: "van-paris",
-        dates: [{ date: "12 Octobre 2026", dateISO: "2026-10-12", venue: "Zénith de Rouen", sold: 4758, capacity: 5098, guests: ["Sarah Schwab"], time: "20h00", order: 5, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Avenue des Canadiens Grand Quevilly", wifiBackstage: { ssid: "ZENITH_ROUEN_VIP", password: "LegendRouen2026" } }]
+        id: "rouen", city: "Rouen", lat: 49.3941, lon: 1.0576, lot: 2, series: 2, isReturnCity: true, rest: "2 jours (13-14 oct)", returnDay: "Retour Paris Bercy Aftershow le soir même", transport: "BUS PROD A/R (Paris Bercy > Rouen > Paris Bercy)", transportCode: "van-paris",
+        dates: [{
+          date: "12 Octobre 2026", dateISO: "2026-10-12", venue: "Zénith de Rouen", sold: 4758, capacity: 5098, guests: ["Sarah Schwab"], time: "20h00", order: 5, loadIn: "14h00",
+          contact: { name: "Pascal Blot", role: "Régisseur technique", email: "pascalblot2@gmail.com", phone: "Tél. non communiqué" },
+          contactSalle: { name: "Luc Linossier", role: "Directeur Technique Zénith", phone: "06 75 63 00 40", email: "llinossier@zenith-de-rouen.com" },
+          techStatus: "orange", techStatusLabel: "Partiel (tél. non communiqué)",
+          venueNotes: "Véhicules en extérieur uniquement (ok véhicules lourds). Livraison le 12/10 à partir de 8h, démontage le soir après la sortie public. Besoins électriques à transmettre. Stand d'animation dans le hall contre parois vitrées.",
+          screenNotes: "Pas d'accès aux IPTV (d'autres écrans dispo pour diffusion du contenu). Plan du hall dispo. Barriérage.",
+          parkingNotes: "Avenue des Canadiens Grand Quevilly", wifiBackstage: { ssid: "ZENITH_ROUEN_VIP", password: "LegendRouen2026" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "dijon", city: "Dijon", lat: 47.3555, lon: 5.0563, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Chambéry)", transport: "Train (Gare de Lyon)", transportCode: "train-van",
-        dates: [{ date: "15 Octobre 2026", dateISO: "2026-10-15", venue: "Zénith de Dijon", sold: 4466, capacity: 4683, guests: ["Sarah Schwab", "Nino Arial"], time: "20h00", order: 6, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Rue de Colchide Toison d'Or", wifiBackstage: { ssid: "ZENITH_DIJON_BACKSTAGE", password: "LegendDijon26" } }]
+        id: "dijon", city: "Dijon", lat: 47.3555, lon: 5.0563, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Chambéry)", transport: "Train (TGV 12h22) puis Bus Prod", transportCode: "train-van",
+        dates: [{
+          date: "15 Octobre 2026", dateISO: "2026-10-15", venue: "Zénith de Dijon", sold: 4466, capacity: 4683, guests: ["Sarah Schwab", "Nino Arial"], time: "20h00", order: 6, loadIn: "14h00",
+          contact: { name: "Non communiqué", role: "Régisseur - contact technique", phone: "En attente" },
+          contactSalle: { name: "David Moussiere", role: "Premier contact salle", email: "dmoussiere@zenith-dijon.fr" },
+          techStatus: "rouge", techStatusLabel: "En attente contact régie",
+          questionsLogistique: "Mail Iso Nantes", lastContact: "Mail de Louise le 10/09/2026",
+          parkingNotes: "Rue de Colchide Toison d'Or", wifiBackstage: { ssid: "ZENITH_DIJON_BACKSTAGE", password: "LegendDijon26" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "chambery", city: "Chambéry", lat: 45.5844, lon: 5.8993, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Montpellier)", transport: "Van (3h de route)", transportCode: "van",
-        dates: [{ date: "16 Octobre 2026", dateISO: "2026-10-16", venue: "Le Phare-Grand Chambéry", sold: 4672, capacity: 4703, guests: ["Sarah Schwab"], time: "20h00", order: 7, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "800 Avenue du Grand Ariétaz", wifiBackstage: { ssid: "LE_PHARE_VIP", password: "LegendChambery26" } }]
+        id: "chambery", city: "Chambéry", lat: 45.5844, lon: 5.8993, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Montpellier)", transport: "BUS PROD (Dijon > Chambéry)", transportCode: "van",
+        dates: [{
+          date: "16 Octobre 2026", dateISO: "2026-10-16", venue: "Le Phare-Grand Chambéry", sold: 4672, capacity: 4703, guests: ["Sarah Schwab"], time: "20h00", order: 7, loadIn: "14h00",
+          contact: { name: "Régisseur accueil", role: "Régisseur accueil Le Phare", email: "rlievri@le-phare.fr", phone: "Tél. non communiqué" },
+          contactSalle: { name: "Thierry", role: "Premier contact (RPO)", email: "thierry@rpo.net" },
+          techStatus: "orange", techStatusLabel: "Partiel (relance en cours)",
+          questionsLogistique: "Mail Iso Nantes • Relancer absolument", lastContact: "Mail de Louise le 10/09/2026",
+          parkingNotes: "800 Avenue du Grand Ariétaz", wifiBackstage: { ssid: "LE_PHARE_VIP", password: "LegendChambery26" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "montpellier", city: "Montpellier", lat: 43.5724, lon: 3.9513, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Toulouse)", transport: "Van (4h de route)", transportCode: "van",
-        dates: [{ date: "17 Octobre 2026", dateISO: "2026-10-17", venue: "Sud de France Arena", sold: 5519, capacity: 6328, guests: ["Sarah Schwab", "Rémi Gaillard"], time: "20h00", order: 8, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Route de la Foire Pérols", wifiBackstage: { ssid: "ARENA_MTP_VIP", password: "LegendMtp2026" } }]
+        id: "montpellier", city: "Montpellier", lat: 43.5724, lon: 3.9513, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Toulouse)", transport: "BUS PROD (Chambéry > Montpellier)", transportCode: "van",
+        dates: [{
+          date: "17 Octobre 2026", dateISO: "2026-10-17", venue: "Sud de France Arena", sold: 5519, capacity: 6328, guests: ["Sarah Schwab", "Rémi Gaillard"], time: "20h00", order: 8, loadIn: "14h00",
+          contact: { name: "Christelle Kerbaol / Pascal Malvezin", role: "Régie technique (SPL Occitanie Events)", email: "ckerbaol@spl-occitanie-events.com / pmalvezin@spl-occitanie-events.com", phone: "Via SPL Occitanie Events" },
+          contactSalle: { name: "Mélanie", role: "Premier contact (Adam Concerts)", email: "melanie@adamconcerts.com" },
+          otherContacts: "Nancy (nancy@adamconcerts.com), Frédéric (frederic@adamconcerts.com), Hadrien (hadrien@adamconcerts.com)",
+          techStatus: "vert", techStatusLabel: "Contacts régie confirmés",
+          questionsLogistique: "Mail Iso Nantes", lastContact: "Mail de Louise le 10/09/2026",
+          parkingNotes: "Route de la Foire Pérols", wifiBackstage: { ssid: "ARENA_MTP_VIP", password: "LegendMtp2026" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "toulouse", city: "Toulouse", lat: 43.5982, lon: 1.41, lot: 3, series: 3, isReturnCity: true, rest: "2 jours (19-20 oct)", returnDay: "19 oct. (Avion / TGV)", transport: "Van (2h30) puis Avion/Train", transportCode: "plane-train",
-        dates: [{ date: "18 Octobre 2026", dateISO: "2026-10-18", venue: "Zénith Toulouse Métropole", sold: 5971, capacity: 6404, guests: ["Sarah Schwab", "Jérôme Bayle"], time: "18h00", order: 9, loadIn: "12h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "11 Avenue Raymond Badiou", wifiBackstage: { ssid: "ZENITH_TLS_BACKSTAGE", password: "LegendToulouse26" } }]
+        id: "toulouse", city: "Toulouse", lat: 43.5982, lon: 1.41, lot: 3, series: 3, isReturnCity: true, rest: "2 jours (19-20 oct)", returnDay: "19 oct. (Avion Toulouse 10h40 > Paris Orly)", transport: "BUS PROD (Montpellier > Toulouse) puis Avion retour", transportCode: "plane-train",
+        dates: [{
+          date: "18 Octobre 2026", dateISO: "2026-10-18", venue: "Zénith Toulouse Métropole", sold: 5971, capacity: 6404, guests: ["Sarah Schwab", "Jérôme Bayle"], time: "18h00", order: 9, loadIn: "12h00",
+          contact: { name: "Jean-Bruno Tajan", role: "Régisseur général", phone: "06 21 92 54 85", email: "regie.jbtajan@gmail.com" },
+          contactSalle: { name: "Direction technique Zénith", role: "Premier contact salle", email: "info@zenith-tm.com" },
+          techStatus: "vert", techStatusLabel: "Contact régie complet",
+          venueNotes: "Pas d'électricité sur le parvis. Montage, démontage et livraison le jour du show (reprise le lendemain facturée 38€/h). Électricité intérieur : possibilité de raccordement existant. Plan technique avec raccordements.",
+          screenNotes: "Pas d'IPTV mais 6 écrans dans le hall (diffusion vidéo régie par la salle).",
+          parkingNotes: "11 Avenue Raymond Badiou", wifiBackstage: { ssid: "ZENITH_TLS_BACKSTAGE", password: "LegendToulouse26" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "strasbourg", city: "Strasbourg", lat: 48.5932, lon: 7.6872, lot: 4, series: 4, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Metz)", transport: "Train (Gare de l'Est)", transportCode: "train-van",
-        dates: [{ date: "21 Octobre 2026", dateISO: "2026-10-21", venue: "Zénith de Strasbourg", sold: 4956, capacity: 5148, guests: ["Sarah Schwab", "Élie Semoun"], time: "20h00", order: 10, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "1 Allée du Zénith Eckbolsheim", wifiBackstage: { ssid: "ZENITH_STRAS_VIP", password: "LegendStrasbourg26" } }]
+        id: "strasbourg", city: "Strasbourg", lat: 48.5932, lon: 7.6872, lot: 4, series: 4, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Metz)", transport: "Train (TGV 12h46) puis Bus Prod", transportCode: "train-van",
+        dates: [{
+          date: "21 Octobre 2026", dateISO: "2026-10-21", venue: "Zénith de Strasbourg", sold: 4956, capacity: 5148, guests: ["Sarah Schwab", "Élie Semoun"], time: "20h00", order: 10, loadIn: "14h00",
+          contact: { name: "Pascal Picaud", role: "Régisseur général", phone: "06 11 11 06 25", email: "picaud.pascal@wanadoo.fr" },
+          contactSalle: { name: "R. Vicedo", role: "Premier contact Zénith", email: "rvicedo@zenith-strasbourg.fr" },
+          otherContacts: "Lara attachée de production (03 54 59 12 73 / production@label-ln.com)",
+          techStatus: "vert", techStatusLabel: "Contact régie complet",
+          questionsLogistique: "Relancer Lara en précisant les nouvelles infos ISO Nantes",
+          parkingNotes: "1 Allée du Zénith Eckbolsheim", wifiBackstage: { ssid: "ZENITH_STRAS_VIP", password: "LegendStrasbourg26" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "metz", city: "Metz", lat: 49.1087, lon: 6.1841, lot: 4, series: 4, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Bruxelles)", transport: "Van (2h de route)", transportCode: "van",
-        dates: [{ date: "22 Octobre 2026", dateISO: "2026-10-22", venue: "Les Arènes de Metz", sold: 4560, capacity: 4594, guests: ["Sarah Schwab"], time: "20h00", order: 11, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "5 Avenue Louis secondary parking", wifiBackstage: { ssid: "ARENES_METZ_BACKSTAGE", password: "LegendMetz2026" } }]
+        id: "metz", city: "Metz", lat: 49.1087, lon: 6.1841, lot: 4, series: 4, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Bruxelles)", transport: "BUS PROD (Strasbourg > Metz)", transportCode: "van",
+        dates: [{
+          date: "22 Octobre 2026", dateISO: "2026-10-22", venue: "Les Arènes de Metz", sold: 4560, capacity: 4594, guests: ["Sarah Schwab"], time: "20h00", order: 11, loadIn: "14h00",
+          contact: { name: "Jules Frizon", role: "Régisseur technique", phone: "06 87 39 86 58", email: "jules.frizon@gmail.com" },
+          contactSalle: { name: "Didier", role: "Premier contact Arènes", email: "e.didier@arenes-de-metz.com" },
+          techStatus: "vert", techStatusLabel: "Contact régie complet",
+          questionsLogistique: "Relancer Jules en précisant les nouvelles infos ISO Nantes",
+          parkingNotes: "5 Avenue Louis secondary parking", wifiBackstage: { ssid: "ARENES_METZ_BACKSTAGE", password: "LegendMetz2026" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "bruxelles", city: "Bruxelles", lat: 50.8097, lon: 4.3261, lot: 4, series: 4, isReturnCity: true, rest: "2 jours (25-26 oct)", returnDay: "25 oct. (Eurostar / Thalys)", transport: "Van (3h) puis Eurostar/Train", transportCode: "train-international",
+        id: "bruxelles", city: "Bruxelles", lat: 50.8097, lon: 4.3261, lot: 4, series: 4, isReturnCity: true, rest: "2 jours (25-26 oct)", returnDay: "25 oct. (Train Bruxelles 09h16 > Paris Nord)", transport: "BUS PROD (Metz > Bruxelles) puis Train retour", transportCode: "train-international",
         dates: [
-          { date: "23 Octobre 2026", dateISO: "2026-10-23", venue: "Forest National", sold: 7255, capacity: 7423, guests: ["Sarah Schwab"], time: "20h00", order: 12, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Avenue du Globe 36 Vorst", wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" } },
-          { date: "24 Octobre 2026", dateISO: "2026-10-24", venue: "Forest National", sold: 5017, capacity: 5777, guests: ["Sarah Schwab"], time: "20h00", order: 13, loadIn: "15h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Avenue du Globe 36 Vorst", wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" } }
+          {
+            date: "23 Octobre 2026", dateISO: "2026-10-23", venue: "Forest National", sold: 7255, capacity: 7423, guests: ["Sarah Schwab"], time: "20h00", order: 12, loadIn: "14h00",
+            contact: { name: "Prestataire Carte / Régie Forest", role: "Régisseur technique", email: "audrey.jacot@live-productions.com", phone: "En attente coordonnées directes" },
+            contactSalle: { name: "Audrey Jacot", role: "Production (Live Productions)", email: "audrey.jacot@live-productions.com" },
+            techStatus: "orange", techStatusLabel: "Prestataire contacté (attente retour)",
+            tradeRepublicCard: "2 unités",
+            screenNotes: "22 écrans promotionnels 1920x1080 px boucle vidéo (16:9 MP4 max 50Mo sans son, fournir 3 jours ouvrés avant).",
+            questionsLogistique: "Relance partenaires + infos carte Trade Republic • Plan parvis extérieur + électricité • Info montage démontage livraison reprise",
+            parkingNotes: "Avenue du Globe 36 Vorst", wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" }, lastUpdated: "2026-09-10"
+          },
+          {
+            date: "24 Octobre 2026", dateISO: "2026-10-24", venue: "Forest National", sold: 5017, capacity: 5777, guests: ["Sarah Schwab"], time: "20h00", order: 13, loadIn: "15h00",
+            contact: { name: "Prestataire Carte / Régie Forest", role: "Régisseur technique", email: "audrey.jacot@live-productions.com", phone: "En attente coordonnées directes" },
+            contactSalle: { name: "Audrey Jacot", role: "Production (Live Productions)", email: "audrey.jacot@live-productions.com" },
+            techStatus: "orange", techStatusLabel: "Prestataire contacté (attente retour)",
+            tradeRepublicCard: "2 unités",
+            screenNotes: "22 écrans promotionnels 1920x1080 px boucle vidéo.",
+            parkingNotes: "Avenue du Globe 36 Vorst", wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" }, lastUpdated: "2026-09-10"
+          }
         ]
       },
       {
-        id: "nice", city: "Nice", lat: 43.6785, lon: 7.1990, lot: 5, series: 5, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Aix)", transport: "Train / Avion (Orly-Nice)", transportCode: "plane-train",
-        dates: [{ date: "27 Octobre 2026", dateISO: "2026-10-27", venue: "Palais Nikaïa", sold: 3491, capacity: 4164, guests: ["Sarah Schwab", "Éric Dupond-Moretti"], time: "20h00", order: 14, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "163 Boulevard du Mercantour", wifiBackstage: { ssid: "NIKAIA_NICE_BACKSTAGE", password: "LegendNice2026" } }]
+        id: "nice", city: "Nice", lat: 43.6785, lon: 7.1990, lot: 5, series: 5, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Aix)", transport: "Avion (Paris Orly 11h30 > Nice 12h55) puis Bus Prod", transportCode: "plane-train",
+        dates: [{
+          date: "27 Octobre 2026", dateISO: "2026-10-27", venue: "Palais Nikaïa", sold: 3491, capacity: 4164, guests: ["Sarah Schwab", "Éric Dupond-Moretti"], time: "20h00", order: 14, loadIn: "14h00",
+          contact: { name: "Fabrice", role: "Régisseur Nikaïa", phone: "Coordonnées non communiquées" },
+          contactSalle: { name: "Mélanie & Frédéric", role: "Production (Adam Concerts)", email: "melanie@adamconcerts.com / frederic@adamconcerts.com" },
+          otherContacts: "Frédéric adam concerts (frederic@adamconcerts.com)",
+          techStatus: "orange", techStatusLabel: "Nom régisseur connu (coordonnées en attente)",
+          questionsLogistique: "Mail Iso Nantes", lastContact: "Mail de Louise le 10/09/2026",
+          parkingNotes: "163 Boulevard du Mercantour", wifiBackstage: { ssid: "NIKAIA_NICE_BACKSTAGE", password: "LegendNice2026" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "aix", city: "Aix-en-Provence", lat: 43.471, lon: 5.4028, lot: 5, series: 5, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Lyon)", transport: "Van (2h de route)", transportCode: "van",
-        dates: [{ date: "28 Octobre 2026", dateISO: "2026-10-28", venue: "Arena du Pays d'Aix", sold: 5597, capacity: 6131, guests: ["Sarah Schwab", "Michaël Youn", "Vic", "Esther Abrami", "Jean-Luc Reichmann"], time: "20h00", order: 15, loadIn: "14h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "1955 Rue Claude Nicolas Ledoux Luynes", wifiBackstage: { ssid: "ARENA_AIX_VIP", password: "LegendAix2026" } }]
+        id: "aix", city: "Aix-en-Provence", lat: 43.471, lon: 5.4028, lot: 5, series: 5, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Lyon)", transport: "BUS PROD (Nice > Aix)", transportCode: "van",
+        dates: [{
+          date: "28 Octobre 2026", dateISO: "2026-10-28", venue: "Arena du Pays d'Aix", sold: 5597, capacity: 6131, guests: ["Sarah Schwab", "Michaël Youn", "Vic", "Esther Abrami", "Jean-Luc Reichmann"], time: "20h00", order: 15, loadIn: "14h00",
+          contact: { name: "Non communiqué", role: "Régisseur technique", phone: "En attente" },
+          contactSalle: { name: "Mélanie", role: "Production (Adam Concerts)", email: "melanie@adamconcerts.com" },
+          otherContacts: "Nancy (nancy@adamconcerts.com), Frédéric (frederic@adamconcerts.com), Hadrien (hadrien@adamconcerts.com)",
+          techStatus: "rouge", techStatusLabel: "En attente contact régie",
+          questionsLogistique: "Mail Iso Nantes", lastContact: "Mail de Louise le 10/09/2026",
+          parkingNotes: "1955 Rue Claude Nicolas Ledoux Luynes", wifiBackstage: { ssid: "ARENA_AIX_VIP", password: "LegendAix2026" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
-        id: "lyon", city: "Lyon-Décines", lat: 45.7686, lon: 4.9783, lot: 5, series: 5, isReturnCity: true, rest: "~15 jours (30 oct - 13 nov)", returnDay: "30 oct. (TGV Lyon Part-Dieu)", transport: "Van (3h) puis Train (2h)", transportCode: "train-van",
-        dates: [{ date: "29 Octobre 2026", dateISO: "2026-10-29", venue: "LDLC Arena", sold: 8333, capacity: 9768, guests: ["Sarah Schwab", "Chicandier"], time: "20h00", order: 16, loadIn: "13h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "5 Avenue Simone Veil Décines-Charpieu", wifiBackstage: { ssid: "LDLC_ARENA_BACKSTAGE", password: "LegendLyon2026" } }]
+        id: "lyon", city: "Lyon-Décines", lat: 45.7686, lon: 4.9783, lot: 5, series: 5, isReturnCity: true, rest: "~15 jours (30 oct - 13 nov)", returnDay: "30 oct. (TGV Lyon Part-Dieu 10h04 > Paris Lyon)", transport: "BUS PROD (Aix > Lyon) puis TGV retour", transportCode: "train-van",
+        dates: [{
+          date: "29 Octobre 2026", dateISO: "2026-10-29", venue: "LDLC Arena", sold: 8333, capacity: 9768, guests: ["Sarah Schwab", "Chicandier"], time: "20h00", order: 16, loadIn: "13h00",
+          contact: { name: "Yannis Sada", role: "Régisseur général (Les Derniers Couchés)", phone: "06 07 37 15 15", email: "yannis@lesdernierscouches.com" },
+          contactSalle: { name: "A. Gillet", role: "Production (Thrill Stage)", email: "AGillet@thrillstage.live" },
+          otherContacts: "Etienne Gachet (Etienne@lesdernierscouches.com), Denis Montmeas (Dir Commercial Caisse d'Épargne 06 42 67 81 40)",
+          techStatus: "vert", techStatusLabel: "Contact régie complet",
+          tradeRepublicCard: "1 unité",
+          screenNotes: "Format IPTV 12 écrans grand hall (1920x1080 MOV/MP4 vidéos, JPEG/PNG images).",
+          venueNotes: "Armée : Réservoir essence véhicules au minimum, 1 personne à proximité sécurité. Emplacement int : grand hall ou niveau 2. Prévoir agent sécurité la nuit. Montage à partir de 7h. Démontage 1h après show.",
+          questionsLogistique: "Contacter prestataire carte + vérifier exclusivité Caisse d'Épargne + confirmer sécurité TR. Plan d'implantation carte + véhicule armée + stand armée.",
+          parkingNotes: "5 Avenue Simone Veil Décines-Charpieu", wifiBackstage: { ssid: "LDLC_ARENA_BACKSTAGE", password: "LegendLyon2026" }, lastUpdated: "2026-09-10"
+        }]
       },
       {
         id: "paris", city: "Paris", lat: 48.8977, lon: 2.3595, lot: 6, series: 6, isReturnCity: true, rest: "Fin de tournée", returnDay: "Sur place", transport: "Déjà sur place (Paris)", transportCode: "local",
         dates: [
-          { date: "14 Novembre 2026", dateISO: "2026-11-14", venue: "Adidas Arena", sold: 7316, capacity: 7484, guests: ["Sarah Schwab", "Esther Abrami", "Éric Dupond-Moretti"], time: "20h00", order: 17, loadIn: "12h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Porte de la Chapelle VIP Arena", wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" } },
-          { date: "15 Novembre 2026", dateISO: "2026-11-15", venue: "Adidas Arena", sold: 6138, capacity: 7484, guests: ["Sarah Schwab", "Esther Abrami", "Éric Dupond-Moretti", "Éric & Ramzy"], time: "18h00", order: 18, loadIn: "12h00", contact: CONTACT_GWENDAL, contactBackup: CONTACT_BACKUP, parkingNotes: "Porte de la Chapelle VIP Arena", wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" } }
+          {
+            date: "14 Novembre 2026", dateISO: "2026-11-14", venue: "Adidas Arena", sold: 7316, capacity: 7484, guests: ["Sarah Schwab", "Esther Abrami", "Éric Dupond-Moretti"], time: "20h00", order: 17, loadIn: "12h00",
+            contact: { name: "Adrien Balduzzi", role: "Responsable exploitation & régie", phone: "06 75 11 21 31", email: "abalduzzi@groupe-pec.com" },
+            contactSalle: { name: "Apolline Bordelot", role: "Directrice adjointe billetterie (PEC)", email: "abordelot@parisentertainmentcompany.com", phone: "cbourles@groupe-pec.com" },
+            techStatus: "vert", techStatusLabel: "Contact régie complet",
+            tradeRepublicCard: "2 unités", screenNotes: "Accès IPTV spec des écrans + nombre d'écrans", questionsLogistique: "Mail Iso Nantes",
+            parkingNotes: "Porte de la Chapelle VIP Arena", wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" }, lastUpdated: "2026-09-10"
+          },
+          {
+            date: "15 Novembre 2026", dateISO: "2026-11-15", venue: "Adidas Arena", sold: 6138, capacity: 7484, guests: ["Sarah Schwab", "Esther Abrami", "Éric Dupond-Moretti", "Éric & Ramzy"], time: "18h00", order: 18, loadIn: "12h00",
+            contact: { name: "Adrien Balduzzi", role: "Responsable exploitation & régie", phone: "06 75 11 21 31", email: "abalduzzi@groupe-pec.com" },
+            contactSalle: { name: "Apolline Bordelot", role: "Directrice adjointe billetterie (PEC)", email: "abordelot@parisentertainmentcompany.com", phone: "cbourles@groupe-pec.com" },
+            techStatus: "vert", techStatusLabel: "Contact régie complet",
+            tradeRepublicCard: "2 unités", screenNotes: "Accès IPTV spec des écrans + nombre d'écrans",
+            parkingNotes: "Porte de la Chapelle VIP Arena", wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" }, lastUpdated: "2026-09-10"
+          }
         ]
       }
     ];
@@ -205,57 +346,57 @@
       {
         seriesId: 1, title: "Série 1 — Grand Ouest", subtitle: "Bordeaux, Nantes, Rennes", datesRange: "06/10/26 - 10/10/26", color: "#c5a059",
         legs: [
-          { id: "s1-1", seriesId: 1, date: "06/10/26", dateISO: "2026-10-06", from: "Domicile / Paris", to: "Bordeaux", mode: "train", details: "Domicile > Bordeaux (train)", duration: "2h05", trainNumber: "TGV INOUI 8521", departureStation: "Gare de Paris Montparnasse", arrivalStation: "Gare de Bordeaux Saint-Jean", departureTime: "14:15", arrivalTime: "16:20", notes: "Arrivée la veille du show. Transfert Van hôtel.", isOffDay: false, relatedShowId: "bordeaux" },
-          { id: "s1-2", seriesId: 1, date: "07/10/26", dateISO: "2026-10-07", from: "Bordeaux (Hôtel)", to: "Arkéa Arena", mode: "van", details: "Sur place Bordeaux", duration: "0h20", notes: "Jour de show #1 (Arkéa Arena - 20h00).", isOffDay: false, relatedShowId: "bordeaux" },
-          { id: "s1-3", seriesId: 1, date: "08/10/26", dateISO: "2026-10-08", from: "Bordeaux", to: "Nantes", mode: "van", details: "Bordeaux > Nantes (van : 4h de route)", duration: "4h00", departureTime: "09:30", arrivalTime: "13:30", notes: "Trajet matin. Show #2 Zénith de Nantes.", isOffDay: false, relatedShowId: "nantes" },
-          { id: "s1-4", seriesId: 1, date: "09/10/26", dateISO: "2026-10-09", from: "Nantes", to: "Rennes", mode: "van", details: "Nantes > Rennes (van : 1h30 de route)", duration: "1h30", departureTime: "11:00", arrivalTime: "12:30", notes: "Show #3 Glaz Arena (20h00).", isOffDay: false, relatedShowId: "rennes" },
-          { id: "s1-5", seriesId: 1, date: "10/10/26", dateISO: "2026-10-10", from: "Rennes", to: "Domicile / Paris", mode: "train", details: "Rennes > Domicile (train)", duration: "1h30", trainNumber: "TGV INOUI 8084", departureStation: "Gare de Rennes", arrivalStation: "Gare de Paris Montparnasse", departureTime: "10:15", arrivalTime: "11:45", notes: "Retour à domicile après Série 1.", isOffDay: true, relatedShowId: "rennes" }
+          { id: "s1-1", seriesId: 1, date: "06/10/26", dateISO: "2026-10-06", from: "PARIS - Montparnasse", to: "BORDEAUX ST JEAN", mode: "train", details: "PARIS - Montparnasse > BORDEAUX ST JEAN (Train)", duration: "2h38", trainNumber: "Train TGV", departureStation: "Gare de Paris Montparnasse", arrivalStation: "Gare de Bordeaux Saint-Jean", departureTime: "10H03", arrivalTime: "12H41", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Départ Team Legend. Arrivée la veille du show de Bordeaux.", isOffDay: false, relatedShowId: "bordeaux" },
+          { id: "s1-2", seriesId: 1, date: "07/10/26", dateISO: "2026-10-07", from: "Bordeaux (Hôtel)", to: "Arkéa Arena", mode: "van", details: "Bordeaux — Jour de show #1 (Arkéa Arena - 20h00)", duration: "0h25", traveler: "Victor SAIDAH", pax: 1, legType: "SUR PLACE", notes: "Régie et show #1. Nuit à Bordeaux.", isOffDay: false, relatedShowId: "bordeaux" },
+          { id: "s1-3", seriesId: 1, date: "08/10/26", dateISO: "2026-10-08", from: "BORDEAUX", to: "NANTES", mode: "bus", details: "BORDEAUX > NANTES (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Trajet BUS PROD vers Zénith de Nantes. Show #2 (20h00).", isOffDay: false, relatedShowId: "nantes" },
+          { id: "s1-4", seriesId: 1, date: "09/10/26", dateISO: "2026-10-09", from: "NANTES", to: "RENNES", mode: "bus", details: "NANTES > RENNES (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Liaison BUS PROD vers Glaz Arena Rennes. Show #3 (20h00).", isOffDay: false, relatedShowId: "rennes" },
+          { id: "s1-5", seriesId: 1, date: "10/10/26", dateISO: "2026-10-10", from: "RENNES", to: "PARIS - Montparnasse", mode: "train", details: "RENNES > PARIS - Montparnasse (Train)", duration: "1h35", trainNumber: "Train TGV", departureStation: "Gare de Rennes", arrivalStation: "Gare de Paris Montparnasse", departureTime: "09H35", arrivalTime: "11H10", traveler: "Victor SAIDAH", pax: 1, legType: "RETOUR", notes: "Retour à Paris après Série 1.", isOffDay: true, relatedShowId: "rennes" }
         ]
       },
       {
-        seriesId: 2, title: "Série 2 — Nord & Normandie", subtitle: "Liévin, Paris, Rouen", datesRange: "10/10/26 - 14/10/26", color: "#e5c17e",
+        seriesId: 2, title: "Série 2 — Nord & Normandie", subtitle: "Liévin, Paris Bercy, Rouen", datesRange: "11/10/26 - 14/10/26", color: "#e5c17e",
         legs: [
-          { id: "s2-1", seriesId: 2, date: "10/10/26", dateISO: "2026-10-10", from: "Domicile", to: "Domicile", mode: "off", details: "OFF — Journée de repos", isOffDay: true },
-          { id: "s2-2", seriesId: 2, date: "11/10/26", dateISO: "2026-10-11", from: "Domicile / Paris", to: "Liévin", mode: "van", details: "Domicile > Liévin (van : 2h30)", duration: "2h30", departureTime: "09:00", arrivalTime: "11:30", notes: "Show #4 Arena Stade Couvert (18h00).", isOffDay: false, relatedShowId: "lievin" },
-          { id: "s2-3a", seriesId: 2, date: "12/10/26", dateISO: "2026-10-12", from: "Liévin", to: "Paris", mode: "van", details: "Liévin > Paris (van : 2h30)", duration: "2h30", departureTime: "08:30", arrivalTime: "11:00", notes: "Liaison intermédiaire par Paris.", isOffDay: false, relatedShowId: "rouen" },
-          { id: "s2-3b", seriesId: 2, date: "12/10/26", dateISO: "2026-10-12", from: "Paris", to: "Rouen", mode: "van", details: "Paris > Rouen (van : 2h00)", duration: "2h00", departureTime: "12:00", arrivalTime: "14:00", notes: "Show #5 Zénith de Rouen (20h00).", isOffDay: false, relatedShowId: "rouen" },
-          { id: "s2-3c", seriesId: 2, date: "12/10/26", dateISO: "2026-10-12", from: "Rouen", to: "Domicile / Paris", mode: "van", details: "Rouen > Domicile (van : 2h00)", duration: "2h00", departureTime: "23:00", arrivalTime: "01:00", notes: "Retour van de nuit.", isOffDay: true, relatedShowId: "rouen" }
+          { id: "s2-1", seriesId: 2, date: "11/10/26", dateISO: "2026-10-11", from: "PARIS", to: "LIÉVIN", mode: "bus", details: "PARIS > LIÉVIN (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Départ matin en BUS PROD. Show #4 Arena Stade Couvert (18h00).", isOffDay: false, relatedShowId: "lievin" },
+          { id: "s2-2", seriesId: 2, date: "11/10/26", dateISO: "2026-10-11", from: "LIÉVIN", to: "PARIS - Bercy", mode: "bus", details: "LIÉVIN > PARIS - Bercy (BUS PROD - Aftershow)", traveler: "Victor SAIDAH", pax: 1, legType: "RETOUR", notes: "Retour de nuit vers Paris Bercy après le show de Liévin.", isOffDay: false, relatedShowId: "lievin" },
+          { id: "s2-3", seriesId: 2, date: "12/10/26", dateISO: "2026-10-12", from: "PARIS - Bercy", to: "ROUEN", mode: "bus", details: "PARIS - Bercy > ROUEN (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Départ BUS PROD vers Zénith de Rouen. Show #5 (20h00).", isOffDay: false, relatedShowId: "rouen" },
+          { id: "s2-4", seriesId: 2, date: "12/10/26", dateISO: "2026-10-12", from: "ROUEN", to: "PARIS - Bercy", mode: "bus", details: "ROUEN > PARIS - Bercy (BUS PROD - Aftershow)", traveler: "Victor SAIDAH", pax: 1, legType: "RETOUR", notes: "Retour de nuit vers Paris Bercy après le show de Rouen.", isOffDay: true, relatedShowId: "rouen" },
+          { id: "s2-5", seriesId: 2, date: "13/10/26", dateISO: "2026-10-13", from: "Paris (Domicile)", to: "Paris (Domicile)", mode: "off", details: "OFF — Repos à Paris avant départ Série 3", isOffDay: true }
         ]
       },
       {
         seriesId: 3, title: "Série 3 — Est, Alpes & Sud", subtitle: "Dijon, Chambéry, Montpellier, Toulouse", datesRange: "15/10/26 - 20/10/26", color: "#60a5fa",
         legs: [
-          { id: "s3-1", seriesId: 3, date: "15/10/26", dateISO: "2026-10-15", from: "Domicile / Paris", to: "Dijon", mode: "train", details: "Domicile > Dijon (train)", duration: "1h35", trainNumber: "TGV INOUI 6703", departureStation: "Gare de Paris Lyon", arrivalStation: "Gare de Dijon Ville", departureTime: "10:22", arrivalTime: "11:57", notes: "Show #6 Zénith de Dijon (20h00).", isOffDay: false, relatedShowId: "dijon" },
-          { id: "s3-2", seriesId: 3, date: "16/10/26", dateISO: "2026-10-16", from: "Dijon", to: "Chambéry", mode: "van", details: "Dijon > Chambéry (van : 3h)", duration: "3h00", departureTime: "09:30", arrivalTime: "12:30", notes: "Show #7 Le Phare (20h00).", isOffDay: false, relatedShowId: "chambery" },
-          { id: "s3-3", seriesId: 3, date: "17/10/26", dateISO: "2026-10-17", from: "Chambéry", to: "Montpellier", mode: "van", details: "Chambéry > Montpellier (van : 4h)", duration: "4h00", departureTime: "08:30", arrivalTime: "12:30", notes: "Show #8 Sud de France Arena (20h00).", isOffDay: false, relatedShowId: "montpellier" },
-          { id: "s3-4", seriesId: 3, date: "18/10/26", dateISO: "2026-10-18", from: "Montpellier", to: "Toulouse", mode: "van", details: "Montpellier > Toulouse (van : 2h30)", duration: "2h30", departureTime: "09:00", arrivalTime: "11:30", notes: "Show #9 Zénith Toulouse (18h00).", isOffDay: false, relatedShowId: "toulouse" },
-          { id: "s3-5", seriesId: 3, date: "19/10/26", dateISO: "2026-10-19", from: "Toulouse", to: "Domicile / Paris", mode: "avion", details: "Toulouse > Domicile (train/avion)", duration: "1h20", trainNumber: "AF7521 ou TGV 8510", departureStation: "Aéroport Toulouse-Blagnac / Gare Matabiau", arrivalStation: "Paris-Orly / Gare Montparnasse", departureTime: "10:00", arrivalTime: "11:20", notes: "Retour à domicile.", isOffDay: true, relatedShowId: "toulouse" }
+          { id: "s3-1", seriesId: 3, date: "15/10/26", dateISO: "2026-10-15", from: "PARIS - Lyon", to: "DIJON", mode: "train", details: "PARIS - Lyon > DIJON (Train)", duration: "1h35", trainNumber: "Train TGV", departureStation: "Gare de Paris Lyon", arrivalStation: "Gare de Dijon", departureTime: "12H22", arrivalTime: "13H57", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Show #6 Zénith de Dijon (20h00).", isOffDay: false, relatedShowId: "dijon" },
+          { id: "s3-2", seriesId: 3, date: "16/10/26", dateISO: "2026-10-16", from: "DIJON", to: "CHAMBÉRY", mode: "bus", details: "DIJON > CHAMBÉRY (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Liaison vers Le Phare-Grand Chambéry. Show #7 (20h00).", isOffDay: false, relatedShowId: "chambery" },
+          { id: "s3-3", seriesId: 3, date: "17/10/26", dateISO: "2026-10-17", from: "CHAMBÉRY", to: "MONTPELLIER", mode: "bus", details: "CHAMBÉRY > MONTPELLIER (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Descente vers Sud de France Arena Montpellier. Show #8 (20h00).", isOffDay: false, relatedShowId: "montpellier" },
+          { id: "s3-4", seriesId: 3, date: "18/10/26", dateISO: "2026-10-18", from: "MONTPELLIER", to: "TOULOUSE", mode: "bus", details: "MONTPELLIER > TOULOUSE (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Liaison vers Zénith Toulouse Métropole. Show #9 (18h00).", isOffDay: false, relatedShowId: "toulouse" },
+          { id: "s3-5", seriesId: 3, date: "19/10/26", dateISO: "2026-10-19", from: "TOULOUSE - Aéroport", to: "PARIS - Orly", mode: "plane", details: "TOULOUSE - Aéroport > PARIS - Orly (Avion)", duration: "1h20", departureStation: "Aéroport Toulouse-Blagnac", arrivalStation: "Aéroport Paris-Orly", departureTime: "10H40", arrivalTime: "12H00", traveler: "Victor SAIDAH", pax: 1, legType: "RETOUR", notes: "Vol retour à Paris après Série 3.", isOffDay: true, relatedShowId: "toulouse" }
         ]
       },
       {
         seriesId: 4, title: "Série 4 — Alsace, Lorraine & Belgique", subtitle: "Strasbourg, Metz, Bruxelles", datesRange: "21/10/26 - 26/10/26", color: "#34d399",
         legs: [
-          { id: "s4-1", seriesId: 4, date: "21/10/26", dateISO: "2026-10-21", from: "Domicile / Paris", to: "Strasbourg", mode: "train", details: "Domicile > Strasbourg (train)", duration: "1h50", trainNumber: "TGV INOUI 2407", departureStation: "Gare de Paris Est", arrivalStation: "Gare de Strasbourg", departureTime: "09:55", arrivalTime: "11:45", notes: "Show #10 Zénith Strasbourg (20h00).", isOffDay: false, relatedShowId: "strasbourg" },
-          { id: "s4-2", seriesId: 4, date: "22/10/26", dateISO: "2026-10-22", from: "Strasbourg", to: "Metz", mode: "van", details: "Strasbourg > Metz (van : 2h)", duration: "2h00", departureTime: "10:00", arrivalTime: "12:00", notes: "Show #11 Arènes de Metz (20h00).", isOffDay: false, relatedShowId: "metz" },
-          { id: "s4-3", seriesId: 4, date: "23/10/26", dateISO: "2026-10-23", from: "Metz", to: "Bruxelles", mode: "van", details: "Metz > Bruxelles (van : 3h)", duration: "3h00", departureTime: "09:00", arrivalTime: "12:00", notes: "Show #12 Forest National (20h00).", isOffDay: false, relatedShowId: "bruxelles" },
-          { id: "s4-4", seriesId: 4, date: "24/10/26", dateISO: "2026-10-24", from: "Bruxelles (Hôtel)", to: "Bruxelles (Forest National)", mode: "van", details: "Sur place Bruxelles", duration: "0h30", notes: "Show #13 Forest National (20h00).", isOffDay: false, relatedShowId: "bruxelles" },
-          { id: "s4-5", seriesId: 4, date: "25/10/26", dateISO: "2026-10-25", from: "Bruxelles", to: "Domicile / Paris", mode: "train", details: "Bruxelles > Domicile (train)", duration: "1h22", trainNumber: "Eurostar 9324", departureStation: "Gare de Bruxelles-Midi", arrivalStation: "Gare de Paris Nord", departureTime: "11:13", arrivalTime: "12:35", notes: "Retour Eurostar vers Paris.", isOffDay: true, relatedShowId: "bruxelles" }
+          { id: "s4-1", seriesId: 4, date: "21/10/26", dateISO: "2026-10-21", from: "PARIS - Est", to: "STRASBOURG", mode: "train", details: "PARIS - Est > STRASBOURG (Train)", duration: "1h54", trainNumber: "Train TGV", departureStation: "Gare de Paris Est", arrivalStation: "Gare de Strasbourg", departureTime: "12H46", arrivalTime: "14H40", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Show #10 Zénith de Strasbourg (20h00).", isOffDay: false, relatedShowId: "strasbourg" },
+          { id: "s4-2", seriesId: 4, date: "22/10/26", dateISO: "2026-10-22", from: "STRASBOURG", to: "METZ", mode: "bus", details: "STRASBOURG > METZ (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "BUS PROD vers Les Arènes de Metz. Show #11 (20h00).", isOffDay: false, relatedShowId: "metz" },
+          { id: "s4-3", seriesId: 4, date: "23/10/26", dateISO: "2026-10-23", from: "METZ", to: "BRUXELLES", mode: "bus", details: "METZ > BRUXELLES (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Liaison internationale BUS PROD vers Forest National. Show #12 (20h00).", isOffDay: false, relatedShowId: "bruxelles" },
+          { id: "s4-4", seriesId: 4, date: "24/10/26", dateISO: "2026-10-24", from: "Bruxelles (Hôtel)", to: "Bruxelles (Forest National)", mode: "van", details: "Sur place Bruxelles — Show #13 Forest National (20h00)", traveler: "Victor SAIDAH", pax: 1, legType: "SUR PLACE", notes: "Deuxième date à Forest National.", isOffDay: false, relatedShowId: "bruxelles" },
+          { id: "s4-5", seriesId: 4, date: "25/10/26", dateISO: "2026-10-25", from: "BRUXELLES", to: "PARIS - Nord", mode: "train", details: "BRUXELLES > PARIS - Nord (Train)", duration: "1h22", trainNumber: "Train Eurostar", departureStation: "Gare de Bruxelles Midi", arrivalStation: "Gare de Paris Nord", departureTime: "09H16", arrivalTime: "10H38", traveler: "Victor SAIDAH", pax: 1, legType: "RETOUR", notes: "Retour à Paris après Série 4.", isOffDay: true, relatedShowId: "bruxelles" }
         ]
       },
       {
         seriesId: 5, title: "Série 5 — Côte d'Azur, Provence & Rhône", subtitle: "Nice, Aix-en-Provence, Lyon", datesRange: "27/10/26 - 31/10/26", color: "#f472b6",
         legs: [
-          { id: "s5-1", seriesId: 5, date: "27/10/26", dateISO: "2026-10-27", from: "Domicile / Paris", to: "Nice", mode: "avion", details: "Domicile > Nice (train/avion)", duration: "1h30", trainNumber: "Vol AF7700", departureStation: "Aéroport Paris-Orly (ORY)", arrivalStation: "Aéroport Nice Côte d'Azur (NCE)", departureTime: "09:15", arrivalTime: "10:45", notes: "Show #14 Palais Nikaïa (20h00).", isOffDay: false, relatedShowId: "nice" },
-          { id: "s5-2", seriesId: 5, date: "28/10/26", dateISO: "2026-10-28", from: "Nice", to: "Aix-en-Provence", mode: "van", details: "Nice > Aix (van : 2h)", duration: "2h00", departureTime: "10:00", arrivalTime: "12:00", notes: "Show #15 Arena du Pays d'Aix (20h00).", isOffDay: false, relatedShowId: "aix" },
-          { id: "s5-3", seriesId: 5, date: "29/10/26", dateISO: "2026-10-29", from: "Aix-en-Provence", to: "Lyon", mode: "van", details: "Aix > Lyon (van : 3h)", duration: "3h00", departureTime: "09:30", arrivalTime: "12:30", notes: "Show #16 LDLC Arena (20h00).", isOffDay: false, relatedShowId: "lyon" },
-          { id: "s5-4", seriesId: 5, date: "30/10/26", dateISO: "2026-10-30", from: "Lyon", to: "Domicile / Paris", mode: "train", details: "Lyon > Domicile (train)", duration: "1h58", trainNumber: "TGV INOUI 6616", departureStation: "Gare de Lyon Part-Dieu", arrivalStation: "Gare de Paris Lyon", departureTime: "10:04", arrivalTime: "12:02", notes: "Retour à Paris.", isOffDay: true, relatedShowId: "lyon" }
+          { id: "s5-1", seriesId: 5, date: "27/10/26", dateISO: "2026-10-27", from: "PARIS - Orly", to: "NICE - Aéroport", mode: "plane", details: "PARIS - Orly > NICE - Aéroport (Avion)", duration: "1h25", departureStation: "Aéroport Paris-Orly", arrivalStation: "Aéroport Nice Côte d'Azur", departureTime: "11H30", arrivalTime: "12H55", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "Vol vers Nice. Show #14 Palais Nikaïa (20h00).", isOffDay: false, relatedShowId: "nice" },
+          { id: "s5-2", seriesId: 5, date: "28/10/26", dateISO: "2026-10-28", from: "NICE", to: "AIX EN PROVENCE", mode: "bus", details: "NICE > AIX EN PROVENCE (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "BUS PROD vers Arena du Pays d'Aix. Show #15 (20h00).", isOffDay: false, relatedShowId: "aix" },
+          { id: "s5-3", seriesId: 5, date: "29/10/26", dateISO: "2026-10-29", from: "AIX EN PROVENCE", to: "LYON", mode: "bus", details: "AIX EN PROVENCE > LYON (BUS PROD)", traveler: "Victor SAIDAH", pax: 1, legType: "ALLER", notes: "BUS PROD vers LDLC Arena Lyon-Décines. Show #16 (20h00).", isOffDay: false, relatedShowId: "lyon" },
+          { id: "s5-4", seriesId: 5, date: "30/10/26", dateISO: "2026-10-30", from: "LYON PART DIEU", to: "PARIS - Lyon", mode: "train", details: "LYON PART DIEU > PARIS - Lyon (Train)", duration: "2h04", trainNumber: "Train TGV", departureStation: "Gare de Lyon Part-Dieu", arrivalStation: "Gare de Paris Lyon", departureTime: "10H04", arrivalTime: "12H08", traveler: "Victor SAIDAH", pax: 1, legType: "RETOUR", notes: "Retour à Paris après Série 5.", isOffDay: true, relatedShowId: "lyon" }
         ]
       },
       {
         seriesId: 6, title: "Clôture — Paris Adidas Arena", subtitle: "Adidas Arena (2 représentations)", datesRange: "14/11/26 - 15/11/26", color: "#a78bfa",
         legs: [
-          { id: "s6-1", seriesId: 6, date: "14/11/26", dateISO: "2026-11-14", from: "Paris", to: "Adidas Arena", mode: "local", details: "Sur place (Paris)", duration: "0h30", notes: "Show #17 Adidas Arena (20h00).", isOffDay: false, relatedShowId: "paris" },
-          { id: "s6-2", seriesId: 6, date: "15/11/26", dateISO: "2026-11-15", from: "Paris", to: "Adidas Arena", mode: "local", details: "Sur place (Paris)", duration: "0h30", notes: "Dernier show #18 Adidas Arena (18h00). Clôture.", isOffDay: false, relatedShowId: "paris" }
+          { id: "s6-1", seriesId: 6, date: "14/11/26", dateISO: "2026-11-14", from: "Paris", to: "Adidas Arena", mode: "car", details: "Sur place (Paris)", duration: "0h30", traveler: "Victor SAIDAH", pax: 1, legType: "SUR PLACE", notes: "Grand show #17 Adidas Arena (20h00).", isOffDay: false, relatedShowId: "paris" },
+          { id: "s6-2", seriesId: 6, date: "15/11/26", dateISO: "2026-11-15", from: "Paris", to: "Adidas Arena", mode: "car", details: "Sur place (Paris)", duration: "0h30", traveler: "Victor SAIDAH", pax: 1, legType: "SUR PLACE", notes: "Dernier show de la tournée #18 Adidas Arena (18h00). Clôture officielle.", isOffDay: false, relatedShowId: "paris" }
         ]
       }
     ];
@@ -1217,61 +1358,142 @@
                   <Download className="w-4 h-4" /><span>Ajouter au calendrier (.ics)</span>
                 </button>
 
-                {/* Logistique & Backstage - Accessible uniquement en mode Tech/Régie */}
-                {userRole === 'tech' && (
-                  <div className="bg-[#161616] rounded-xl border border-[#262626] overflow-hidden">
-                    <button onClick={() => setShowLogisticsDetails(!showLogisticsDetails)} className="w-full p-3 font-bold text-xs text-gray-300 uppercase flex items-center justify-between">
-                      <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-[#c5a059]" /><span>Logistique & Backstage</span></span>
-                      <ChevronDown className={`w-4 h-4 transition-transform ${showLogisticsDetails ? 'rotate-180' : ''}`} />
-                    </button>
+                {/* Logistique & Contacts Régie */}
+                <div className="bg-[#161616] rounded-xl border border-[#262626] overflow-hidden">
+                  <button onClick={() => setShowLogisticsDetails(!showLogisticsDetails)} className="w-full p-3 font-bold text-xs text-gray-200 uppercase flex items-center justify-between hover:bg-[#1c1c1c] transition-colors">
+                    <span className="flex items-center gap-2">
+                      <Truck className="w-4 h-4 text-[#c5a059]" />
+                      <span>Contacts Régisseurs & Logistique Salle</span>
+                      {dateData.techStatus && (
+                        <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase ${
+                          dateData.techStatus === 'vert' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/60' :
+                          dateData.techStatus === 'orange' ? 'bg-amber-950 text-amber-400 border border-amber-800/60' :
+                          'bg-rose-950 text-rose-400 border border-rose-800/60'
+                        }`}>
+                          {dateData.techStatusLabel || (dateData.techStatus === 'vert' ? 'Contact OK' : 'À relancer')}
+                        </span>
+                      )}
+                    </span>
+                    <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${showLogisticsDetails ? 'rotate-180' : ''}`} />
+                  </button>
 
-                    {showLogisticsDetails && (
-                      <div className="p-3 border-t border-[#262626] space-y-2 text-xs bg-[#121212]">
-                        {dateData.loadIn && (
-                          <div className="flex justify-between bg-[#1a1a1a] p-2 rounded border border-[#262626]">
-                            <span className="text-gray-400">Load-in :</span>
-                            <span className="font-bold text-amber-400">{dateData.loadIn}</span>
-                          </div>
-                        )}
-                        {dateData.contact && (
-                          <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626] space-y-1">
-                            <p className="text-[10px] text-gray-400 font-bold uppercase">Régisseur Référent :</p>
-                            <p className="font-bold text-white select-text">{dateData.contact.name} ({dateData.contact.role})</p>
-                            <a href={`tel:${dateData.contact.phone.replace(/\s/g, '')}`} className="text-[#c5a059] font-bold text-xs flex items-center gap-1 select-text">
-                              <Phone className="w-3 h-3" /><span>{dateData.contact.phone}</span>
-                            </a>
-                          </div>
-                        )}
-                        {dateData.contactBackup && (
-                          <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626] space-y-1">
-                            <p className="text-[10px] text-gray-400 font-bold uppercase">Contact de secours :</p>
-                            <p className="font-bold text-white select-text">{dateData.contactBackup.name} ({dateData.contactBackup.role})</p>
-                            {dateData.contactBackup.phone !== "À compléter" ? (
-                              <a href={`tel:${dateData.contactBackup.phone.replace(/\s/g, '')}`} className="text-[#c5a059] font-bold text-xs flex items-center gap-1 select-text">
-                                <Phone className="w-3 h-3" /><span>{dateData.contactBackup.phone}</span>
-                              </a>
-                            ) : (
-                              <p className="text-gray-400 text-xs font-bold select-text">{dateData.contactBackup.phone}</p>
+                  {showLogisticsDetails && (
+                    <div className="p-3 border-t border-[#262626] space-y-2.5 text-xs bg-[#121212]">
+                      {dateData.loadIn && (
+                        <div className="flex justify-between items-center bg-[#1a1a1a] p-2.5 rounded-xl border border-[#262626]">
+                          <span className="text-gray-400 font-bold uppercase text-[10px]">Load-in / Arrivée équipe :</span>
+                          <span className="font-bold text-amber-400 text-xs">{dateData.loadIn}</span>
+                        </div>
+                      )}
+
+                      {/* Régisseur Technique Référent */}
+                      {dateData.contact && (
+                        <div className="bg-[#181818] p-3 rounded-xl border border-[#2a2a2a] space-y-1.5">
+                          <div className="flex items-center justify-between">
+                            <p className="text-[10px] text-[#c5a059] font-bold uppercase tracking-wider">Régisseur / Contact Technique :</p>
+                            {dateData.techStatusLabel && (
+                              <span className="text-[9px] text-gray-400 font-medium">{dateData.techStatusLabel}</span>
                             )}
                           </div>
-                        )}
-                        {dateData.parkingNotes && (
-                          <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626]">
-                            <p className="text-[10px] text-gray-400 font-bold uppercase">Parking :</p>
-                            <p className="text-xs text-gray-300 select-text">{dateData.parkingNotes}</p>
+                          <p className="font-bold text-white text-xs select-text">{dateData.contact.name}</p>
+                          <p className="text-[10px] text-gray-400">{dateData.contact.role}</p>
+                          <div className="flex flex-wrap gap-2 pt-1">
+                            {dateData.contact.phone && dateData.contact.phone !== "Non communiqué" && dateData.contact.phone !== "En attente" && !dateData.contact.phone.includes("non") ? (
+                              <a href={`tel:${dateData.contact.phone.replace(/\s/g, '')}`} className="inline-flex items-center gap-1 bg-[#222] hover:bg-[#2a2a2a] border border-[#c5a059]/40 text-[#c5a059] px-2.5 py-1 rounded-lg text-xs font-bold select-text">
+                                <Phone className="w-3 h-3" /><span>{dateData.contact.phone}</span>
+                              </a>
+                            ) : (
+                              <span className="text-gray-500 text-[10px] italic">Tél. : {dateData.contact.phone || "Non communiqué"}</span>
+                            )}
+                            {dateData.contact.email && (
+                              <a href={`mailto:${dateData.contact.email}`} className="inline-flex items-center gap-1 bg-[#222] hover:bg-[#2a2a2a] border border-gray-700 text-gray-200 px-2.5 py-1 rounded-lg text-xs font-medium select-text">
+                                <Mail className="w-3 h-3 text-[#c5a059]" /><span className="truncate max-w-[220px]">{dateData.contact.email}</span>
+                              </a>
+                            )}
                           </div>
-                        )}
-                        {dateData.wifiBackstage && (
-                          <div className="bg-[#1a1a1a] p-2 rounded border border-[#262626]">
-                            <p className="text-[10px] text-gray-400 font-bold uppercase">Wi-Fi :</p>
-                            <p className="font-mono text-xs text-emerald-400 select-text">SSID: {dateData.wifiBackstage.ssid}</p>
-                            <p className="font-mono text-xs text-gray-200 select-text">PASS: {dateData.wifiBackstage.password}</p>
+                        </div>
+                      )}
+
+                      {/* Contact Salle / Production */}
+                      {dateData.contactSalle && (
+                        <div className="bg-[#181818] p-3 rounded-xl border border-[#2a2a2a] space-y-1.5">
+                          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Premier contact salle / Production :</p>
+                          <p className="font-bold text-white text-xs select-text">{dateData.contactSalle.name}</p>
+                          {dateData.contactSalle.role && <p className="text-[10px] text-gray-400">{dateData.contactSalle.role}</p>}
+                          <div className="flex flex-wrap gap-2 pt-1">
+                            {dateData.contactSalle.phone && (
+                              <a href={`tel:${dateData.contactSalle.phone.replace(/\s/g, '')}`} className="inline-flex items-center gap-1 bg-[#222] hover:bg-[#2a2a2a] border border-gray-700 text-gray-200 px-2.5 py-1 rounded-lg text-xs font-bold select-text">
+                                <Phone className="w-3 h-3 text-[#c5a059]" /><span>{dateData.contactSalle.phone}</span>
+                              </a>
+                            )}
+                            {dateData.contactSalle.email && (
+                              <a href={`mailto:${dateData.contactSalle.email}`} className="inline-flex items-center gap-1 bg-[#222] hover:bg-[#2a2a2a] border border-gray-700 text-gray-200 px-2.5 py-1 rounded-lg text-xs font-medium select-text">
+                                <Mail className="w-3 h-3 text-[#c5a059]" /><span className="truncate max-w-[220px]">{dateData.contactSalle.email}</span>
+                              </a>
+                            )}
                           </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
+                        </div>
+                      )}
+
+                      {/* Autres contacts */}
+                      {dateData.otherContacts && (
+                        <div className="bg-[#181818] p-2.5 rounded-xl border border-[#262626] text-[11px]">
+                          <p className="text-[10px] text-gray-400 font-bold uppercase mb-1">Autres contacts :</p>
+                          <p className="text-gray-300 select-text leading-relaxed">{dateData.otherContacts}</p>
+                        </div>
+                      )}
+
+                      {/* Remarques salle & logistique */}
+                      {dateData.venueNotes && (
+                        <div className="bg-[#1a1710] p-3 rounded-xl border border-[#c5a059]/30 text-[11px] space-y-1">
+                          <p className="text-[10px] text-[#c5a059] font-bold uppercase flex items-center gap-1">
+                            <Info className="w-3 h-3" /><span>Spécificités d'accès & salle :</span>
+                          </p>
+                          <p className="text-gray-300 leading-relaxed select-text">{dateData.venueNotes}</p>
+                        </div>
+                      )}
+
+                      {/* Écrans & IPTV */}
+                      {dateData.screenNotes && (
+                        <div className="bg-[#181818] p-2.5 rounded-xl border border-[#262626] text-[11px] space-y-1">
+                          <p className="text-[10px] text-sky-400 font-bold uppercase">Écrans & IPTV :</p>
+                          <p className="text-gray-300 select-text">{dateData.screenNotes}</p>
+                        </div>
+                      )}
+
+                      {/* Questions / Points en suspens */}
+                      {dateData.questionsLogistique && (
+                        <div className="bg-[#1c1414] p-2.5 rounded-xl border border-rose-900/40 text-[11px] space-y-1">
+                          <p className="text-[10px] text-rose-400 font-bold uppercase">Points logistiques à traiter :</p>
+                          <p className="text-gray-300 select-text">{dateData.questionsLogistique}</p>
+                        </div>
+                      )}
+
+                      {/* Trade Republic Card */}
+                      {dateData.tradeRepublicCard && (
+                        <div className="bg-[#181818] p-2.5 rounded-xl border border-[#262626] flex items-center justify-between text-[11px]">
+                          <span className="text-gray-400 font-bold uppercase text-[10px]">Carte Trade Republic :</span>
+                          <span className="text-[#c5a059] font-bold">{dateData.tradeRepublicCard}</span>
+                        </div>
+                      )}
+
+                      {/* Parking & Wi-Fi */}
+                      {dateData.parkingNotes && (
+                        <div className="bg-[#1a1a1a] p-2.5 rounded-xl border border-[#262626]">
+                          <p className="text-[10px] text-gray-400 font-bold uppercase">Parking technique :</p>
+                          <p className="text-xs text-gray-300 select-text mt-0.5">{dateData.parkingNotes}</p>
+                        </div>
+                      )}
+                      {dateData.wifiBackstage && (
+                        <div className="bg-[#1a1a1a] p-2.5 rounded-xl border border-[#262626]">
+                          <p className="text-[10px] text-gray-400 font-bold uppercase">Wi-Fi Backstage :</p>
+                          <p className="font-mono text-xs text-emerald-400 select-text mt-0.5">SSID: {dateData.wifiBackstage.ssid}</p>
+                          <p className="font-mono text-xs text-gray-200 select-text">PASS: {dateData.wifiBackstage.password}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -1475,16 +1697,30 @@
               return (
                 <div key={leg.id} className="bg-[#121212] border border-gray-800 rounded-2xl p-4 space-y-3">
                   <div className="flex items-center justify-between border-b border-gray-800 pb-2">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-xs font-extrabold text-white bg-[#181818] px-3 py-1 rounded-lg border border-gray-800">{leg.date}</span>
+                      {leg.legType && (
+                        <span className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md ${
+                          leg.legType === 'ALLER' ? 'bg-blue-950 text-blue-300 border border-blue-800' :
+                          leg.legType === 'RETOUR' ? 'bg-rose-950 text-rose-300 border border-rose-800' :
+                          'bg-amber-950 text-amber-300 border border-amber-800'
+                        }`}>
+                          {leg.legType}
+                        </span>
+                      )}
                       {leg.mode && leg.mode !== 'local' && leg.mode !== 'car' && (
                         <span className={`text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full ${
                           leg.mode === 'train' ? 'bg-purple-950 text-purple-300 border border-purple-800' :
-                          leg.mode === 'van' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
+                          (leg.mode === 'van' || leg.mode === 'bus') ? 'bg-amber-950 text-amber-300 border border-amber-800' :
                           (leg.mode === 'avion' || leg.mode === 'plane') ? 'bg-sky-950 text-sky-300 border border-sky-800' :
                           'bg-[#202020] text-gray-300 border border-gray-700'
                         }`}>
-                          {(leg.mode === 'avion' || leg.mode === 'plane') ? 'AVION' : leg.mode.toUpperCase()}
+                          {(leg.mode === 'avion' || leg.mode === 'plane') ? 'AVION' : (leg.mode === 'bus' ? 'BUS PROD' : leg.mode.toUpperCase())}
+                        </span>
+                      )}
+                      {leg.duration && (
+                        <span className="text-[10px] text-gray-400 font-medium flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-[#c5a059]" />{leg.duration}
                         </span>
                       )}
                     </div>
@@ -1499,6 +1735,20 @@
                     <span>{leg.from}</span><ArrowRight className="w-4 h-4 text-[#c5a059]" /><span>{leg.to}</span>
                   </div>
                   <p className="text-xs text-[#c5a059] font-bold">{leg.details}</p>
+
+                  {leg.traveler && (
+                    <div className="flex items-center gap-2 text-[11px] text-gray-300">
+                      <span className="text-gray-500 font-bold uppercase text-[9px]">Voyageur :</span>
+                      <span className="font-semibold text-white">{leg.traveler}</span>
+                      {leg.pax && <span className="text-[10px] text-gray-400">({leg.pax} pers.)</span>}
+                    </div>
+                  )}
+
+                  {leg.notes && (
+                    <p className="text-[11px] text-gray-400 italic bg-[#141414] p-2 rounded-lg border border-[#222]">
+                      💡 {leg.notes}
+                    </p>
+                  )}
 
                   <div className="bg-[#161616] p-3 rounded-xl border border-gray-800 space-y-2 text-xs">
                     {leg.trainNumber && (
