@@ -113,6 +113,7 @@
     const Check = (p) => <Icon {...p} path={<polyline points="20 6 9 17 4 12"/>} />;
     const Search = (p) => <Icon {...p} path={<><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></>} />;
     const Info = (p) => <Icon {...p} path={<><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></>} />;
+    const Mail = (p) => <Icon {...p} path={<><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></>} />;
     const Home = (p) => <Icon {...p} path={<><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>} />;
     const Sparkles = (p) => <Icon {...p} path={<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>} />;
     const Flame = (p) => <Icon {...p} path={<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/>} />;
@@ -129,7 +130,7 @@
       {
         id: "bordeaux", city: "Bordeaux", lat: 44.825, lon: -0.5311, lot: 1, series: 1, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Nantes)", transport: "Train (TGV 10h03) puis Bus Prod", transportCode: "train-van",
         dates: [{
-          date: "7 Octobre 2026", dateISO: "2026-10-07", venue: "Arkéa Arena", sold: 7014, capacity: 7539, guests: ["Sarah Schwab", "Fabien Olicard"], time: "20h00", order: 1, loadIn: "14h00",
+          date: "7 Octobre 2026", dateISO: "2026-10-07", venue: "Arkéa Arena", sold: 6258, capacity: 6258, guests: ["Fabien Olicard"], time: "20h00", order: 1, loadIn: "14h00",
           contact: { name: "Yoan Roujanski", role: "Régisseur / Contact technique", phone: "06 01 46 09 16", email: "yroujanski@arkeaarena.com" },
           contactSalle: { name: "Yoan Roujanski", role: "Premier contact salle", email: "yroujanski@arkeaarena.com" },
           otherContacts: "Adeline Prat (pratsadeline@gmail.com), William (w.gilbert@zenith-tm.com)",
@@ -140,7 +141,7 @@
       {
         id: "nantes", city: "Nantes", lat: 47.2303, lon: -1.6289, lot: 1, series: 1, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Rennes)", transport: "BUS PROD (Bordeaux > Nantes)", transportCode: "van",
         dates: [{
-          date: "8 Octobre 2026", dateISO: "2026-10-08", venue: "Zénith de Nantes", sold: 5627, capacity: 5691, guests: ["Sarah Schwab", "Samuel Bambi", "Lorànt Deutsch"], time: "20h00", order: 2, loadIn: "14h00",
+          date: "8 Octobre 2026", dateISO: "2026-10-08", venue: "Zénith de Nantes", sold: 5627, capacity: 6258, guests: ["Samuel Bambi", "Lorànt Deutsch"], time: "20h00", order: 2, loadIn: "14h00",
           contact: { name: "Olivier Massonnet", role: "Régisseur technique", email: "om@zenith-nm.com", phone: "Tél. non communiqué" },
           contactSalle: { name: "Nicolas", role: "Premier contact salle (O Spectacles)", email: "nico@ospectacles.fr" },
           otherContacts: "Guillaume (guillaume@ospectacles.fr)",
@@ -154,10 +155,10 @@
       {
         id: "rennes", city: "Rennes", lat: 48.1133, lon: -1.5954, lot: 1, series: 1, isReturnCity: false, rest: "1 jour (10 oct)", returnDay: "Retour Train le 10/10 (09h35)", transport: "BUS PROD (Nantes > Rennes) puis TGV retour", transportCode: "van-train",
         dates: [{
-          date: "9 Octobre 2026", dateISO: "2026-10-09", venue: "Glaz Arena", sold: 4590, capacity: 4612, guests: ["Sarah Schwab", "Samuel Bambi"], time: "20h00", order: 3, loadIn: "14h00",
-          contact: { name: "En attente d'affectation", role: "Régisseur - contact technique", phone: "Non communiqué" },
-          contactSalle: { name: "Maxime Lécuyer", role: "Premier contact (213 Productions)", phone: "06 80 83 85 08", email: "maxime@213productions.fr" },
-          otherContacts: "Yannick (yannick@213productions.fr)",
+          date: "9 Octobre 2026", dateISO: "2026-10-09", venue: "Glaz Arena", sold: 4590, capacity: 4944, guests: ["Samuel Bambi"], time: "20h00", order: 3, loadIn: "14h00",
+          contact: { name: "Maxime Lécuyer", role: "Premier contact salle & régie (213 Productions)", phone: "06 80 83 85 08", email: "maxime@213productions.fr" },
+          contactSalle: { name: "Yannick", role: "Production & logistique", email: "yannick@213productions.fr" },
+          otherContacts: "Yannick (yannick@213productions.fr) • Régie plateau en attente d'affectation",
           techStatus: "orange", techStatusLabel: "En attente coordonnées régie",
           questionsLogistique: "Relancer Yannick en précisant les nouvelles infos ISO Nantes",
           parkingNotes: "Parking P1 Glaz Arena Cesson-Sévigné", wifiBackstage: { ssid: "GLAZ_VIP_GUESTS", password: "LegendGlaz2026" }, lastUpdated: "2026-09-10"
@@ -166,7 +167,7 @@
       {
         id: "lievin", city: "Liévin", lat: 50.411, lon: 2.7659, lot: 2, series: 2, isReturnCity: false, rest: "0 jour", returnDay: "Retour Paris Bercy Aftershow le soir même", transport: "BUS PROD A/R (Paris > Liévin > Paris Bercy)", transportCode: "van",
         dates: [{
-          date: "11 Octobre 2026", dateISO: "2026-10-11", venue: "Arena Stade Couvert", sold: 6157, capacity: 7080, guests: ["Sarah Schwab", "Samuel Bambi", "Camille Tissot"], time: "18h00", order: 4, loadIn: "12h00",
+          date: "11 Octobre 2026", dateISO: "2026-10-11", venue: "Arena Stade Couvert", sold: 6157, capacity: 7542, guests: ["Samuel Bambi"], time: "18h00", order: 4, loadIn: "12h00",
           contact: { name: "Kassandre", role: "Régisseur technique (Front Stage Music)", email: "kassandre@frontstagemusic.com", phone: "Tél. non communiqué" },
           contactSalle: { name: "Baptiste", role: "Premier contact (Tu Me Tonnes Prod)", email: "baptiste@tumetonnesproductions.com" },
           techStatus: "orange", techStatusLabel: "Partiel (tél. non communiqué)",
@@ -178,9 +179,9 @@
       {
         id: "rouen", city: "Rouen", lat: 49.3941, lon: 1.0576, lot: 2, series: 2, isReturnCity: true, rest: "2 jours (13-14 oct)", returnDay: "Retour Paris Bercy Aftershow le soir même", transport: "BUS PROD A/R (Paris Bercy > Rouen > Paris Bercy)", transportCode: "van-paris",
         dates: [{
-          date: "12 Octobre 2026", dateISO: "2026-10-12", venue: "Zénith de Rouen", sold: 4758, capacity: 5098, guests: ["Sarah Schwab"], time: "20h00", order: 5, loadIn: "14h00",
-          contact: { name: "Pascal Blot", role: "Régisseur technique", email: "pascalblot2@gmail.com", phone: "Tél. non communiqué" },
-          contactSalle: { name: "Luc Linossier", role: "Directeur Technique Zénith", phone: "06 75 63 00 40", email: "llinossier@zenith-de-rouen.com" },
+          date: "12 Octobre 2026", dateISO: "2026-10-12", venue: "Zénith de Rouen", sold: 4758, capacity: 5471, guests: [], time: "20h00", order: 5, loadIn: "14h00",
+          contact: { name: "Luc Linossier", role: "Directeur Technique Zénith", phone: "06 75 63 00 40", email: "llinossier@zenith-de-rouen.com" },
+          contactSalle: { name: "Pascal Blot", role: "Régisseur technique", email: "pascalblot2@gmail.com", phone: "Tél. non communiqué" },
           techStatus: "orange", techStatusLabel: "Partiel (tél. non communiqué)",
           venueNotes: "Véhicules en extérieur uniquement (ok véhicules lourds). Livraison le 12/10 à partir de 8h, démontage le soir après la sortie public. Besoins électriques à transmettre. Stand d'animation dans le hall contre parois vitrées.",
           screenNotes: "Pas d'accès aux IPTV (d'autres écrans dispo pour diffusion du contenu). Plan du hall dispo. Barriérage.",
@@ -190,7 +191,7 @@
       {
         id: "dijon", city: "Dijon", lat: 47.3555, lon: 5.0563, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Chambéry)", transport: "Train (TGV 12h22) puis Bus Prod", transportCode: "train-van",
         dates: [{
-          date: "15 Octobre 2026", dateISO: "2026-10-15", venue: "Zénith de Dijon", sold: 4466, capacity: 4683, guests: ["Sarah Schwab", "Nino Arial"], time: "20h00", order: 6, loadIn: "14h00",
+          date: "15 Octobre 2026", dateISO: "2026-10-15", venue: "Zénith de Dijon", sold: 4466, capacity: 5511, guests: ["Nino Arial"], time: "20h00", order: 6, loadIn: "14h00",
           contact: { name: "Non communiqué", role: "Régisseur - contact technique", phone: "En attente" },
           contactSalle: { name: "David Moussiere", role: "Premier contact salle", email: "dmoussiere@zenith-dijon.fr" },
           techStatus: "rouge", techStatusLabel: "En attente contact régie",
@@ -201,7 +202,7 @@
       {
         id: "chambery", city: "Chambéry", lat: 45.5844, lon: 5.8993, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Montpellier)", transport: "BUS PROD (Dijon > Chambéry)", transportCode: "van",
         dates: [{
-          date: "16 Octobre 2026", dateISO: "2026-10-16", venue: "Le Phare-Grand Chambéry", sold: 4672, capacity: 4703, guests: ["Sarah Schwab"], time: "20h00", order: 7, loadIn: "14h00",
+          date: "16 Octobre 2026", dateISO: "2026-10-16", venue: "Le Phare-Grand Chambéry", sold: 4672, capacity: 5218, guests: [], time: "20h00", order: 7, loadIn: "14h00",
           contact: { name: "Régisseur accueil", role: "Régisseur accueil Le Phare", email: "rlievri@le-phare.fr", phone: "Tél. non communiqué" },
           contactSalle: { name: "Thierry", role: "Premier contact (RPO)", email: "thierry@rpo.net" },
           techStatus: "orange", techStatusLabel: "Partiel (relance en cours)",
@@ -212,7 +213,7 @@
       {
         id: "montpellier", city: "Montpellier", lat: 43.5724, lon: 3.9513, lot: 3, series: 3, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Toulouse)", transport: "BUS PROD (Chambéry > Montpellier)", transportCode: "van",
         dates: [{
-          date: "17 Octobre 2026", dateISO: "2026-10-17", venue: "Sud de France Arena", sold: 5519, capacity: 6328, guests: ["Sarah Schwab", "Rémi Gaillard"], time: "20h00", order: 8, loadIn: "14h00",
+          date: "17 Octobre 2026", dateISO: "2026-10-17", venue: "Sud de France Arena", sold: 5519, capacity: 8148, guests: ["Rémi Gaillard"], time: "20h00", order: 8, loadIn: "14h00",
           contact: { name: "Christelle Kerbaol / Pascal Malvezin", role: "Régie technique (SPL Occitanie Events)", email: "ckerbaol@spl-occitanie-events.com / pmalvezin@spl-occitanie-events.com", phone: "Via SPL Occitanie Events" },
           contactSalle: { name: "Mélanie", role: "Premier contact (Adam Concerts)", email: "melanie@adamconcerts.com" },
           otherContacts: "Nancy (nancy@adamconcerts.com), Frédéric (frederic@adamconcerts.com), Hadrien (hadrien@adamconcerts.com)",
@@ -224,7 +225,7 @@
       {
         id: "toulouse", city: "Toulouse", lat: 43.5982, lon: 1.41, lot: 3, series: 3, isReturnCity: true, rest: "2 jours (19-20 oct)", returnDay: "19 oct. (Avion Toulouse 10h40 > Paris Orly)", transport: "BUS PROD (Montpellier > Toulouse) puis Avion retour", transportCode: "plane-train",
         dates: [{
-          date: "18 Octobre 2026", dateISO: "2026-10-18", venue: "Zénith Toulouse Métropole", sold: 5971, capacity: 6404, guests: ["Sarah Schwab", "Jérôme Bayle"], time: "18h00", order: 9, loadIn: "12h00",
+          date: "18 Octobre 2026", dateISO: "2026-10-18", venue: "Zénith Toulouse Métropole", sold: 5971, capacity: 6914, guests: ["Jérôme Bayle"], time: "18h00", order: 9, loadIn: "12h00",
           contact: { name: "Jean-Bruno Tajan", role: "Régisseur général", phone: "06 21 92 54 85", email: "regie.jbtajan@gmail.com" },
           contactSalle: { name: "Direction technique Zénith", role: "Premier contact salle", email: "info@zenith-tm.com" },
           techStatus: "vert", techStatusLabel: "Contact régie complet",
@@ -236,7 +237,7 @@
       {
         id: "strasbourg", city: "Strasbourg", lat: 48.5932, lon: 7.6872, lot: 4, series: 4, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Metz)", transport: "Train (TGV 12h46) puis Bus Prod", transportCode: "train-van",
         dates: [{
-          date: "21 Octobre 2026", dateISO: "2026-10-21", venue: "Zénith de Strasbourg", sold: 4956, capacity: 5148, guests: ["Sarah Schwab", "Élie Semoun"], time: "20h00", order: 10, loadIn: "14h00",
+          date: "21 Octobre 2026", dateISO: "2026-10-21", venue: "Zénith de Strasbourg", sold: 4956, capacity: 8644, guests: ["Élie Semoun"], time: "20h00", order: 10, loadIn: "14h00",
           contact: { name: "Pascal Picaud", role: "Régisseur général", phone: "06 11 11 06 25", email: "picaud.pascal@wanadoo.fr" },
           contactSalle: { name: "R. Vicedo", role: "Premier contact Zénith", email: "rvicedo@zenith-strasbourg.fr" },
           otherContacts: "Lara attachée de production (03 54 59 12 73 / production@label-ln.com)",
@@ -248,7 +249,7 @@
       {
         id: "metz", city: "Metz", lat: 49.1087, lon: 6.1841, lot: 4, series: 4, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Bruxelles)", transport: "BUS PROD (Strasbourg > Metz)", transportCode: "van",
         dates: [{
-          date: "22 Octobre 2026", dateISO: "2026-10-22", venue: "Les Arènes de Metz", sold: 4560, capacity: 4594, guests: ["Sarah Schwab"], time: "20h00", order: 11, loadIn: "14h00",
+          date: "22 Octobre 2026", dateISO: "2026-10-22", venue: "Les Arènes de Metz", sold: 4560, capacity: 4934, guests: [], time: "20h00", order: 11, loadIn: "14h00",
           contact: { name: "Jules Frizon", role: "Régisseur technique", phone: "06 87 39 86 58", email: "jules.frizon@gmail.com" },
           contactSalle: { name: "Didier", role: "Premier contact Arènes", email: "e.didier@arenes-de-metz.com" },
           techStatus: "vert", techStatusLabel: "Contact régie complet",
@@ -260,7 +261,7 @@
         id: "bruxelles", city: "Bruxelles", lat: 50.8097, lon: 4.3261, lot: 4, series: 4, isReturnCity: true, rest: "2 jours (25-26 oct)", returnDay: "25 oct. (Train Bruxelles 09h16 > Paris Nord)", transport: "BUS PROD (Metz > Bruxelles) puis Train retour", transportCode: "train-international",
         dates: [
           {
-            date: "23 Octobre 2026", dateISO: "2026-10-23", venue: "Forest National", sold: 7255, capacity: 7423, guests: ["Sarah Schwab"], time: "20h00", order: 12, loadIn: "14h00",
+            date: "23 Octobre 2026", dateISO: "2026-10-23", venue: "Forest National", sold: 7255, capacity: 8357, guests: [], time: "20h00", order: 12, loadIn: "14h00",
             contact: { name: "Prestataire Carte / Régie Forest", role: "Régisseur technique", email: "audrey.jacot@live-productions.com", phone: "En attente coordonnées directes" },
             contactSalle: { name: "Audrey Jacot", role: "Production (Live Productions)", email: "audrey.jacot@live-productions.com" },
             techStatus: "orange", techStatusLabel: "Prestataire contacté (attente retour)",
@@ -270,7 +271,7 @@
             parkingNotes: "Avenue du Globe 36 Vorst", wifiBackstage: { ssid: "FOREST_NATIONAL_VIP", password: "LegendBruxelles26" }, lastUpdated: "2026-09-10"
           },
           {
-            date: "24 Octobre 2026", dateISO: "2026-10-24", venue: "Forest National", sold: 5017, capacity: 5777, guests: ["Sarah Schwab"], time: "20h00", order: 13, loadIn: "15h00",
+            date: "24 Octobre 2026", dateISO: "2026-10-24", venue: "Forest National", sold: 5017, capacity: 8357, guests: [], time: "20h00", order: 13, loadIn: "15h00",
             contact: { name: "Prestataire Carte / Régie Forest", role: "Régisseur technique", email: "audrey.jacot@live-productions.com", phone: "En attente coordonnées directes" },
             contactSalle: { name: "Audrey Jacot", role: "Production (Live Productions)", email: "audrey.jacot@live-productions.com" },
             techStatus: "orange", techStatusLabel: "Prestataire contacté (attente retour)",
@@ -283,7 +284,7 @@
       {
         id: "nice", city: "Nice", lat: 43.6785, lon: 7.1990, lot: 5, series: 5, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Aix)", transport: "Avion (Paris Orly 11h30 > Nice 12h55) puis Bus Prod", transportCode: "plane-train",
         dates: [{
-          date: "27 Octobre 2026", dateISO: "2026-10-27", venue: "Palais Nikaïa", sold: 3491, capacity: 4164, guests: ["Sarah Schwab", "Éric Dupond-Moretti"], time: "20h00", order: 14, loadIn: "14h00",
+          date: "27 Octobre 2026", dateISO: "2026-10-27", venue: "Palais Nikaïa", sold: 3491, capacity: 6794, guests: ["Éric Dupond-Moretti"], time: "20h00", order: 14, loadIn: "14h00",
           contact: { name: "Fabrice", role: "Régisseur Nikaïa", phone: "Coordonnées non communiquées" },
           contactSalle: { name: "Mélanie & Frédéric", role: "Production (Adam Concerts)", email: "melanie@adamconcerts.com / frederic@adamconcerts.com" },
           otherContacts: "Frédéric adam concerts (frederic@adamconcerts.com)",
@@ -295,7 +296,7 @@
       {
         id: "aix", city: "Aix-en-Provence", lat: 43.471, lon: 5.4028, lot: 5, series: 5, isReturnCity: false, rest: "0 jour", returnDay: "Enchaînement direct (Lyon)", transport: "BUS PROD (Nice > Aix)", transportCode: "van",
         dates: [{
-          date: "28 Octobre 2026", dateISO: "2026-10-28", venue: "Arena du Pays d'Aix", sold: 5597, capacity: 6131, guests: ["Sarah Schwab", "Michaël Youn", "Vic", "Esther Abrami", "Jean-Luc Reichmann"], time: "20h00", order: 15, loadIn: "14h00",
+          date: "28 Octobre 2026", dateISO: "2026-10-28", venue: "Arena du Pays d'Aix", sold: 5597, capacity: 6459, guests: ["Michaël Youn", "Esther Abrami", "Vic", "Jean-Luc Reichmann"], time: "20h00", order: 15, loadIn: "14h00",
           contact: { name: "Non communiqué", role: "Régisseur technique", phone: "En attente" },
           contactSalle: { name: "Mélanie", role: "Production (Adam Concerts)", email: "melanie@adamconcerts.com" },
           otherContacts: "Nancy (nancy@adamconcerts.com), Frédéric (frederic@adamconcerts.com), Hadrien (hadrien@adamconcerts.com)",
@@ -307,7 +308,7 @@
       {
         id: "lyon", city: "Lyon-Décines", lat: 45.7686, lon: 4.9783, lot: 5, series: 5, isReturnCity: true, rest: "~15 jours (30 oct - 13 nov)", returnDay: "30 oct. (TGV Lyon Part-Dieu 10h04 > Paris Lyon)", transport: "BUS PROD (Aix > Lyon) puis TGV retour", transportCode: "train-van",
         dates: [{
-          date: "29 Octobre 2026", dateISO: "2026-10-29", venue: "LDLC Arena", sold: 8333, capacity: 9768, guests: ["Sarah Schwab", "Chicandier"], time: "20h00", order: 16, loadIn: "13h00",
+          date: "29 Octobre 2026", dateISO: "2026-10-29", venue: "LDLC Arena", sold: 8333, capacity: 11099, guests: ["Chicandier"], time: "20h00", order: 16, loadIn: "13h00",
           contact: { name: "Yannis Sada", role: "Régisseur général (Les Derniers Couchés)", phone: "06 07 37 15 15", email: "yannis@lesdernierscouches.com" },
           contactSalle: { name: "A. Gillet", role: "Production (Thrill Stage)", email: "AGillet@thrillstage.live" },
           otherContacts: "Etienne Gachet (Etienne@lesdernierscouches.com), Denis Montmeas (Dir Commercial Caisse d'Épargne 06 42 67 81 40)",
@@ -323,7 +324,7 @@
         id: "paris", city: "Paris", lat: 48.8977, lon: 2.3595, lot: 6, series: 6, isReturnCity: true, rest: "Fin de tournée", returnDay: "Sur place", transport: "Déjà sur place (Paris)", transportCode: "local",
         dates: [
           {
-            date: "14 Novembre 2026", dateISO: "2026-11-14", venue: "Adidas Arena", sold: 7316, capacity: 7484, guests: ["Sarah Schwab", "Esther Abrami", "Éric Dupond-Moretti"], time: "20h00", order: 17, loadIn: "12h00",
+            date: "14 Novembre 2026", dateISO: "2026-11-14", venue: "Adidas Arena", sold: 7316, capacity: 8080, guests: ["Esther Abrami", "Éric Dupond-Moretti"], time: "20h00", order: 17, loadIn: "12h00",
             contact: { name: "Adrien Balduzzi", role: "Responsable exploitation & régie", phone: "06 75 11 21 31", email: "abalduzzi@groupe-pec.com" },
             contactSalle: { name: "Apolline Bordelot", role: "Directrice adjointe billetterie (PEC)", email: "abordelot@parisentertainmentcompany.com", phone: "cbourles@groupe-pec.com" },
             techStatus: "vert", techStatusLabel: "Contact régie complet",
@@ -331,7 +332,7 @@
             parkingNotes: "Porte de la Chapelle VIP Arena", wifiBackstage: { ssid: "ADIDAS_ARENA_PARIS_VIP", password: "LegendParis2026" }, lastUpdated: "2026-09-10"
           },
           {
-            date: "15 Novembre 2026", dateISO: "2026-11-15", venue: "Adidas Arena", sold: 6138, capacity: 7484, guests: ["Sarah Schwab", "Esther Abrami", "Éric Dupond-Moretti", "Éric & Ramzy"], time: "18h00", order: 18, loadIn: "12h00",
+            date: "15 Novembre 2026", dateISO: "2026-11-15", venue: "Adidas Arena", sold: 6138, capacity: 8080, guests: ["Esther Abrami", "Éric Dupond-Moretti", "Éric & Ramzy"], time: "18h00", order: 18, loadIn: "12h00",
             contact: { name: "Adrien Balduzzi", role: "Responsable exploitation & régie", phone: "06 75 11 21 31", email: "abalduzzi@groupe-pec.com" },
             contactSalle: { name: "Apolline Bordelot", role: "Directrice adjointe billetterie (PEC)", email: "abordelot@parisentertainmentcompany.com", phone: "cbourles@groupe-pec.com" },
             techStatus: "vert", techStatusLabel: "Contact régie complet",
@@ -402,11 +403,14 @@
     ];
 
     const PERMANENTS = [
+      { name: "Guillaume Pley", role: "Présentateur & créateur • Legend", desc: "Créateur et animateur de Legend, il orchestre les grands entretiens et les représentations de la tournée." },
+      { name: "Sarah Schwab", role: "Artiste & imitatrice d'exception • Scène", desc: "Imitatrice phénomène aux performances vocales prodigieuses, présente sur scène tout au long de la tournée." },
       { name: "Philippe Boxho", role: "Médecin légiste & professeur", desc: "Expert judiciaire d'expérience, il décrypte les affaires criminelles avec méthode." },
       { name: "Matthias Baccino", role: "Directeur Europe • Trade Republic", desc: "Expert financier et banquier repenti, il vulgarise les enjeux d'investissement." },
-      { name: "Astronophilos", role: "Astrophysicien & vulgarisateur", desc: "Scientifique passionné, il explore les mystères du cosmos." },
+      { name: "Anthony Salsi", role: "Astrophysicien & créateur • Astroniphilos", desc: "Connu sous le nom d'Astroniphilos, cet astrophysicien passionné décrypte les mystères du cosmos et les secrets de l'univers avec clarté et fascination." },
+      { name: "Julien Carle", role: "Pilote d'hélicoptère Tigre • Invité phare Legend", desc: "Ancien pilote de combat et instructeur sur hélicoptère Tigre avec plus de 1 850 heures de vol, il captive la scène avec ses récits de missions extrêmes, son sang-froid et les réalités du front." },
       { name: "Thérèse Hargot", role: "Sexologue & philosophe", desc: "Spécialiste des relations humaines et du couple." },
-      { name: "Héméré", role: "Intervenante spéciale", desc: "Bouscule les invités avec ses questions sans filtre." }
+      { name: "Héméré Garcia", role: "Intervenante spéciale", desc: "Personnalité attachante et spontanée, elle bouscule les invités avec ses questions sans filtre." }
     ];
 
     function weatherCodeToEmoji(code) {
@@ -1358,12 +1362,18 @@
                   <Download className="w-4 h-4" /><span>Ajouter au calendrier (.ics)</span>
                 </button>
 
-                {/* Logistique & Contacts Régie */}
-                <div className="bg-[#161616] rounded-xl border border-[#262626] overflow-hidden">
-                  <button onClick={() => setShowLogisticsDetails(!showLogisticsDetails)} className="w-full p-3 font-bold text-xs text-gray-200 uppercase flex items-center justify-between hover:bg-[#1c1c1c] transition-colors">
-                    <span className="flex items-center gap-2">
-                      <Truck className="w-4 h-4 text-[#c5a059]" />
-                      <span>Contacts Régisseurs & Logistique Salle</span>
+                {/* Régisseur / Direction Technique (Affiché directement) */}
+                {dateData.contact && (
+                  <div className="bg-[#181818] rounded-xl border border-[#2a2a2a] p-3 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-[#c5a059]/15 border border-[#c5a059]/30 flex items-center justify-center">
+                          <Truck className="w-3.5 h-3.5 text-[#c5a059]" />
+                        </div>
+                        <p className="text-[10px] text-[#c5a059] font-extrabold uppercase tracking-wider">
+                          Régisseur / Direction Technique
+                        </p>
+                      </div>
                       {dateData.techStatus && (
                         <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase ${
                           dateData.techStatus === 'vert' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/60' :
@@ -1373,6 +1383,71 @@
                           {dateData.techStatusLabel || (dateData.techStatus === 'vert' ? 'Contact OK' : 'À relancer')}
                         </span>
                       )}
+                    </div>
+
+                    <div className="bg-[#121212] p-2.5 rounded-lg border border-[#262626] space-y-1.5">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <p className="font-extrabold text-white text-xs select-text">{dateData.contact.name}</p>
+                          <p className="text-[10.5px] text-gray-400 font-medium">{dateData.contact.role}</p>
+                        </div>
+                        {dateData.loadIn && (
+                          <span className="text-[9.5px] font-bold text-amber-400 bg-amber-950/60 border border-amber-800/60 px-2 py-0.5 rounded shrink-0">
+                            In : {dateData.loadIn}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2 pt-1">
+                        {dateData.contact.phone && !dateData.contact.phone.toLowerCase().includes("non") && !dateData.contact.phone.toLowerCase().includes("attente") ? (
+                          <a href={`tel:${dateData.contact.phone.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 bg-[#221e14] hover:bg-[#2c2618] border border-[#c5a059]/60 text-[#c5a059] px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95 select-text">
+                            <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
+                            <span>{dateData.contact.phone}</span>
+                          </a>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[10.5px] text-gray-400 italic bg-gray-900/60 px-2 py-1 rounded border border-gray-800">
+                            <Phone className="w-3 h-3 text-gray-500" />
+                            <span>{dateData.contact.phone || "Tél. non communiqué"}</span>
+                          </span>
+                        )}
+
+                        {dateData.contact.email && (
+                          <a href={`mailto:${dateData.contact.email}`} className="inline-flex items-center gap-1.5 bg-[#1a1a1a] hover:bg-[#222] border border-gray-700 text-gray-200 hover:text-white px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all select-text">
+                            <Mail className="w-3.5 h-3.5 text-[#c5a059]" />
+                            <span className="truncate max-w-[210px]">{dateData.contact.email}</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    {dateData.contactSalle && (
+                      <div className="bg-[#121212]/80 p-2 rounded-lg border border-gray-800/50 text-[11px] flex items-center justify-between gap-2">
+                        <div>
+                          <span className="text-gray-400 font-bold block text-[9px] uppercase">Contact salle associé :</span>
+                          <span className="text-gray-200 font-semibold">{dateData.contactSalle.name}</span>
+                          {dateData.contactSalle.role && <span className="text-gray-400 text-[10px]"> • {dateData.contactSalle.role}</span>}
+                        </div>
+                        {dateData.contactSalle.phone && !dateData.contactSalle.phone.toLowerCase().includes("non") ? (
+                          <a href={`tel:${dateData.contactSalle.phone.replace(/\s/g, '')}`} className="text-[#c5a059] font-bold text-xs flex items-center gap-1 bg-[#1a1a1a] px-2 py-1 rounded border border-gray-700 hover:underline">
+                            <Phone className="w-3 h-3" />
+                            <span>{dateData.contactSalle.phone}</span>
+                          </a>
+                        ) : dateData.contactSalle.email ? (
+                          <a href={`mailto:${dateData.contactSalle.email}`} className="text-gray-400 hover:text-gray-200 text-[10.5px] truncate max-w-[140px]">
+                            {dateData.contactSalle.email}
+                          </a>
+                        ) : null}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Logistique & Spécificités Salle (Déroulant) */}
+                <div className="bg-[#161616] rounded-xl border border-[#262626] overflow-hidden">
+                  <button onClick={() => setShowLogisticsDetails(!showLogisticsDetails)} className="w-full p-3 font-bold text-xs text-gray-200 uppercase flex items-center justify-between hover:bg-[#1c1c1c] transition-colors">
+                    <span className="flex items-center gap-2">
+                      <Truck className="w-4 h-4 text-[#c5a059]" />
+                      <span>Détails Logistiques & Fiche Technique Salle</span>
                     </span>
                     <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${showLogisticsDetails ? 'rotate-180' : ''}`} />
                   </button>
@@ -1553,9 +1628,15 @@
                             <div className="w-2 h-2 rounded-full bg-[#c5a059]" />
                             <span className="text-xs font-bold text-white">{g}</span>
                           </div>
-                          <div className="flex items-center gap-1 bg-[#1f1a10] border border-[#c5a059]/30 px-2 py-0.5 rounded-md">
-                            <Star className="w-3 h-3 text-[#c5a059]" />
-                            <span className="text-[9px] font-bold text-[#c5a059]">Invité d'honneur</span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="flex items-center gap-1 text-[8.5px] font-semibold text-emerald-400 bg-emerald-950/70 border border-emerald-800/60 px-2 py-0.5 rounded-md">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                              Confirmé
+                            </span>
+                            <div className="flex items-center gap-1 bg-[#1f1a10] border border-[#c5a059]/30 px-2 py-0.5 rounded-md">
+                              <Star className="w-3 h-3 text-[#c5a059]" />
+                              <span className="text-[9px] font-bold text-[#c5a059]">Invité d'honneur</span>
+                            </div>
                           </div>
                         </div>
                       ))
@@ -2169,7 +2250,7 @@
                             <span>Rechercher directement un invité d'honneur</span>
                           </div>
                           <div className="flex flex-wrap gap-1.5">
-                            {['Éric & Ramzy', 'Michaël Youn', 'Éric Dupond-Moretti', 'Esther Abrami', 'Élie Semoun', 'Fabien Olicard', 'Samuel Bambi', 'Chicandier', 'Philippe Boxho'].map((name) => (
+                            {['Éric & Ramzy', 'Michaël Youn', 'Éric Dupond-Moretti', 'Esther Abrami', 'Élie Semoun', 'Fabien Olicard', 'Samuel Bambi', 'Chicandier', 'Nino Arial', 'Rémi Gaillard'].map((name) => (
                               <button
                                 key={name}
                                 onClick={() => setGlobalSearchQuery(name)}
